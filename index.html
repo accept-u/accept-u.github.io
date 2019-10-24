@@ -152,6 +152,203 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JavaOOP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/24/JavaOOP/">JavaOOP</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/24/JavaOOP/" class="archive-article-date">
+  	<time datetime="2019-10-24T12:19:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JavaOOP填空题"><a href="#JavaOOP填空题" class="headerlink" title="JavaOOP填空题"></a>JavaOOP填空题</h1><p>1、分层开发过程中，实体类最好实现 java.io.Serializable 接口，以支持<strong>__</strong>机制，可以将该对象转换成字节序列而保存在磁盘上或在网络上传输</p>
+<h2 id="答案：序列化"><a href="#答案：序列化" class="headerlink" title="答案：序列化"></a>答案：序列化</h2><p>2、如下代码所示：</p>
+<pre><code>public interface PersonDao 
+{  
+int add(Person person);  
+int delete(Person person);  
+int update(Person person);  
+Person getByName(String name);  
+List&lt;Person&gt; findByName(String name); 
+} </code></pre><p>其中add()，delete()，update()方法是以<strong>__</strong>为单位来进行参数传递</p>
+<h2 id="答案：对象"><a href="#答案：对象" class="headerlink" title="答案：对象"></a>答案：对象</h2><p>3、数据库操作结束后，应该<strong>__</strong>，释放系统资源。为了确保程序的执行，关闭数据库连接语句要放到<strong>__</strong>语句块中。</p>
+<h2 id="答案：关闭数据库连接-finally"><a href="#答案：关闭数据库连接-finally" class="headerlink" title="答案：关闭数据库连接,  finally"></a>答案：关闭数据库连接,  finally</h2><p>4、补全以下填空处的代码:</p>
+<pre><code>Statement stmt = con.createStatement() ; 
+ResultSet rs = stmt.executeQuery (&quot;SELECT  id,  name  FROM  master&quot;) ; 
+
+while(____) {
+    int id=_______;  
+    String name=________;  
+    System.out.println(id+&quot; : &quot;+name);
+}</code></pre><h2 id="答案：-rs-next-rs-getInt-“id”-rs-getString-“name”"><a href="#答案：-rs-next-rs-getInt-“id”-rs-getString-“name”" class="headerlink" title="答案： rs.next(),  rs.getInt(“id”),  rs.getString(“name”);"></a>答案： rs.next(),  rs.getInt(“id”),  rs.getString(“name”);</h2><p>5、使用Class.forName()方法加载和注册驱动程序后，由<strong><strong>____</strong></strong>类负责管理并跟踪JDBC驱动程序，在数据库和相应驱动程序之间建立连接</p>
+<h2 id="答案：DriverManager"><a href="#答案：DriverManager" class="headerlink" title="答案：DriverManager"></a>答案：DriverManager</h2><p>6、JDBC&ensp;APl的含义是Java应用程序连接<strong>_____</strong>的编程接口</p>
+<h2 id="答案：数据库"><a href="#答案：数据库" class="headerlink" title="答案：数据库"></a>答案：数据库</h2><p>7、HashMap集合中，获取所有键的集合，是用_____方法</p>
+<h2 id="答案：keySet"><a href="#答案：keySet" class="headerlink" title="答案：keySet()"></a>答案：keySet()</h2><p>8、往HashMap中添加元素，可以通过_____方法</p>
+<h2 id="答案：put"><a href="#答案：put" class="headerlink" title="答案：put()"></a>答案：put()</h2><p>9、List 接口继承_____接口，存储一组不唯一、有序的对象</p>
+<h2 id="答案：Collection"><a href="#答案：Collection" class="headerlink" title="答案：Collection"></a>答案：Collection</h2><p>10、ArrayList获取长度的方法是____</p>
+<h2 id="答案：size"><a href="#答案：size" class="headerlink" title="答案：size()"></a>答案：size()</h2><p>11、____方法是线程类Thread的静态方法，调用该方法使线程暂停执行指定的时间，将CPU让给其他线程，并不释放所持有的对象锁，休眠时间结束后线程回到就绪状态。</p>
+<h2 id="答案：sleep（）"><a href="#答案：sleep（）" class="headerlink" title="答案：sleep（）"></a>答案：sleep（）</h2><p>12、<strong>____</strong>是线程因为某种原因放弃 CPU 使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态</p>
+<h2 id="答案：阻塞状态"><a href="#答案：阻塞状态" class="headerlink" title="答案：阻塞状态"></a>答案：阻塞状态</h2><p>13、创建一个新线程出来有两种方法：第一个是从 <strong><strong>_ 类继承，另一个是实现<br>_</strong></strong> 接口。</p>
+<h2 id="答案：Thread-Runnable"><a href="#答案：Thread-Runnable" class="headerlink" title="答案：Thread,  Runnable"></a>答案：Thread,  Runnable</h2><p>14、<strong><strong><em>是进程中的一个执行单元，_</em></strong></strong>本身依靠进程进行运行</p>
+<h2 id="答案：线程，-线程"><a href="#答案：线程，-线程" class="headerlink" title="答案：线程，  线程"></a>答案：线程，  线程</h2><p>15、多线程编程又叫<strong><strong>___</strong></strong>，使我们可以将运行的程序划分为多个分离的、独立运行的任务。</p>
+<h2 id="答案：并发编程"><a href="#答案：并发编程" class="headerlink" title="答案：并发编程"></a>答案：并发编程</h2><p>16、FileInputStream 类的无参 read()方法从输入流读取1个8位的字节，把它转换为<strong>____</strong>之间的整数返回。</p>
+<h2 id="答案：0—255"><a href="#答案：0—255" class="headerlink" title="答案：0—255"></a>答案：0—255</h2><p>17、我们通常使用InputStream的子类<strong><strong>_____</strong></strong>类来实现文本文件内容的读取。</p>
+<h2 id="答案：FileInputStream"><a href="#答案：FileInputStream" class="headerlink" title="答案：FileInputStream"></a>答案：FileInputStream</h2><p>18、字节流操作的最小数据单元为___位的字节，而字符流操作的最小数据单元是16位的字符。</p>
+<h2 id="答案：8"><a href="#答案：8" class="headerlink" title="答案：8"></a>答案：8</h2><p>19、___是指一连串流动的字符，是以先进先出的方式发送和接收数据的通道。</p>
+<h2 id="答案：流"><a href="#答案：流" class="headerlink" title="答案：流"></a>答案：流</h2><p>20、_____包提供了一些接口和类，对文件进行基本的操作，包括对文件和目录属性的操作 ，对文件读写的操作。</p>
+<h2 id="答案：-java-io"><a href="#答案：-java-io" class="headerlink" title="答案： java.io"></a>答案： java.io</h2><p>21、面向对象的三大特征       、       、         。</p>
+<h2 id="答案：封装，-继承，-多态"><a href="#答案：封装，-继承，-多态" class="headerlink" title="答案：封装， 继承， 多态"></a>答案：封装， 继承， 多态</h2><p>22、静态方法中不能使用       和      关键字。</p>
+<h2 id="答案：this-super"><a href="#答案：this-super" class="headerlink" title="答案：this, super"></a>答案：this, super</h2><p>23、用        修饰的类，不能再被继承</p>
+<h2 id="答案：final"><a href="#答案：final" class="headerlink" title="答案：final"></a>答案：final</h2><p>24、     可以用来修饰类和方法，但不能用来修饰属性和构造方法。</p>
+<h2 id="答案：abstract"><a href="#答案：abstract" class="headerlink" title="答案：abstract"></a>答案：abstract</h2><p>25、在定义一个类时，如果没有使用 extends 关键字，那么这个类直接继承       类。</p>
+<h2 id="答案：object"><a href="#答案：object" class="headerlink" title="答案：object"></a>答案：object</h2><p>26、继承通过         关键字来实现。</p>
+<h2 id="答案：extends"><a href="#答案：extends" class="headerlink" title="答案：extends"></a>答案：extends</h2><p>27、相同，      不同，这称为构造方法的重载</p>
+<h2 id="答案：方法名，-参数列表"><a href="#答案：方法名，-参数列表" class="headerlink" title="答案：方法名， 参数列表"></a>答案：方法名， 参数列表</h2><p>28、Java 中有常量，使用        关键字修饰</p>
+<h2 id="答案：final-1"><a href="#答案：final-1" class="headerlink" title="答案：final"></a>答案：final</h2><p>29、关键字      通常指当前对象的引用，它可以调用当前对象 的成员。</p>
+<h2 id="答案：this"><a href="#答案：this" class="headerlink" title="答案：this"></a>答案：this</h2><p>30、通过构造方法来创建对象：Army army=       Army()；</p>
+<h2 id="答案：new"><a href="#答案：new" class="headerlink" title="答案：new"></a>答案：new</h2><p>31、抛出异常，交给上一级处理的关键字是</p>
+<h2 id="答案：throw"><a href="#答案：throw" class="headerlink" title="答案：throw"></a>答案：throw</h2><p>32、在当前位置捕获并处理通过</p>
+<h2 id="答案：try-catch"><a href="#答案：try-catch" class="headerlink" title="答案：try-catch"></a>答案：try-catch</h2><p>33、如果一个方法体有异常，可以声明的关键字是</p>
+<h2 id="答案：throws"><a href="#答案：throws" class="headerlink" title="答案：throws"></a>答案：throws</h2><p>34、接口中没有的方法是</p>
+<h2 id="答案：构造方法"><a href="#答案：构造方法" class="headerlink" title="答案：构造方法"></a>答案：构造方法</h2><p>35、接口中的方法都是</p>
+<h2 id="答案：抽象方法"><a href="#答案：抽象方法" class="headerlink" title="答案：抽象方法"></a>答案：抽象方法</h2><p>36、一个类要实现接口，关键字是</p>
+<h2 id="答案：implements"><a href="#答案：implements" class="headerlink" title="答案：implements"></a>答案：implements</h2><p>37、如果要把带参方法的name赋值给本类中的name，应写</p>
+<h2 id="答案：this-name-name"><a href="#答案：this-name-name" class="headerlink" title="答案：this.name=name"></a>答案：this.name=name</h2><p>38、构造方法的作用是</p>
+<h2 id="答案：参数初始化或初始化参数"><a href="#答案：参数初始化或初始化参数" class="headerlink" title="答案：参数初始化或初始化参数"></a>答案：参数初始化或初始化参数</h2><p>39、如果一个类中有一个方法是抽象方法，那这个类是</p>
+<h2 id="答案：抽象类"><a href="#答案：抽象类" class="headerlink" title="答案：抽象类"></a>答案：抽象类</h2><h1 id="JavaOOP简答题"><a href="#JavaOOP简答题" class="headerlink" title="JavaOOP简答题"></a>JavaOOP简答题</h1><p>1、根据自己的理解，典型的DAO模式主要由哪几部分组成？</p>
+<h2 id="参考答案要点："><a href="#参考答案要点：" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>典型的 DAO 模式主要由 DAO 接口、DAO 实现类、实体类组成。基于代码复用考虑， 通常创建一个数据库连接和关闭工具类</p>
+<p>2、根据自己的理解简单说明下什么是DAO？</p>
+<h2 id="参考答案要点：-1"><a href="#参考答案要点：-1" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>Data Access Objects，数据存取对象，位于业务逻辑和持久化数据之间，实现对持久化数据的访问</p>
+<p>3、简述开发JDBC程序一般需要经过哪几个基本步骤？</p>
+<h2 id="参考答案要点：-2"><a href="#参考答案要点：-2" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1.加载JDBC驱动<br>2.与数据库建立连接<br>3.创建statement对象，发送sql语句，并得到返回结果<br>4.处理返回结果<br>5.关闭相关资源</p>
+<p>4、请写出JDBC中常见的4个接口</p>
+<h2 id="参考答案要点：-3"><a href="#参考答案要点：-3" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>Connection、Statement、ResultSet、PreparedStatement</p>
+<p>5、ArrayList的初始化内容如下： </p>
+<pre><code>ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add(&quot;java&quot;);
+list.add(&quot;aaa&quot;);
+list.add(&quot;java&quot;);
+list.add(&quot;bbb&quot;);
+for (int i = list.size()-1; i &gt;= 0; i--) {
+if(&quot;java&quot;.equals(list.get(i))) {
+__________
+}
+}</code></pre><p>请在填空处写出代码，删除list中所有的“java”</p>
+<h2 id="参考答案要点：-4"><a href="#参考答案要点：-4" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>list.remove(i);</p>
+<p>6、线程生命周期的几种状态？</p>
+<h2 id="参考答案要点：-5"><a href="#参考答案要点：-5" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>新建状态、就绪状态、运行状态、阻塞状态、死亡状态</p>
+<p>7、补全实现 Runnable 接口创建新线程的代码。主线程中循环输出0-9，新线程中循环输出10-19。</p>
+<pre><code>public class TestThread {
+    public static void main(String args[]){
+    //new一个线程类的对象出来
+    Runner runner =         1        ;
+    Thread t =         2        ;
+    //启动新开辟的线程，执行run()方法，
+                3         ;
+    for(int i=0;i&lt;10;i++){
+    System.out.println(i);
+}
+}
+
+}
+
+/*定义一个类Runner用来实现Runnable接口，得到线程类Runner*/
+class Runner         4      {
+
+        4     {
+for(int i=10;i&lt;20;i++){
+System.out.println(i);
+}
+}
+}</code></pre><h2 id="参考答案要点：-6"><a href="#参考答案要点：-6" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1.new Runner()<br>2.new Thread(runner)<br>3.t.start()<br>4.implements Runnable<br>5.public void run()</p>
+<p>8、线程和进程的区别？</p>
+<h2 id="参考答案要点：-7"><a href="#参考答案要点：-7" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、每个运行中的程序（如word,QQ）都是一个进程。进程都有独立的代码和数据空间，进程切换开销大。<br>2、线程在程序中是独立的执行流，同一个进程中可以有多个线程，也就是可以有多个执行路线。线程共享进程的代码和数据空间，线程切换开销小。<br>3、多进程：在操作系统中能同时运行多个任务（程序）。<br>4、多线程：在同一应用程序中有多个顺序流同时执行。</p>
+<p>9、FileWriter和BufferedWriter的区别与联系？</p>
+<h2 id="参考答案要点：-8"><a href="#参考答案要点：-8" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>联系：<br>1、FileWriter和BufferedWriter都是用于字符输出流。<br>2、如果要使用BufferedWriter，一定会用到FileWriter，BufferedWriter是FileWriter 为parameter(参数)的！<br>Public BufferedWriter(FileWriter fileWriter)<br>区别：<br>1、使用BufferedWriter的效率要比FileWriter高很多。因为BufferedWriter把一批数据写到缓冲区，当缓冲区满的时候，再把缓冲区的数据写到字符输出</p>
+<p>10、列出字节输出流FileOutputStream类中的三个构造方法,及构造方法中参数的含义？</p>
+<h2 id="参考答案要点：-9"><a href="#参考答案要点：-9" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1.FileOutputStream(File file)，file指定文件目标数据源<br>2.FileOutputStream (String name),name指定文件目标数据源,包含路径信息<br>3.FileOutputStream(String name,boolean append),name指定文件目标数据源，包含路径信息。 append 表示是否在文件末尾添加数据，若设置为true，则在文件末尾添加数据。</p>
+<p>11、java流按照流向进行划分可以分为哪两类？按照处理数据单元划分可以分为哪两类？</p>
+<h2 id="参考答案要点：-10"><a href="#参考答案要点：-10" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>按照流向进行划分可分为输出流和输入流，按照处理数据单元划分可以分为字节流和字符流。</p>
+<p>12、抽有象类中可以有构造方法吗？</p>
+<h2 id="参考答案要点：-11"><a href="#参考答案要点：-11" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>解答：抽象类可以有构造方法，其构造方法可以被本类的其他构造方法调用，若此构造方法<br>不是由 private 修饰，也可以被本类的子类中的构造方法调用。</p>
+<p>13、抽象类和抽象方法的特点？</p>
+<h2 id="参考答案要点：-12"><a href="#参考答案要点：-12" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>答：(1) 抽象类和抽象方法都通过 abstract 关键字来修饰。<br>(2) 抽象类不能实例化。抽象类中可以没有、有一个或多个抽象方法，甚至全部方法都可以<br>是抽象方法。<br>(3) 抽象方法只有方法声明，没有方法实现。有抽象方法的类必须声明为抽象类。子类必须<br>重写所有的抽象方法才能实例化，否则子类还是一个抽象类。</p>
+<p>14、重载(overloading)和重写(overriding)有什么区别和联系?</p>
+<h2 id="参考答案要点：-13"><a href="#参考答案要点：-13" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>答：重载涉及同一个类中的同名方法，要求方法名相同，参数列表不同，与返回值类型和<br>修饰符无关。<br>重写涉及的是子类和父类之间的同名方法，要求方法名相同、参数列表相同、返回值类型相<br>同（或是其子类)、访问修饰符不能严于父类。</p>
+<p>15、请写出 java.lang.Object 的 6 个方法。</p>
+<h2 id="参考答案要点：-14"><a href="#参考答案要点：-14" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、equals()方法<br>2、finalize()方法<br>3、hashCode()方法<br>4、toString()方法<br>5、clone()方法<br>6、wait（）方法</p>
+<p>16、方法重载的判断依据？</p>
+<h2 id="参考答案要点：-15"><a href="#参考答案要点：-15" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1.必须在同一个类里。<br>2.方法名相同。<br>3.参数列表(方法形参的个数或参数类型)不同。<br>4.与方法返回值和方法修饰符没有任何关系。</p>
+<p>17、类和对象有什么区别？</p>
+<h2 id="参考答案要点：-16"><a href="#参考答案要点：-16" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>答：类(Class)和对象(Object)是面向对象中的两个核心概念。类是对某一类事物的描述，是抽象的、概念上的定义。对象是实际存在的、具体的事物个体。类和对象的关系就好比模具和用模具<br>制作出的物品的关系。因此我们可以由一个类创建多个对象。</p>
+<p>18、面向过程和面向对象有什么区别？</p>
+<h2 id="参考答案要点：-17"><a href="#参考答案要点：-17" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>答：例如五子棋，面向过程是首先分析问题的思路。1 开始游戏&mdash;2 黑子先走–3 判断输<br>赢&mdash;4 白子再走–5 判断输赢&mdash;6 返回步骤(2)&mdash;7 最后输出结果。</p>
+<p>而面向对象的设计则是从另外的思路来解决问题，则首先分析游戏需要哪些类：黑白双方玩<br>家、棋盘系统和游戏规则。然后分析各种类的行为：选手行为是一致的，棋盘系统负责绘制<br>画面，规则系统负责判定诸如犯规、输赢等。</p>
+<p>面向过程的核心是函数，以功能为中心，实现了函数级别的代码重用。面向对象的核心是封<br>装了属性和方法(行为)的类，以数据为中心，实现了类级别的代码重用。面向对象因为采用<br>了类，所以具有封装、继承和多态特性，提高了代码重用性、可维护性和扩展性，适合大型<br>项目的开发。</p>
+<p>19、简述throw和throws的区别</p>
+<h2 id="参考答案要点：-18"><a href="#参考答案要点：-18" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、作用不同：throw用于程序中抛出异常；throws声明该方法内抛出了异常<br>2、使用位置不同：throw位于方法体内部，可以作为单独语句使用；<br>throws必须跟在方法参数列表的后面，不能单独使用<br>3、内容不同：throw抛出一个异常对象，而且只能是一个；<br>throws后面跟异常类，而且可以跟多个异常类</p>
+<p>20、简述为什么不使用if-else处理异常</p>
+<h2 id="参考答案要点：-19"><a href="#参考答案要点：-19" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、代码臃肿，加入了大量的异常情况判断和处理代码<br>2、减少了编写业务代码的时间，影响开发效率<br>3、异常处理和业务代码交织在一起，影响代码的可读性，加大了程序的可维护性<br>21、简述接口和抽象类的区别</p>
+<h2 id="参考答案要点：-20"><a href="#参考答案要点：-20" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>抽象类利用代码复用；接口利于代码维护</p>
+<p>22、简述接口的作用和优势</p>
+<h2 id="参考答案要点：-21"><a href="#参考答案要点：-21" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>接口弥补了java只支持单继承的缺点，还利于代码的扩展和维护</p>
+<p>23、简述实现多态的两种方式</p>
+<h2 id="参考答案要点：-22"><a href="#参考答案要点：-22" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、使用父类作为方法形参实现多态<br>2、使用父类作为方法返回值实现多态</p>
+<p>24、简述多态的作用和优势</p>
+<h2 id="参考答案要点：-23"><a href="#参考答案要点：-23" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>多态可以减少类中的代码量，提高了代码的扩展性和可维护性</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/24/JavaOOP/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019-10-22" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
