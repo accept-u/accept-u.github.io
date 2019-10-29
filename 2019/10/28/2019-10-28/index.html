@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="jsp有哪些内置对象?作用分别是什么?九个内置对象+作用：1.request: 用户端请求，此请求会包含来自GET/POST请求的参数 2.response: 网页传回用户端的回应 3.pageContext: 网页的属性是在这里管理，代表的编译后JSP内容 4.session: 与请求有关的会话期 5.application: servlet正在执行的内容，共享性 6.out: 用来传送回应的输">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-28T14:09:15.900Z">
+<meta property="og:updated_time" content="2019-10-29T01:25:33.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019-10-28">
 <meta name="twitter:description" content="jsp有哪些内置对象?作用分别是什么?九个内置对象+作用：1.request: 用户端请求，此请求会包含来自GET/POST请求的参数 2.response: 网页传回用户端的回应 3.pageContext: 网页的属性是在这里管理，代表的编译后JSP内容 4.session: 与请求有关的会话期 5.application: servlet正在执行的内容，共享性 6.out: 用来传送回应的输">
@@ -184,14 +184,20 @@
 <p>8.page: JSP网页本身</p>
 <p>9.exception: 针对错误网页，未捕捉的例外</p>
 <h1 id="jsp和servlet的区别、共同点、各自应用的范围？"><a href="#jsp和servlet的区别、共同点、各自应用的范围？" class="headerlink" title="jsp和servlet的区别、共同点、各自应用的范围？"></a>jsp和servlet的区别、共同点、各自应用的范围？</h1><h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><ul>
-<li>JSP是Servlet技术的扩展，本质上就是Servlet的简易方式。JSP编译后是“类servlet”。</li>
-<li>Servlet和JSP最主要的不同点在于：Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。<br>而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。</li>
-<li>JSP侧重于视图，Servlet主要用于控制逻辑。</li>
+<li>Servlet和JSP最主要的不同点在于：Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。<br>而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。（JSP可以内嵌HTML、EL、Java和JSTL， servlet只能包含Java）</li>
+<li>JSP侧重于视图，Servlet主要用于控制逻辑。（JSP可作为前端显示页面，servlet只能作为后台控制）</li>
+<li>JSP控制不需要项目中去注册，servlet必须注册（web.xml/注解）</li>
+<li>JSP常作为小型项目，servlet常用作框架类的大型项目</li>
+</ul>
+<h2 id="相同点："><a href="#相同点：" class="headerlink" title="相同点："></a>相同点：</h2><ul>
+<li>处理后台逻辑，作为MVC控制</li>
+<li>九个内置对象</li>
+<li>都可用Java语言</li>
 </ul>
 <h2 id="JSP四个作用域范围"><a href="#JSP四个作用域范围" class="headerlink" title="JSP四个作用域范围"></a>JSP四个作用域范围</h2><ul>
 <li>page【只在一个页面中保存属性，跳转页面无效】有效域是当前页面，可以把参数放入PageContext中，只要跳转就失效。</li>
-<li>requet【只在一次请求中保存属性，服务器跳转有效，浏览器跳转无效】有效域是当前请求周期。所谓请求周期，就是指从http请求发起，到服务器处理结束，<br>返回响应的整个过程。在这个过程中可能使用forward的方式跳转了多个jsp页面，在这些页面里你都可以<br>使用这个变量。</li>
-<li>session【在一个会话范围中保存属性，无论何种跳转均有效，关闭浏览器后无效】会话。隔离。生命周期是从用户发起链接服务器至彻底与服务器完全断开。可以包含很<br>多个request。所谓当前会话，就是指从用户打开浏览器开始，到用户关闭浏览器这中间的过程。</li>
+<li>request【只在一次请求中保存属性，服务器跳转有效，浏览器跳转无效】有效域是当前请求周期。所谓请求周期，就是指从http请求发起，到服务器处理结束，<br>返回响应的整个过程。在这个过程中可能使用forward的方式跳转了多个jsp页面，在这些页面里你都可以<br>使用这个变量。</li>
+<li>session【在一个会话范围中保存属性，无论何种跳转均有效，关闭浏览器后无效】会话。隔离。生命周期是从用户发起链接服务器至彻底与服务器完全断开。可以包含很多个request。所谓当前会话，就是指从用户打开浏览器开始，到用户关闭浏览器这中间的过程。</li>
 <li>application【在整个服务器中保存，所有用户都可以使用】共享、全局、服务器启动时产生，重启服务器销毁。可以包含很多个session。</li>
 </ul>
 <h2 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h2><ul>
@@ -203,8 +209,8 @@
 <li>（一）JavaBean：&lt;jsp:useBean id=”XXX” class=”JavaBean的全限定名(page+calssName)” scope=”session” /&gt;</li>
 <li>（二）Session：session.setAttribute(String key,Object value)/seesion.getAttribute(String key)</li>
 <li>（三）Application:application.setAttribute(String key,Object value)/application.getAttribute(String key)</li>
-<li>（四）Request:request.setParater(String key,String value)/request.getParater(String key)<br>   request.setAttribute(String key,Object value)/request.getAttribute(String key)</li>
-<li>（五）JSP动作指令：&lt;jsp:forward/redirect page=”XXX.jsp”&gt; &lt;jsp:param name=”key-x” value=”value-x”/&gt; <pre><code>&lt;jsp:param name=&quot;key-y&quot; value=&quot;value-y&quot; /&gt; &lt;/jsp:forward/redirect&gt;</code></pre></li>
+<li>（四）Request:request.setParater(String key,String value)/request.getParater(String key)<br>  request.setAttribute(String key,Object value)/request.getAttribute(String key)</li>
+<li>（五）JSP动作指令：&lt;jsp:forward/redirect page=”XXX.jsp”&gt; &lt;jsp:param name=”key-x”              value=”value-x”/&gt;&lt;jsp:param name=”key-y” value=”value-y” /&gt; &lt;/jsp:forward/redirect&gt;</li>
 <li>（六）Form表单：用户操作</li>
 <li>（七）URL传参：URL.jsp?参数1 的key=参数1的value&amp; 参数n的key=参数n 的value</li>
 </ul>
@@ -308,6 +314,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/10/29/2019-10-29/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          2019-10-29
+        
+      </div>
+    </a>
   
   
     <a href="/2019/10/24/JavaOOP/" id="article-nav-older" class="article-nav-link-wrap">

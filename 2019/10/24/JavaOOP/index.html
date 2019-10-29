@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>JavaOOP | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JavaOOP填空题1、分层开发过程中，实体类最好实现 java.io.Serializable 接口，以支持__机制，可以将该对象转换成字节序列而保存在磁盘上或在网络上传输 答案：序列化2、如下代码所示： public interface PersonDao  {   int add(Person person);   int delete(Person person);   int updat">
+  <meta name="description" content="JavaOOP填空题1、分层开发过程中，实体类最好实现 java.io.Serializable 接口，以支持__机制，可以将该对象转换成字节序列而保存在磁盘上或在网络上传输 答案：序列化2、如下代码所示： public interface PersonDao  {           int add(Person person);           int delete(Person pers">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaOOP">
 <meta property="og:url" content="http://yoursite.com/2019/10/24/JavaOOP/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="JavaOOP填空题1、分层开发过程中，实体类最好实现 java.io.Serializable 接口，以支持__机制，可以将该对象转换成字节序列而保存在磁盘上或在网络上传输 答案：序列化2、如下代码所示： public interface PersonDao  {   int add(Person person);   int delete(Person person);   int updat">
+<meta property="og:description" content="JavaOOP填空题1、分层开发过程中，实体类最好实现 java.io.Serializable 接口，以支持__机制，可以将该对象转换成字节序列而保存在磁盘上或在网络上传输 答案：序列化2、如下代码所示： public interface PersonDao  {           int add(Person person);           int delete(Person pers">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-28T00:19:31.659Z">
+<meta property="og:updated_time" content="2019-10-29T00:53:30.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaOOP">
-<meta name="twitter:description" content="JavaOOP填空题1、分层开发过程中，实体类最好实现 java.io.Serializable 接口，以支持__机制，可以将该对象转换成字节序列而保存在磁盘上或在网络上传输 答案：序列化2、如下代码所示： public interface PersonDao  {   int add(Person person);   int delete(Person person);   int updat">
+<meta name="twitter:description" content="JavaOOP填空题1、分层开发过程中，实体类最好实现 java.io.Serializable 接口，以支持__机制，可以将该对象转换成字节序列而保存在磁盘上或在网络上传输 答案：序列化2、如下代码所示： public interface PersonDao  {           int add(Person person);           int delete(Person pers">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -178,11 +178,11 @@
 <h2 id="答案：序列化"><a href="#答案：序列化" class="headerlink" title="答案：序列化"></a>答案：序列化</h2><p>2、如下代码所示：</p>
 <pre><code>public interface PersonDao 
 {  
-int add(Person person);  
-int delete(Person person);  
-int update(Person person);  
-Person getByName(String name);  
-List&lt;Person&gt; findByName(String name); 
+        int add(Person person);  
+        int delete(Person person);  
+        int update(Person person);  
+        Person getByName(String name);  
+        List&lt;Person&gt; findByName(String name); 
 } </code></pre><p>其中add()，delete()，update()方法是以<strong>__</strong>为单位来进行参数传递</p>
 <h2 id="答案：对象"><a href="#答案：对象" class="headerlink" title="答案：对象"></a>答案：对象</h2><p>3、数据库操作结束后，应该<strong>__</strong>，释放系统资源。为了确保程序的执行，关闭数据库连接语句要放到<strong>__</strong>语句块中。</p>
 <h2 id="答案：关闭数据库连接-finally"><a href="#答案：关闭数据库连接-finally" class="headerlink" title="答案：关闭数据库连接,  finally"></a>答案：关闭数据库连接,  finally</h2><p>4、补全以下填空处的代码:</p>
@@ -238,14 +238,14 @@ while(____) {
 <h2 id="参考答案要点：-3"><a href="#参考答案要点：-3" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>Connection、Statement、ResultSet、PreparedStatement</p>
 <p>5、ArrayList的初始化内容如下： </p>
 <pre><code>ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
-list.add(&quot;java&quot;);
-list.add(&quot;aaa&quot;);
-list.add(&quot;java&quot;);
-list.add(&quot;bbb&quot;);
+        list.add(&quot;java&quot;);
+        list.add(&quot;aaa&quot;);
+        list.add(&quot;java&quot;);
+        list.add(&quot;bbb&quot;);
 for (int i = list.size()-1; i &gt;= 0; i--) {
-if(&quot;java&quot;.equals(list.get(i))) {
-__________
-}
+   if(&quot;java&quot;.equals(list.get(i))) {
+        __________
+    }
 }</code></pre><p>请在填空处写出代码，删除list中所有的“java”</p>
 <h2 id="参考答案要点：-4"><a href="#参考答案要点：-4" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>list.remove(i);</p>
 <p>6、线程生命周期的几种状态？</p>

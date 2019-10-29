@@ -152,6 +152,134 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2019-10-29" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/29/2019-10-29/">2019-10-29</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/29/2019-10-29/" class="archive-article-date">
+  	<time datetime="2019-10-29T01:29:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="在新建jsp文件开头出现红叉的原因和错误解决方法"><a href="#在新建jsp文件开头出现红叉的原因和错误解决方法" class="headerlink" title="在新建jsp文件开头出现红叉的原因和错误解决方法"></a>在新建jsp文件开头出现红叉的原因和错误解决方法</h2><p>在创建jsp完都会遇到如下的错误<br>虽然对于功能是可以实现，但是看着jsp页面报错就感觉很不舒服。</p>
+<p>报错代码：</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;</code></pre><h2 id="错误原因：没有tomcat的文件。"><a href="#错误原因：没有tomcat的文件。" class="headerlink" title="错误原因：没有tomcat的文件。"></a>错误原因：没有tomcat的文件。</h2><h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><p>在项目名点击右键–&gt;点击属性（properties）–&gt;点击java构建路径（Java Build Path）–&gt;点击库（Add Library）–&gt;选Sever Runtime–&gt;点击next–&gt;然后点击你自己配置在eclipse的tomcat–&gt;最后点击Finish。就可以了</p>
+<h1 id="一个jsp页面引入另一个jsp页面的三种方式-及静态引入和动态引入的区别"><a href="#一个jsp页面引入另一个jsp页面的三种方式-及静态引入和动态引入的区别" class="headerlink" title="一个jsp页面引入另一个jsp页面的三种方式 及静态引入和动态引入的区别"></a>一个jsp页面引入另一个jsp页面的三种方式 及静态引入和动态引入的区别</h1><h2 id="第一种：jstl-import"><a href="#第一种：jstl-import" class="headerlink" title="第一种：jstl  import"></a>第一种：jstl  import</h2><pre><code>&lt;c:import url=&quot;inlayingJsp.jsp&quot;&gt;&lt;/c:import&gt; </code></pre><h2 id="第二种：jsp-include指令"><a href="#第二种：jsp-include指令" class="headerlink" title="第二种：jsp include指令"></a>第二种：jsp include指令</h2><p>include指令告诉容器：复制被包含文件汇总的所有内容，再把它粘贴到这个文件中。</p>
+<pre><code>&lt;%@ include file=&quot;inlayingJsp.jsp&quot; %&gt;</code></pre><h2 id="第三种：jsp-include动作"><a href="#第三种：jsp-include动作" class="headerlink" title="第三种：jsp include动作"></a>第三种：jsp include动作</h2><pre><code>&lt;jsp:include   page=&quot;inlayingJsp.jsp&quot; flush=&quot;true&quot;/&gt;</code></pre><h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><ul>
+<li>include指令在转换时插入“Header.jsp”的源代码，而<a href="jsp:include" target="_blank" rel="noopener">jsp:include</a>动作在运行时插入“Header.jsp”的响应。</li>
+</ul>
+<p>&lt;%@include为静态包含，&lt;%@include不论包含的是txt文本还是jsp文件，被包含的页面都不会从新编译。</p>
+<p>&lt;%@include为静态包含,包含了几个JSP转译成servlet时就会有几个class文件，如果在jsp1定义了变量i同时在jsp2也定义了变量i那么你编译都会通不过的,jsp容器会告诉你i重复定义了.</p>
+<p>&lt;jsp:include 为动态包含，&lt;jsp:include 如包含jsp文件，这每次加载主页面的时候，被包含的页面都要重新编译。就是说不管你包含了几个jsp页面转译成servlet时中有一个class文件所以说对于&lt;%@include要慎用!</p>
+<ul>
+<li>(2)使用jstl标签时，一定要在jsp文件头加入以下代码：&lt;%@taglib prefix=”c” uri=”<a href="http://Java.sun.com/jsp/jstl/core&quot;%&gt;" target="_blank" rel="noopener">http://Java.sun.com/jsp/jstl/core&quot;%&gt;</a></li>
+</ul>
+<h2 id="什么是静态导入？"><a href="#什么是静态导入？" class="headerlink" title="什么是静态导入？"></a>什么是静态导入？</h2><p>静态导入指的是，将一个外部文件嵌入到当前JSP文件中，同时解析这个页面的JSP语句，它会把目标页面的其他编译指令也包含进来。<br>include的静态导入指令使用语法：</p>
+<pre><code>&lt;%@include file=&quot;relativeURLSpec&quot;%&gt;</code></pre><p>静态导入使用范例include1.jsp：<br>代码如下:</p>
+<pre><code>&lt;%@ page contentType=&quot;text/html; charset=utf-8&quot; language=&quot;java&quot; errorPage=&quot;&quot; %&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;静态include范例&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--使用include编译指定导入页面--&gt;
+&lt;%@include file=&quot;error.jsp&quot;%&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>其中error.jsp是一个简单的错误处理页面，代码如下：</p>
+<pre><code>&lt;%@ page contentType=&quot;text/html; charset=utf-8&quot; language=&quot;java&quot; isErrorPage=&quot;true&quot; %&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;错误提示页&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+这是一个错误处理页面&lt;/br&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>在tomcat下运行该静态include范例后，查看生成的servlet类可看到如下代码段</p>
+<p>（查看方式：windows下，找到tomcat安装目录下的work文件夹，进入Catalina文件夹下的localhost文件夹，找到当前项目所在的文件夹，找到org目录，进入其下的apache目录下的jsp文件夹，即可看到一个include1_jsp.java文件，这就是该include1.jsp对应生成的servlet类。ps：我是把这个测试页面放在webDemo下的，所以我的目录是\apache-tomcat-7.0.47\work\Catalina\localhost\webDemo\org\apache\jsp）</p>
+<p>从方框中即可看出静态导入是：包含页面在编译时将完全包含被包含页面的代码。需要指出的是，静态导入还会将被包含页面的编译指令也包含进来，如果两个页面的编译指令有冲突，那么页面就会出错。</p>
+<h2 id="什么是动态导入"><a href="#什么是动态导入" class="headerlink" title="什么是动态导入"></a>什么是动态导入</h2><p>动态导入是不会导入include页面的编译指令的，而是仅仅将被导入页面的body内容插入本页面。<br>动态导入的语法格式：<br>代码如下:</p>
+<pre><code>&lt;jsp:include page=&quot;{relativeURL|&lt;%=expression%&gt;}&quot; flush=&quot;true&quot;/&gt;</code></pre><p>或者<br>代码如下:</p>
+<pre><code>&lt;jsp:include page=&quot;{relativeURL|&lt;%=expression%&gt;}&quot; flush=&quot;true&quot;&gt;
+&lt;jsp:param name=&quot;parameterName&quot; value=&quot;parameterValue&quot;/&gt;
+&lt;/jsp:include&gt;</code></pre><p>flush属性用语指定输出缓存是否转移到被导入文件中。如果指定为true，则包含在被导入文件中，如果指定为false，则包含在原文件中，对于JSP1.1旧版本，只能设置为false。<br>对于第二种语法格式，则可在被导入页面中加入额外的请求参数。</p>
+<p>动态导入范例：</p>
+<p>我们将上面的include1.jsp代码静态导入改为动态导入<br>代码如下:</p>
+<pre><code>&lt;%@ page contentType=&quot;text/html; charset=utf-8&quot; language=&quot;java&quot; errorPage=&quot;&quot; %&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;静态include范例&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--使用include编译指定导入页面--&gt;
+&lt;jsp：include page=&quot;error.jsp&quot; /&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>归纳起来，静态导入和动态导入有如下三点区别：</p>
+<ul>
+<li><p>1、静态导入是将被导入页面的代码完全融入，两个页面融合成一个整体Servlet；而动态导入则在Servlet中使用include方法来引入被导入页面的内容。</p>
+</li>
+<li><p>2、静态导入时被导入页面的编译指令会起作用；而动态导入时被导入页面的编译指令则失去作用，只是插入被导入页面的body内容。</p>
+</li>
+<li><p>3、动态导入还可以增加额外的参数。即如下代码方式：</p>
+<pre><code>&lt;jsp:include page=&quot;{relativeURL|&lt;%=expression%&gt;}&quot; flush=&quot;true&quot;&gt;
+&lt;jsp:param name=&quot;parameterName&quot; value=&quot;parameterValue&quot;/&gt;
+&lt;/jsp:include&gt;</code></pre></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/29/2019-10-29/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019-10-28" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -182,14 +310,20 @@
 <p>8.page: JSP网页本身</p>
 <p>9.exception: 针对错误网页，未捕捉的例外</p>
 <h1 id="jsp和servlet的区别、共同点、各自应用的范围？"><a href="#jsp和servlet的区别、共同点、各自应用的范围？" class="headerlink" title="jsp和servlet的区别、共同点、各自应用的范围？"></a>jsp和servlet的区别、共同点、各自应用的范围？</h1><h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><ul>
-<li>JSP是Servlet技术的扩展，本质上就是Servlet的简易方式。JSP编译后是“类servlet”。</li>
-<li>Servlet和JSP最主要的不同点在于：Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。<br>而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。</li>
-<li>JSP侧重于视图，Servlet主要用于控制逻辑。</li>
+<li>Servlet和JSP最主要的不同点在于：Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。<br>而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。（JSP可以内嵌HTML、EL、Java和JSTL， servlet只能包含Java）</li>
+<li>JSP侧重于视图，Servlet主要用于控制逻辑。（JSP可作为前端显示页面，servlet只能作为后台控制）</li>
+<li>JSP控制不需要项目中去注册，servlet必须注册（web.xml/注解）</li>
+<li>JSP常作为小型项目，servlet常用作框架类的大型项目</li>
+</ul>
+<h2 id="相同点："><a href="#相同点：" class="headerlink" title="相同点："></a>相同点：</h2><ul>
+<li>处理后台逻辑，作为MVC控制</li>
+<li>九个内置对象</li>
+<li>都可用Java语言</li>
 </ul>
 <h2 id="JSP四个作用域范围"><a href="#JSP四个作用域范围" class="headerlink" title="JSP四个作用域范围"></a>JSP四个作用域范围</h2><ul>
 <li>page【只在一个页面中保存属性，跳转页面无效】有效域是当前页面，可以把参数放入PageContext中，只要跳转就失效。</li>
-<li>requet【只在一次请求中保存属性，服务器跳转有效，浏览器跳转无效】有效域是当前请求周期。所谓请求周期，就是指从http请求发起，到服务器处理结束，<br>返回响应的整个过程。在这个过程中可能使用forward的方式跳转了多个jsp页面，在这些页面里你都可以<br>使用这个变量。</li>
-<li>session【在一个会话范围中保存属性，无论何种跳转均有效，关闭浏览器后无效】会话。隔离。生命周期是从用户发起链接服务器至彻底与服务器完全断开。可以包含很<br>多个request。所谓当前会话，就是指从用户打开浏览器开始，到用户关闭浏览器这中间的过程。</li>
+<li>request【只在一次请求中保存属性，服务器跳转有效，浏览器跳转无效】有效域是当前请求周期。所谓请求周期，就是指从http请求发起，到服务器处理结束，<br>返回响应的整个过程。在这个过程中可能使用forward的方式跳转了多个jsp页面，在这些页面里你都可以<br>使用这个变量。</li>
+<li>session【在一个会话范围中保存属性，无论何种跳转均有效，关闭浏览器后无效】会话。隔离。生命周期是从用户发起链接服务器至彻底与服务器完全断开。可以包含很多个request。所谓当前会话，就是指从用户打开浏览器开始，到用户关闭浏览器这中间的过程。</li>
 <li>application【在整个服务器中保存，所有用户都可以使用】共享、全局、服务器启动时产生，重启服务器销毁。可以包含很多个session。</li>
 </ul>
 <h2 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h2><ul>
@@ -201,8 +335,8 @@
 <li>（一）JavaBean：&lt;jsp:useBean id=”XXX” class=”JavaBean的全限定名(page+calssName)” scope=”session” /&gt;</li>
 <li>（二）Session：session.setAttribute(String key,Object value)/seesion.getAttribute(String key)</li>
 <li>（三）Application:application.setAttribute(String key,Object value)/application.getAttribute(String key)</li>
-<li>（四）Request:request.setParater(String key,String value)/request.getParater(String key)<br>   request.setAttribute(String key,Object value)/request.getAttribute(String key)</li>
-<li>（五）JSP动作指令：&lt;jsp:forward/redirect page=”XXX.jsp”&gt; &lt;jsp:param name=”key-x” value=”value-x”/&gt; <pre><code>&lt;jsp:param name=&quot;key-y&quot; value=&quot;value-y&quot; /&gt; &lt;/jsp:forward/redirect&gt;</code></pre></li>
+<li>（四）Request:request.setParater(String key,String value)/request.getParater(String key)<br>  request.setAttribute(String key,Object value)/request.getAttribute(String key)</li>
+<li>（五）JSP动作指令：&lt;jsp:forward/redirect page=”XXX.jsp”&gt; &lt;jsp:param name=”key-x”              value=”value-x”/&gt;&lt;jsp:param name=”key-y” value=”value-y” /&gt; &lt;/jsp:forward/redirect&gt;</li>
 <li>（六）Form表单：用户操作</li>
 <li>（七）URL传参：URL.jsp?参数1 的key=参数1的value&amp; 参数n的key=参数n 的value</li>
 </ul>
@@ -280,11 +414,11 @@
 <h2 id="答案：序列化"><a href="#答案：序列化" class="headerlink" title="答案：序列化"></a>答案：序列化</h2><p>2、如下代码所示：</p>
 <pre><code>public interface PersonDao 
 {  
-int add(Person person);  
-int delete(Person person);  
-int update(Person person);  
-Person getByName(String name);  
-List&lt;Person&gt; findByName(String name); 
+        int add(Person person);  
+        int delete(Person person);  
+        int update(Person person);  
+        Person getByName(String name);  
+        List&lt;Person&gt; findByName(String name); 
 } </code></pre><p>其中add()，delete()，update()方法是以<strong>__</strong>为单位来进行参数传递</p>
 <h2 id="答案：对象"><a href="#答案：对象" class="headerlink" title="答案：对象"></a>答案：对象</h2><p>3、数据库操作结束后，应该<strong>__</strong>，释放系统资源。为了确保程序的执行，关闭数据库连接语句要放到<strong>__</strong>语句块中。</p>
 <h2 id="答案：关闭数据库连接-finally"><a href="#答案：关闭数据库连接-finally" class="headerlink" title="答案：关闭数据库连接,  finally"></a>答案：关闭数据库连接,  finally</h2><p>4、补全以下填空处的代码:</p>
@@ -340,14 +474,14 @@ while(____) {
 <h2 id="参考答案要点：-3"><a href="#参考答案要点：-3" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>Connection、Statement、ResultSet、PreparedStatement</p>
 <p>5、ArrayList的初始化内容如下： </p>
 <pre><code>ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
-list.add(&quot;java&quot;);
-list.add(&quot;aaa&quot;);
-list.add(&quot;java&quot;);
-list.add(&quot;bbb&quot;);
+        list.add(&quot;java&quot;);
+        list.add(&quot;aaa&quot;);
+        list.add(&quot;java&quot;);
+        list.add(&quot;bbb&quot;);
 for (int i = list.size()-1; i &gt;= 0; i--) {
-if(&quot;java&quot;.equals(list.get(i))) {
-__________
-}
+   if(&quot;java&quot;.equals(list.get(i))) {
+        __________
+    }
 }</code></pre><p>请在填空处写出代码，删除list中所有的“java”</p>
 <h2 id="参考答案要点：-4"><a href="#参考答案要点：-4" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>list.remove(i);</p>
 <p>6、线程生命周期的几种状态？</p>
