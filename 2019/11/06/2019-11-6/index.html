@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>2019-11-1 | Hexo</title>
+  <title>2019-11-6 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JSP实现用户登录登录成功使用服务器内部转发到login_success.jsp页面登录失败则请求重定向到login_failure.jsp页面login.jsp代码如下： &amp;lt;%@ page language=&amp;quot;java&amp;quot; contentType=&amp;quot;text/html; charset=UTF-8&amp;quot;  pageEncoding=&amp;quot;UTF-8&amp;">
+  <meta name="description" content="JavaWeb常见的错误总结及解决项目错误但目录下子文件无报错原因：引入jar包不全，路径配置构件残缺 解决：重新引入jar包 jsp中给出404/500错误404原因：404是地址跳转的错误，也就是没有找到指定的页面（通常是找不到指定的jsp页面或Servlet）   解决：  1.Tomcat未正常启动，因为在你修改过跳转地址时，有时Tomcat是没有更新源地址的，这是软件上的一个Bug，光依">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2019-11-1">
-<meta property="og:url" content="http://yoursite.com/2019/11/01/2019-11-1/index.html">
+<meta property="og:title" content="2019-11-6">
+<meta property="og:url" content="http://yoursite.com/2019/11/06/2019-11-6/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="JSP实现用户登录登录成功使用服务器内部转发到login_success.jsp页面登录失败则请求重定向到login_failure.jsp页面login.jsp代码如下： &amp;lt;%@ page language=&amp;quot;java&amp;quot; contentType=&amp;quot;text/html; charset=UTF-8&amp;quot;  pageEncoding=&amp;quot;UTF-8&amp;">
+<meta property="og:description" content="JavaWeb常见的错误总结及解决项目错误但目录下子文件无报错原因：引入jar包不全，路径配置构件残缺 解决：重新引入jar包 jsp中给出404/500错误404原因：404是地址跳转的错误，也就是没有找到指定的页面（通常是找不到指定的jsp页面或Servlet）   解决：  1.Tomcat未正常启动，因为在你修改过跳转地址时，有时Tomcat是没有更新源地址的，这是软件上的一个Bug，光依">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-01T14:09:43.669Z">
+<meta property="og:updated_time" content="2019-11-06T00:22:13.461Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2019-11-1">
-<meta name="twitter:description" content="JSP实现用户登录登录成功使用服务器内部转发到login_success.jsp页面登录失败则请求重定向到login_failure.jsp页面login.jsp代码如下： &amp;lt;%@ page language=&amp;quot;java&amp;quot; contentType=&amp;quot;text/html; charset=UTF-8&amp;quot;  pageEncoding=&amp;quot;UTF-8&amp;">
+<meta name="twitter:title" content="2019-11-6">
+<meta name="twitter:description" content="JavaWeb常见的错误总结及解决项目错误但目录下子文件无报错原因：引入jar包不全，路径配置构件残缺 解决：重新引入jar包 jsp中给出404/500错误404原因：404是地址跳转的错误，也就是没有找到指定的页面（通常是找不到指定的jsp页面或Servlet）   解决：  1.Tomcat未正常启动，因为在你修改过跳转地址时，有时Tomcat是没有更新源地址的，这是软件上的一个Bug，光依">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -154,149 +154,54 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-2019-11-1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-2019-11-6" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      2019-11-1
+      2019-11-6
     </h1>
   
 
         
-        <a href="/2019/11/01/2019-11-1/" class="archive-article-date">
-  	<time datetime="2019-11-01T02:42:48.419Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
+        <a href="/2019/11/06/2019-11-6/" class="archive-article-date">
+  	<time datetime="2019-11-06T00:21:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="JSP实现用户登录"><a href="#JSP实现用户登录" class="headerlink" title="JSP实现用户登录"></a>JSP实现用户登录</h1><h2 id="登录成功使用服务器内部转发到login-success-jsp页面"><a href="#登录成功使用服务器内部转发到login-success-jsp页面" class="headerlink" title="登录成功使用服务器内部转发到login_success.jsp页面"></a>登录成功使用服务器内部转发到login_success.jsp页面</h2><h2 id="登录失败则请求重定向到login-failure-jsp页面"><a href="#登录失败则请求重定向到login-failure-jsp页面" class="headerlink" title="登录失败则请求重定向到login_failure.jsp页面"></a>登录失败则请求重定向到login_failure.jsp页面</h2><p>login.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;  pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;form action=&quot;dologin.jsp&quot; method=&quot;post&quot;&gt;
-        &lt;table&gt;
-        &lt;tr&gt;
-            &lt;td colspan=&quot;2&quot;&gt;登录窗口&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;用户名：&lt;/td&gt;
-            &lt;td&gt;
-                &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;密码：&lt;/td&gt;
-            &lt;td&gt;
-                &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td colspan=&quot;2&quot;&gt;
-                &lt;input type=&quot;submit&quot; value=&quot;登录&quot; /&gt; 
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;/table&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>dologin.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
-    pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;%
-    String username =&quot;&quot;;//账号默认为空
-    String password =&quot;&quot;;//密码默认为空
-    request.setCharacterEncoding(&quot;utf-8&quot;);//防止中文乱码
-    username = request.getParameter(&quot;username&quot;);//获取对象
-    password = request.getParameter(&quot;password&quot;);//获取密码
-    if(&quot;sam&quot;.equals(username)&amp;&amp;&quot;123&quot;.equals(password)){
-        session.setAttribute(&quot;loginUser&quot;, username);
-        request.getRequestDispatcher(&quot;login_success.jsp&quot;).forward(request, response);
-    }else{
-        response.sendRedirect(&quot;login_failure.jsp&quot;);
-    }
+        <h1 id="JavaWeb常见的错误总结及解决"><a href="#JavaWeb常见的错误总结及解决" class="headerlink" title="JavaWeb常见的错误总结及解决"></a>JavaWeb常见的错误总结及解决</h1><h2 id="项目错误但目录下子文件无报错"><a href="#项目错误但目录下子文件无报错" class="headerlink" title="项目错误但目录下子文件无报错"></a>项目错误但目录下子文件无报错</h2><p>原因：引入jar包不全，路径配置构件残缺</p>
+<p>解决：重新引入jar包</p>
+<h2 id="jsp中给出404-500错误"><a href="#jsp中给出404-500错误" class="headerlink" title="jsp中给出404/500错误"></a>jsp中给出404/500错误</h2><p>404原因：404是地址跳转的错误，也就是没有找到指定的页面（通常是找不到指定的jsp页面或Servlet）  </p>
+<p>解决：</p>
+<ul>
+<li>1.Tomcat未正常启动，因为在你修改过跳转地址时，有时Tomcat是没有更新源地址的，这是软件上的一个Bug，光依靠重新部署可能无法解决，你需要删除工程目录部署下（webapps内的工程和work&gt;Catalina&gt;localhost内的工程）的两个工程文件，重新部署即可。</li>
+<li>2.跳转地址有误，很基础的错误，但是比较容易犯这种错误。试着在浏览器地址栏中看看跳转地址有没有出现重复地址，多余的”/“，以及是否正确使用”.”</li>
+<li>3.跳转页面文件格式后缀有误，Jsp还是Html。很少见的马虎错误。</li>
+</ul>
+<p>可以在web.xml配置文件中捕捉这些错误</p>
+<pre><code>&lt;error-page&gt;   
+    &lt;error-code&gt;404&lt;/error-code&gt;         //捕捉的错误消息
+    &lt;location&gt;/errors/404.jsp&lt;/location&gt;       //出了错误之后跳转的页面web项目根目录下
+&lt;/error-page&gt;  
+&lt;error-page&gt; 
+    &lt;error-code&gt;500&lt;/error-code&gt;   
+    &lt;location&gt;/errors/500.jsp&lt;/location&gt;  
+&lt;/error-page&gt;</code></pre><p>当捕捉到错误消息之后，可以指向自己指定的错误模板页面，而避免出现tomcat的404错误，影响用户体验。</p>
+<p>500原因：通常是jsp中的java代码存在问题，编译不通过</p>
+<p>解决：在控制台看错误信息(里面会有异常信息)，查找代码有误的地方，改正再调试。如果还是出现500，那就继续找错，改正，调试。</p>
+<h2 id="log报错：找不到xxx-servlet-xml文件，但我从未创建或者需要使用此文件"><a href="#log报错：找不到xxx-servlet-xml文件，但我从未创建或者需要使用此文件" class="headerlink" title="log报错：找不到xxx-servlet.xml文件，但我从未创建或者需要使用此文件"></a>log报错：找不到xxx-servlet.xml文件，但我从未创建或者需要使用此文件</h2><p>原因：web.xml<servlet>里会自动查找WEB-INF/XXX-servlet.xml</servlet></p>
+<p>解决：用<init-param>强制规定其查找的配置文件名</init-param></p>
+<h2 id="sqlMapConfig-xml提示找不到XXX的配置文件"><a href="#sqlMapConfig-xml提示找不到XXX的配置文件" class="headerlink" title="sqlMapConfig.xml提示找不到XXX的配置文件"></a>sqlMapConfig.xml提示找不到XXX的配置文件</h2><p>原因：xml中文件名识别大小写</p>
+<p>解决：修改路径中的文件名至合适的大小写</p>
+<h2 id="启用startup-bat时能访问Tomcat的demo网页但是从eclipse启动不行。"><a href="#启用startup-bat时能访问Tomcat的demo网页但是从eclipse启动不行。" class="headerlink" title="启用startup.bat时能访问Tomcat的demo网页但是从eclipse启动不行。"></a>启用startup.bat时能访问Tomcat的demo网页但是从eclipse启动不行。</h2><p>原因：用eclipse启动事实上是借助Tomcat的核心组件去访问设定的工作环境<br>解决：双击服务器，移除清空项目后，修改服务器配置的Server Location为Tomcat的路径</p>
+<h2 id="关于多个Tomcat不能同时启动的问题"><a href="#关于多个Tomcat不能同时启动的问题" class="headerlink" title="关于多个Tomcat不能同时启动的问题"></a>关于多个Tomcat不能同时启动的问题</h2><p>原因：端口号不能一样，而且关系到具体Tomcat的环境变量也不能一样</p>
+<p>解决：修改conf/server.xml中的三个端口；在startup.bat里面增加“SET CATALINA_HOME=”以及Tomcat的路径</p>
 
-%&gt;</code></pre><p>login_success.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;%
-    String loginUser = &quot;&quot;;
-    if(session.getAttribute(&quot;loginUser&quot;)!=null){
-        loginUser = session.getAttribute(&quot;loginUser&quot;).toString();
-    }
-%&gt;
-欢迎您&lt;font color=&quot;red&quot;&gt;&lt;%=loginUser %&gt;&lt;/font&gt;,登录成功！
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>login_failure.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-登录失败！请检查用户或者密码！&lt;br&gt;
-&lt;a href=&quot;login.jsp&quot;&gt;返回登录&lt;/a&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><h2 id="连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）"><a href="#连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）" class="headerlink" title="连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）"></a>连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）</h2><p>代码如下：</p>
-<pre><code>protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-response.getWriter().append(&quot;Served at: &quot;).append(request.getContextPath());
-    boolean flag = false;
-    String username =&quot;&quot;;
-    String password =&quot;&quot;;
-    request.setCharacterEncoding(&quot;utf-8&quot;);//防止中文乱码
-
-    username = request.getParameter(&quot;username&quot;);
-    password = request.getParameter(&quot;password&quot;);
-
-    try {
-    Class.forName(&quot;com.mysql.jdbc.Driver&quot;);//发射机制来获取&quot;数据库驱动(一个名称为XXX的类)&quot;
-      Connection connect = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/stu&quot;,&quot;root&quot;,&quot;root&quot;);
-
-      //连接URL为 jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
-
-      System.out.println(&quot;成功链接 Mysql服务器!&quot;);
-      Statement stmt = connect.createStatement();
-      ResultSet rs = stmt.executeQuery(&quot;select * from stu&quot;);
-
-      //stu 为你表的名称
-while (rs.next()) {
-
-    if (rs.getString(&quot;id&quot;).equals(username)&amp;&amp;rs.getString(&quot;pwd&quot;).equals(password)) {
-        flag = true;
-        break;
-    }else {
-        flag =false;
-    }
-}
-
-if (flag) {
-    request.getRequestDispatcher(&quot;welcome.jsp&quot;).forward(request, response);
-}else {
-response.sendRedirect(&quot;login.jsp&quot;);
-}
-
-}
- catch (Exception e) {
-      System.out.print(&quot;get data error!&quot;);
-      e.printStackTrace();
-    }
-}</code></pre>
       
 
       
@@ -375,7 +280,7 @@ response.sendRedirect(&quot;login.jsp&quot;);
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/01/2019-11-1/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/06/2019-11-6/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -389,18 +294,9 @@ response.sendRedirect(&quot;login.jsp&quot;);
   
 <nav id="article-nav">
   
-    <a href="/2019/11/06/2019-11-6/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          2019-11-6
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/10/29/2019-10-29/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2019-10-29</div>
+    <a href="/2019/11/01/2019-11-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2019-11-1</div>
       <i class="icon-circle-right"></i>
     </a>
   

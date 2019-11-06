@@ -152,27 +152,54 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="w-bbok" class="article article-type-w  article-index" itemscope itemprop="blogPost">
+    <article id="post-2019-11-6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/06/bbok/">bbok</a>
+      <a class="article-title" href="/2019/11/06/2019-11-6/">2019-11-6</a>
     </h1>
   
 
         
-        <a href="/2019/11/06/bbok/" class="archive-article-date">
-  	<time datetime="2019-11-06T00:16:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
+        <a href="/2019/11/06/2019-11-6/" class="archive-article-date">
+  	<time datetime="2019-11-06T00:21:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="JavaWeb常见的错误总结及解决"><a href="#JavaWeb常见的错误总结及解决" class="headerlink" title="JavaWeb常见的错误总结及解决"></a>JavaWeb常见的错误总结及解决</h1><h2 id="项目错误但目录下子文件无报错"><a href="#项目错误但目录下子文件无报错" class="headerlink" title="项目错误但目录下子文件无报错"></a>项目错误但目录下子文件无报错</h2><p>原因：引入jar包不全，路径配置构件残缺</p>
+<p>解决：重新引入jar包</p>
+<h2 id="jsp中给出404-500错误"><a href="#jsp中给出404-500错误" class="headerlink" title="jsp中给出404/500错误"></a>jsp中给出404/500错误</h2><p>404原因：404是地址跳转的错误，也就是没有找到指定的页面（通常是找不到指定的jsp页面或Servlet）  </p>
+<p>解决：</p>
+<ul>
+<li>1.Tomcat未正常启动，因为在你修改过跳转地址时，有时Tomcat是没有更新源地址的，这是软件上的一个Bug，光依靠重新部署可能无法解决，你需要删除工程目录部署下（webapps内的工程和work&gt;Catalina&gt;localhost内的工程）的两个工程文件，重新部署即可。</li>
+<li>2.跳转地址有误，很基础的错误，但是比较容易犯这种错误。试着在浏览器地址栏中看看跳转地址有没有出现重复地址，多余的”/“，以及是否正确使用”.”</li>
+<li>3.跳转页面文件格式后缀有误，Jsp还是Html。很少见的马虎错误。</li>
+</ul>
+<p>可以在web.xml配置文件中捕捉这些错误</p>
+<pre><code>&lt;error-page&gt;   
+    &lt;error-code&gt;404&lt;/error-code&gt;         //捕捉的错误消息
+    &lt;location&gt;/errors/404.jsp&lt;/location&gt;       //出了错误之后跳转的页面web项目根目录下
+&lt;/error-page&gt;  
+&lt;error-page&gt; 
+    &lt;error-code&gt;500&lt;/error-code&gt;   
+    &lt;location&gt;/errors/500.jsp&lt;/location&gt;  
+&lt;/error-page&gt;</code></pre><p>当捕捉到错误消息之后，可以指向自己指定的错误模板页面，而避免出现tomcat的404错误，影响用户体验。</p>
+<p>500原因：通常是jsp中的java代码存在问题，编译不通过</p>
+<p>解决：在控制台看错误信息(里面会有异常信息)，查找代码有误的地方，改正再调试。如果还是出现500，那就继续找错，改正，调试。</p>
+<h2 id="log报错：找不到xxx-servlet-xml文件，但我从未创建或者需要使用此文件"><a href="#log报错：找不到xxx-servlet-xml文件，但我从未创建或者需要使用此文件" class="headerlink" title="log报错：找不到xxx-servlet.xml文件，但我从未创建或者需要使用此文件"></a>log报错：找不到xxx-servlet.xml文件，但我从未创建或者需要使用此文件</h2><p>原因：web.xml<servlet>里会自动查找WEB-INF/XXX-servlet.xml</servlet></p>
+<p>解决：用<init-param>强制规定其查找的配置文件名</init-param></p>
+<h2 id="sqlMapConfig-xml提示找不到XXX的配置文件"><a href="#sqlMapConfig-xml提示找不到XXX的配置文件" class="headerlink" title="sqlMapConfig.xml提示找不到XXX的配置文件"></a>sqlMapConfig.xml提示找不到XXX的配置文件</h2><p>原因：xml中文件名识别大小写</p>
+<p>解决：修改路径中的文件名至合适的大小写</p>
+<h2 id="启用startup-bat时能访问Tomcat的demo网页但是从eclipse启动不行。"><a href="#启用startup-bat时能访问Tomcat的demo网页但是从eclipse启动不行。" class="headerlink" title="启用startup.bat时能访问Tomcat的demo网页但是从eclipse启动不行。"></a>启用startup.bat时能访问Tomcat的demo网页但是从eclipse启动不行。</h2><p>原因：用eclipse启动事实上是借助Tomcat的核心组件去访问设定的工作环境<br>解决：双击服务器，移除清空项目后，修改服务器配置的Server Location为Tomcat的路径</p>
+<h2 id="关于多个Tomcat不能同时启动的问题"><a href="#关于多个Tomcat不能同时启动的问题" class="headerlink" title="关于多个Tomcat不能同时启动的问题"></a>关于多个Tomcat不能同时启动的问题</h2><p>原因：端口号不能一样，而且关系到具体Tomcat的环境变量也不能一样</p>
+<p>解决：修改conf/server.xml中的三个端口；在startup.bat里面增加“SET CATALINA_HOME=”以及Tomcat的路径</p>
+
       
 
       
@@ -184,7 +211,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/06/bbok/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/06/2019-11-6/">展开全文 >></a>
         </p>
       
 
