@@ -175,9 +175,7 @@
         <h1 id="MySQL数据库增删改查SQL语句"><a href="#MySQL数据库增删改查SQL语句" class="headerlink" title="MySQL数据库增删改查SQL语句"></a>MySQL数据库增删改查SQL语句</h1><h2 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h2><pre><code>show databases;</code></pre><h2 id="使用数据库"><a href="#使用数据库" class="headerlink" title="使用数据库"></a>使用数据库</h2><pre><code>use 数据库名;</code></pre><h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><pre><code>CREATE DATABASE 数据库名;</code></pre><h2 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h2><pre><code>DROP DATABASE 数据库名;</code></pre><h2 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h2><pre><code>create table 表名( 列名1 类型(长度) [约束], 列名2 类型(长度) [约束], ……);</code></pre><h2 id="长度区别"><a href="#长度区别" class="headerlink" title="长度区别"></a>长度区别</h2><ul>
 <li>int类型带长度：不影响存取值，即使设定的值超出了长度的范畴，也能存，如果没有达到设定的长度，则使用空格自动填充到设定的长度 </li>
 <li>char类型：不可变字符，设定的长度就是规定当前字段能存的数据的最大长度，若超出长度，则会报错，若没有达到长度，使用空格填充到设定的长度 </li>
-<li>varchar：可变字符，设定的长度同样是规定当前字段能存的数据的最大长度，若超出长度，则会报错，若没有达到长度，不会使用空格填充，实际多长<br>就是多长<h2 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h2><pre><code>DROP TABLE 表名;</code></pre></li>
-</ul>
-<h2 id="表约束"><a href="#表约束" class="headerlink" title="表约束"></a>表约束</h2><ul>
+<li>varchar：可变字符，设定的长度同样是规定当前字段能存的数据的最大长度，若超出长度，则会报错，若没有达到长度，不会使用空格填充，实际多长<br>就是多长<h2 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h2><pre><code>DROP TABLE 表名;</code></pre><h2 id="表约束"><a href="#表约束" class="headerlink" title="表约束"></a>表约束</h2></li>
 <li>1.非空约束 NOT NULL</li>
 <li>2.默认值约束 DEFAULT ‘男’</li>
 <li>3.唯一约束 UNIQUE4.主键约束 PRIMARY KEY<h2 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h2></li>
@@ -187,10 +185,10 @@
 <h2 id="数据去重"><a href="#数据去重" class="headerlink" title="数据去重"></a>数据去重</h2><pre><code>select distinct 列…. From 表名;</code></pre><h2 id="拼接结果"><a href="#拼接结果" class="headerlink" title="拼接结果"></a>拼接结果</h2><pre><code>select concat(列1,列2) from 表名;</code></pre><h2 id="运算符优先级："><a href="#运算符优先级：" class="headerlink" title="运算符优先级："></a>运算符优先级：</h2><ul>
 <li>1.乘法和除法的优先级高于加法和减法 </li>
 <li>2.同级运算的顺序是从左到右 </li>
-<li>3.表达式中使用”括号”可强行改变优先级的运算顺序<pre><code>select 列1[+-*/]列2 from 表名;</code></pre></li>
+<li>3.表达式中使用”括号”可强行改变优先级的运算顺序<pre><code>select 列1[+-*/]列2 from 表名; </code></pre><h2 id="设置别名-注意：关键字as可以省略"><a href="#设置别名-注意：关键字as可以省略" class="headerlink" title="设置别名(注意：关键字as可以省略)"></a>设置别名(注意：关键字as可以省略)</h2><pre><code>select 列 as 别名 from 表名;
+select 列 别名 from 表名;</code></pre><h2 id="语句的执行顺序：from—-gt-select-1"><a href="#语句的执行顺序：from—-gt-select-1" class="headerlink" title="语句的执行顺序：from—&gt;select"></a>语句的执行顺序：from—&gt;select</h2></li>
 </ul>
-<h2 id="设置别名-注意：关键字as可以省略"><a href="#设置别名-注意：关键字as可以省略" class="headerlink" title="设置别名(注意：关键字as可以省略)"></a>设置别名(注意：关键字as可以省略)</h2><pre><code>select 列 as 别名 from 表名;
-select 列 别名 from 表名;</code></pre><h2 id="语句的执行顺序：from—-gt-select-1"><a href="#语句的执行顺序：from—-gt-select-1" class="headerlink" title="语句的执行顺序：from—&gt;select"></a>语句的执行顺序：from—&gt;select</h2><h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><pre><code>select 列… from 表名 where 条件;</code></pre><h2 id="条件中比较运算符：-等于-大于-gt-大于等于-gt-小于-lt-小于等于-lt-不等于-或-lt-gt"><a href="#条件中比较运算符：-等于-大于-gt-大于等于-gt-小于-lt-小于等于-lt-不等于-或-lt-gt" class="headerlink" title="条件中比较运算符：( 等于:= 大于:&gt; 大于等于:&gt;= 小于:&lt; 小于等于:&lt;= 不等于:!= 或 &lt;&gt; )"></a>条件中比较运算符：( 等于:= 大于:&gt; 大于等于:&gt;= 小于:&lt; 小于等于:&lt;= 不等于:!= 或 &lt;&gt; )</h2><pre><code>where 列 比较运算符 值;</code></pre><p>注意:字符串、日期需使用单引号括起来 语句的执行顺序：from—&gt;where—&gt;select<br>##　逻辑运算符( 并且:and 或 &amp;&amp; 或:or 非:not 或 ! )<br>        where 条件1 逻辑运算符 条件2;<br>        where not 条件; </p>
+<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><pre><code>select 列… from 表名 where 条件;</code></pre><h2 id="条件中比较运算符：-等于-大于-gt-大于等于-gt-小于-lt-小于等于-lt-不等于-或-lt-gt"><a href="#条件中比较运算符：-等于-大于-gt-大于等于-gt-小于-lt-小于等于-lt-不等于-或-lt-gt" class="headerlink" title="条件中比较运算符：( 等于:= 大于:&gt; 大于等于:&gt;= 小于:&lt; 小于等于:&lt;= 不等于:!= 或 &lt;&gt; )"></a>条件中比较运算符：( 等于:= 大于:&gt; 大于等于:&gt;= 小于:&lt; 小于等于:&lt;= 不等于:!= 或 &lt;&gt; )</h2><pre><code>where 列 比较运算符 值;</code></pre><p>注意:字符串、日期需使用单引号括起来 语句的执行顺序：from—&gt;where—&gt;select<br>##　逻辑运算符( 并且:and 或 &amp;&amp; 或:or 非:not 或 ! )<br>        where 条件1 逻辑运算符 条件2;<br>        where not 条件; </p>
 <h2 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h2><pre><code>where 列 between 条件1 and 条件2;
 //列在这个区间的值where 列 not between 条件1 and 条件2;
 //不在这个区间where !( 列 between 条件1 and 条件2 );
@@ -201,10 +199,8 @@ select 列 别名 from 表名;</code></pre><h2 id="语句的执行顺序：from�
 where 列 like &apos;%0&apos;;
 //表示以0结尾where 列 like &apos;0%&apos;;
 //表示以0开头where 列 like &apos;%0%&apos;;
-//表示数据中包含0
-_：表示一个字符，可多次使用，示例：
-where 列 like &apos;%0_&apos;;
-//数据结尾第二位是0</code></pre><h2 id="结果排序-对查询出的结果按照一列或多列进行升序还是降序排列-升序-asc-降序-desc-注意：不能使用中文的别名排序"><a href="#结果排序-对查询出的结果按照一列或多列进行升序还是降序排列-升序-asc-降序-desc-注意：不能使用中文的别名排序" class="headerlink" title="结果排序( 对查询出的结果按照一列或多列进行升序还是降序排列 升序:asc 降序:desc 注意：不能使用中文的别名排序)"></a>结果排序( 对查询出的结果按照一列或多列进行升序还是降序排列 升序:asc 降序:desc 注意：不能使用中文的别名排序)</h2><pre><code>where 条件 order by 列 [asc/desc]</code></pre><h2 id="语句的执行顺序：from—-gt-where—-gt-select—-gt-order-by"><a href="#语句的执行顺序：from—-gt-where—-gt-select—-gt-order-by" class="headerlink" title="语句的执行顺序：from—&gt;where—&gt;select—&gt;order by"></a>语句的执行顺序：from—&gt;where—&gt;select—&gt;order by</h2><h2 id="分页查询-beginIndex-表示从第多少条数据开始-pageSize-表示每页显示的数据条数"><a href="#分页查询-beginIndex-表示从第多少条数据开始-pageSize-表示每页显示的数据条数" class="headerlink" title="分页查询( beginIndex:表示从第多少条数据开始 pageSize:表示每页显示的数据条数 )"></a>分页查询( beginIndex:表示从第多少条数据开始 pageSize:表示每页显示的数据条数 )</h2><pre><code>where [条件] limit beginIndex,pageSize;
+//表示数据中包含0_：表示一个字符，可多次使用，
+示例：  where 列 like &apos;%0_&apos;;     //数据结尾第二位是0</code></pre><h2 id="结果排序-对查询出的结果按照一列或多列进行升序还是降序排列-升序-asc-降序-desc-注意：不能使用中文的别名排序"><a href="#结果排序-对查询出的结果按照一列或多列进行升序还是降序排列-升序-asc-降序-desc-注意：不能使用中文的别名排序" class="headerlink" title="结果排序( 对查询出的结果按照一列或多列进行升序还是降序排列 升序:asc 降序:desc 注意：不能使用中文的别名排序)"></a>结果排序( 对查询出的结果按照一列或多列进行升序还是降序排列 升序:asc 降序:desc 注意：不能使用中文的别名排序)</h2><pre><code>where 条件 order by 列 [asc/desc]</code></pre><h2 id="语句的执行顺序：from—-gt-where—-gt-select—-gt-order-by"><a href="#语句的执行顺序：from—-gt-where—-gt-select—-gt-order-by" class="headerlink" title="语句的执行顺序：from—&gt;where—&gt;select—&gt;order by"></a>语句的执行顺序：from—&gt;where—&gt;select—&gt;order by</h2><h2 id="分页查询-beginIndex-表示从第多少条数据开始-pageSize-表示每页显示的数据条数"><a href="#分页查询-beginIndex-表示从第多少条数据开始-pageSize-表示每页显示的数据条数" class="headerlink" title="分页查询( beginIndex:表示从第多少条数据开始 pageSize:表示每页显示的数据条数 )"></a>分页查询( beginIndex:表示从第多少条数据开始 pageSize:表示每页显示的数据条数 )</h2><pre><code>where [条件] limit beginIndex,pageSize;
 ex：每页显示3条数据 
 第一页: SELECT * FROM 表名 LIMIT 0,3 --0,1,2 
 第二页: SELECT * FROM 表名 LIMIT 3,3 --3,4,5
