@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | Hexo</title>
+  <title>课堂笔记11-20 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="JSP登录1.表单提交数据到Servlet的方式整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。(1)Servlet中的doPost()方法： A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。 B.通过sql的JDBC的Jar包导入，进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="课堂笔记11-20">
+<meta property="og:url" content="http://yoursite.com/2019/11/20/课堂笔记11-20/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="JSP登录1.表单提交数据到Servlet的方式整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。(1)Servlet中的doPost()方法： A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。 B.通过sql的JDBC的Jar包导入，进行">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-20T02:28:22.596Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="课堂笔记11-20">
+<meta name="twitter:description" content="JSP登录1.表单提交数据到Servlet的方式整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。(1)Servlet中的doPost()方法： A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。 B.通过sql的JDBC的Jar包导入，进行">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,295 +154,196 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-课堂笔记11-20" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      课堂笔记11-20
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/20/课堂笔记11-20/" class="archive-article-date">
+
+        
+        <a href="/2019/11/20/课堂笔记11-20/" class="archive-article-date">
   	<time datetime="2019-11-20T01:48:51.034Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-20</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/20/课堂笔记11-20/">课堂笔记11-20</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JSP登录"><a href="#JSP登录" class="headerlink" title="JSP登录"></a>JSP登录</h1><h2 id="1-表单提交数据到Servlet的方式"><a href="#1-表单提交数据到Servlet的方式" class="headerlink" title="1.表单提交数据到Servlet的方式"></a>1.表单提交数据到Servlet的方式</h2><h3 id="整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个Servlet，在其内进行判定是否登录。"><a href="#整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个Servlet，在其内进行判定是否登录。" class="headerlink" title="整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。"></a>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。</h3><h2 id="1-Servlet中的doPost-方法："><a href="#1-Servlet中的doPost-方法：" class="headerlink" title="(1)Servlet中的doPost()方法："></a>(1)Servlet中的doPost()方法：</h2><ul>
+<li>A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</li>
+<li>B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</li>
+<li>C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。<h2 id="2-跳转到的页面：登录成功页面-在Session中保存用户信息-不跳转"><a href="#2-跳转到的页面：登录成功页面-在Session中保存用户信息-不跳转" class="headerlink" title="(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/不跳转"></a>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/不跳转</h2></li>
+</ul>
+<h2 id="2-表单提交数据到JSP的方式"><a href="#2-表单提交数据到JSP的方式" class="headerlink" title="2.表单提交数据到JSP的方式"></a>2.表单提交数据到JSP的方式</h2><h3 id="整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个JSP，在其内进行判定是否登录。"><a href="#整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个JSP，在其内进行判定是否登录。" class="headerlink" title="整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。"></a>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。</h3><h2 id="1-JSP中的-lt-gt-脚本内容："><a href="#1-JSP中的-lt-gt-脚本内容：" class="headerlink" title="(1)JSP中的&lt;% %&gt;脚本内容："></a>(1)JSP中的&lt;% %&gt;脚本内容：</h2><ul>
+<li>A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</li>
+<li>B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</li>
+<li>C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。<h2 id="2-跳转到的页面：登录成功页面-在Session中保存用户信息-重定向到登录JSP页面，为地址栏添加一个属性-response-sendRedirect-“index-jsp-info-”登录失败”"><a href="#2-跳转到的页面：登录成功页面-在Session中保存用户信息-重定向到登录JSP页面，为地址栏添加一个属性-response-sendRedirect-“index-jsp-info-”登录失败”" class="headerlink" title="(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))"></a>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))</h2></li>
+</ul>
+<h2 id="登录成功重定向到success-jsp页面-response-sendRedirect-“-success-jsp”"><a href="#登录成功重定向到success-jsp页面-response-sendRedirect-“-success-jsp”" class="headerlink" title="//登录成功重定向到success.jsp页面 response.sendRedirect(“/success.jsp”);"></a>//登录成功重定向到success.jsp页面 response.sendRedirect(“/success.jsp”);</h2><pre><code>&lt;body&gt;
+&lt;%
+//从Request获取id、pwd、name的值
+String id= request.getParameter(&quot;id&quot;);
+String pwd= request.getParameter(&quot;pwd&quot;);
+String name= request.getParamete(&quot;name&quot;);
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//向Session对象内放属性
+session.setAttribute(&quot;id&quot;, id);
+session.setAttribute(&quot;pwd&quot;, pwd);
+session.setAttribute(&quot;name&quot;, name);
+//页面输出
+out.println(&quot;&lt;span&gt;欢迎&quot;+name+&quot;登录&lt;/span&gt;&quot;);  
+//注销链接
+&lt;a href=&quot;out.jsp&quot;&gt;注销&lt;/a&gt;
+%&gt;
+&lt;/body&gt;</code></pre><h2 id="注销页面-out-jsp-如下："><a href="#注销页面-out-jsp-如下：" class="headerlink" title="注销页面(out.jsp)如下："></a>注销页面(out.jsp)如下：</h2><pre><code>&lt;body&gt;
+&lt;%
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//清空Session中的登录信息相关属性
+    session.removeAttribute(&quot;id&quot;);
+    session.removeAttribute(&quot;pwd&quot;);
+    session.removeAttribute(&quot;name&quot;);
+//上下文路径
+String path = request.getContextPath();
+//重定向到首页(未登录状态)
+response.sendRedirect(path+&quot;/index.jsp&quot;);
+%&gt;
+&lt;/body&gt;</code></pre>
+      
 
-        <div class="article-info info-on-right">
-          
-          
-
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/20/课堂笔记11-20/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/12/MySQL数据库练习/" class="archive-article-date">
-  	<time datetime="2019-11-12T13:07:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-12</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/12/MySQL数据库练习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL数据库练习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/12/MySQL数据库练习/">MySQL数据库练习</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/08/MySQL数据库增删改查/" class="archive-article-date">
-  	<time datetime="2019-11-08T02:31:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/08/MySQL数据库增删改查/">MySQL数据库增删改查</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/07/JavaWeb项目中数据库连接问题解决/" class="archive-article-date">
-  	<time datetime="2019-11-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/07/JavaWeb项目中数据库连接问题解决/">JavaWeb项目中数据库连接问题解决</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/06/2019-11-6/" class="archive-article-date">
-  	<time datetime="2019-11-06T00:21:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/06/2019-11-6/">2019-11-6</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/01/2019-11-1/" class="archive-article-date">
-  	<time datetime="2019-11-01T02:42:48.419Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/01/2019-11-1/">2019-11-1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/29/2019-10-29/" class="archive-article-date">
-  	<time datetime="2019-10-29T01:29:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/29/2019-10-29/">2019-10-29</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/28/2019-10-28/" class="archive-article-date">
-  	<time datetime="2019-10-28T09:50:31.500Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/28/2019-10-28/">2019-10-28</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/24/JavaOOP/" class="archive-article-date">
-  	<time datetime="2019-10-24T12:19:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/24/JavaOOP/">JavaOOP</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/23/2019-10-22/" class="archive-article-date">
-  	<time datetime="2019-10-23T13:21:15.219Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/23/2019-10-22/">2019-10-22</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +367,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
