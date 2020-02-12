@@ -6,25 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JavaWeb项目中数据库连接问题解决 | Hexo</title>
+  <title>spring mvc | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数据库连接错误排查：一、查看项目是否导入了 “mysql-connector-java” 这个jar包。 二、自己将jar包复制到项目中，并且将该jar包add to build path。 三、查看数据库连接信息是否有细微的小错误。 四、引入Jar包到项目文件夹WEB-INF下面。  上图显示已经引入了包。 引入了包，并且没有任何错误。但是我发现无论如何都引入不进去，最后找到了一种解决方式——右">
+  <meta name="description" content="好久没更新了今日更新下 Spring MVC概述：Spring MVC是Spring提供的一个强大而灵活的web框架。借助于注解，Spring MVC提供了几乎是POJO的开发模式，使得控制器的开发和测试更加简单。这些控制器一般不直接处理请求，而是将其委托给Spring上下文中的其他bean，通过Spring的依赖注入功能，这些bean被注入到控制器中。 Spring MVC主要由Dispatch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaWeb项目中数据库连接问题解决">
-<meta property="og:url" content="http://yoursite.com/2019/11/07/JavaWeb项目中数据库连接问题解决/index.html">
+<meta property="og:title" content="spring mvc">
+<meta property="og:url" content="http://yoursite.com/2020/02/12/spring-mvc/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="数据库连接错误排查：一、查看项目是否导入了 “mysql-connector-java” 这个jar包。 二、自己将jar包复制到项目中，并且将该jar包add to build path。 三、查看数据库连接信息是否有细微的小错误。 四、引入Jar包到项目文件夹WEB-INF下面。  上图显示已经引入了包。 引入了包，并且没有任何错误。但是我发现无论如何都引入不进去，最后找到了一种解决方式——右">
+<meta property="og:description" content="好久没更新了今日更新下 Spring MVC概述：Spring MVC是Spring提供的一个强大而灵活的web框架。借助于注解，Spring MVC提供了几乎是POJO的开发模式，使得控制器的开发和测试更加简单。这些控制器一般不直接处理请求，而是将其委托给Spring上下文中的其他bean，通过Spring的依赖注入功能，这些bean被注入到控制器中。 Spring MVC主要由Dispatch">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://user-images.githubusercontent.com/55903351/68261741-0d75f380-007c-11ea-85be-910a40e0ec3a.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/55903351/68261780-267ea480-007c-11ea-9246-1cd496938ee3.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/55903351/68262018-eff55980-007c-11ea-83a4-d4acff1a304c.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/55903351/68262032-fdaadf00-007c-11ea-9aab-90091890618a.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/55903351/68262572-9857ed80-007e-11ea-9515-00f891f83c35.png">
-<meta property="og:updated_time" content="2019-11-06T02:18:48.425Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/55903351/74316487-95267900-4db4-11ea-8d8f-a51099d4232f.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/55903351/74316697-fc442d80-4db4-11ea-8b3b-75bf9d162fdd.png">
+<meta property="og:updated_time" content="2020-02-12T08:47:49.330Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaWeb项目中数据库连接问题解决">
-<meta name="twitter:description" content="数据库连接错误排查：一、查看项目是否导入了 “mysql-connector-java” 这个jar包。 二、自己将jar包复制到项目中，并且将该jar包add to build path。 三、查看数据库连接信息是否有细微的小错误。 四、引入Jar包到项目文件夹WEB-INF下面。  上图显示已经引入了包。 引入了包，并且没有任何错误。但是我发现无论如何都引入不进去，最后找到了一种解决方式——右">
-<meta name="twitter:image" content="https://user-images.githubusercontent.com/55903351/68261741-0d75f380-007c-11ea-85be-910a40e0ec3a.png">
+<meta name="twitter:title" content="spring mvc">
+<meta name="twitter:description" content="好久没更新了今日更新下 Spring MVC概述：Spring MVC是Spring提供的一个强大而灵活的web框架。借助于注解，Spring MVC提供了几乎是POJO的开发模式，使得控制器的开发和测试更加简单。这些控制器一般不直接处理请求，而是将其委托给Spring上下文中的其他bean，通过Spring的依赖注入功能，这些bean被注入到控制器中。 Spring MVC主要由Dispatch">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/55903351/74316487-95267900-4db4-11ea-8d8f-a51099d4232f.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -160,42 +157,33 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JavaWeb项目中数据库连接问题解决" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-spring-mvc" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JavaWeb项目中数据库连接问题解决
+      spring mvc
     </h1>
   
 
         
-        <a href="/2019/11/07/JavaWeb项目中数据库连接问题解决/" class="archive-article-date">
-  	<time datetime="2019-11-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
+        <a href="/2020/02/12/spring-mvc/" class="archive-article-date">
+  	<time datetime="2020-02-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="数据库连接错误排查："><a href="#数据库连接错误排查：" class="headerlink" title="数据库连接错误排查："></a>数据库连接错误排查：</h2><p>一、查看项目是否导入了 “mysql-connector-java” 这个jar包。</p>
-<p>二、自己将jar包复制到项目中，并且将该jar包add to build path。</p>
-<p>三、查看数据库连接信息是否有细微的小错误。</p>
-<p>四、引入Jar包到项目文件夹WEB-INF下面。</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68261741-0d75f380-007c-11ea-85be-910a40e0ec3a.png" alt="图片1"></p>
-<p>上图显示已经引入了包。</p>
-<p>引入了包，并且没有任何错误。但是我发现无论如何都引入不进去，最后找到了一种解决方式——右键项目文件点击Properties<br>如下图</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68261780-267ea480-007c-11ea-9246-1cd496938ee3.png" alt="图片2"></p>
-<p>点击add</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68262018-eff55980-007c-11ea-83a4-d4acff1a304c.png" alt="图片3"></p>
-<p>选择java build path entries，并浏览选择你的jar包，添加后如下图。</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68262032-fdaadf00-007c-11ea-9aab-90091890618a.png" alt="图片4"></p>
-<h2 id="js报错："><a href="#js报错：" class="headerlink" title="js报错："></a>js报错：</h2><p>将windows–&gt;preferences–&gt;validation–&gt;javaScript Validation后面的勾去掉再刷新项目就可以了。</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68262572-9857ed80-007e-11ea-9515-00f891f83c35.png" alt="图片5"></p>
-<h2 id="jsp文件报错："><a href="#jsp文件报错：" class="headerlink" title="jsp文件报错："></a>jsp文件报错：</h2><p>右键项目》build path》server》为项目选择一个tomcat容器就ok了。</p>
-<p>resource包报错：首先查看是否有错误包或者是jdk版本不一致导致，如果不是就打开项目磁盘目录》.settings》org.eclipse.wst.common.project.facet.core.xml》<runtime name="com.genuitec.runtime.generic.jee60">这行代码删除。</runtime></p>
+        <p>好久没更新了今日更新下</p>
+<h2 id="Spring-MVC概述："><a href="#Spring-MVC概述：" class="headerlink" title="Spring MVC概述："></a>Spring MVC概述：</h2><p>Spring MVC是Spring提供的一个强大而灵活的web框架。借助于注解，Spring MVC提供了几乎是POJO的开发模式，使得控制器的开发和测试更加简单。这些控制器一般不直接处理请求，而是将其委托给Spring上下文中的其他bean，通过Spring的依赖注入功能，这些bean被注入到控制器中。</p>
+<p>Spring MVC主要由DispatcherServlet、处理器映射、处理器(控制器)、视图解析器、视图组成。他的两个核心是两个核心：</p>
+<p>处理器映射：选择使用哪个控制器来处理请求<br>视图解析器：选择结果应该如何渲染</p>
+<p>通过以上两点，Spring MVC保证了如何选择控制处理请求和如何选择视图展现输出之间的松耦合。</p>
+<h2 id="Spring-MVC基本概念图"><a href="#Spring-MVC基本概念图" class="headerlink" title="Spring MVC基本概念图"></a>Spring MVC基本概念图</h2><p><img src="https://user-images.githubusercontent.com/55903351/74316487-95267900-4db4-11ea-8d8f-a51099d4232f.png" alt="1"></p>
+<h2 id="SpringMVC运行原理"><a href="#SpringMVC运行原理" class="headerlink" title="SpringMVC运行原理"></a>SpringMVC运行原理</h2><p><img src="https://user-images.githubusercontent.com/55903351/74316697-fc442d80-4db4-11ea-8b3b-75bf9d162fdd.png" alt="2"></p>
 
       
 
@@ -275,7 +263,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/07/JavaWeb项目中数据库连接问题解决/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/02/12/spring-mvc/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -289,18 +277,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/11/08/MySQL数据库增删改查/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MySQL数据库增删改查
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/11/06/2019-11-6/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2019-11-6</div>
+    <a href="/2019/12/10/jsp-filter过滤器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jsp--filter过滤器</div>
       <i class="icon-circle-right"></i>
     </a>
   
