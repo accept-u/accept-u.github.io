@@ -152,6 +152,169 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MYSQL面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/09/MYSQL面试题/">MYSQL面试题</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/09/MYSQL面试题/" class="archive-article-date">
+  	<time datetime="2020-03-09T02:27:34.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MYSQL面试题1"><a href="#MYSQL面试题1" class="headerlink" title="MYSQL面试题1"></a>MYSQL面试题1</h2><h3 id="数据表介绍"><a href="#数据表介绍" class="headerlink" title="数据表介绍"></a>数据表介绍</h3><p>1.学生表<br>Student(SId,Sname,Sage,Ssex)<br>SId 学生编号,Sname 学生姓名,Sage 出生年月,Ssex 学生性别</p>
+<p>2.课程表<br>Course(CId,Cname,TId)<br>CId 课程编号,Cname 课程名称,TId 教师编号</p>
+<p>3.教师表<br>Teacher(TId,Tname)<br>TId 教师编号,Tname 教师姓名</p>
+<p>4.成绩表<br>SC(SId,CId,score)<br>SId 学生编号,CId 课程编号,score 分数</p>
+<h2 id="建立数据表并插入数据"><a href="#建立数据表并插入数据" class="headerlink" title="建立数据表并插入数据"></a>建立数据表并插入数据</h2><h3 id="学生表-Student"><a href="#学生表-Student" class="headerlink" title="学生表 Student"></a>学生表 Student</h3><p>create table Student(SId varchar(10),Sname varchar(10),Sage datetime,Ssex varchar(10));<br>insert into Student values(‘01’ , ‘小米’ , ‘1990-01-01’ , ‘男’);<br>insert into Student values(‘02’ , ‘香茗’ , ‘1990-12-21’ , ‘男’);<br>insert into Student values(‘03’ , ‘孙风’ , ‘1990-12-20’ , ‘男’);<br>insert into Student values(‘04’ , ‘李云’ , ‘1990-12-06’ , ‘男’);<br>insert into Student values(‘05’ , ‘周梅’ , ‘1991-12-01’ , ‘女’);<br>insert into Student values(‘06’ , ‘吴兰’ , ‘1992-01-01’ , ‘女’);<br>insert into Student values(‘07’ , ‘郑竹’ , ‘1989-01-01’ , ‘女’);<br>insert into Student values(‘09’ , ‘张三’ , ‘2017-12-20’ , ‘男’);<br>insert into Student values(‘10’ , ‘李四’ , ‘2017-12-25’ , ‘男’);<br>insert into Student values(‘11’ , ‘李四’ , ‘2012-06-06’ , ‘男’);<br>insert into Student values(‘12’ , ‘赵六’ , ‘2013-06-13’ , ‘女’);<br>insert into Student values(‘13’ , ‘孙七’ , ‘2014-06-01’ , ‘女’);</p>
+<h3 id="科目表-Course"><a href="#科目表-Course" class="headerlink" title="科目表 Course"></a>科目表 Course</h3><p>create table Course(CId varchar(10),Cname nvarchar(10),TId varchar(10));<br>insert into Course values(‘01’ , ‘语文’ , ‘02’);<br>insert into Course values(‘02’ , ‘数学’ , ‘01’);<br>insert into Course values(‘03’ , ‘英语’ , ‘03’);</p>
+<h3 id="教师表-Teacher"><a href="#教师表-Teacher" class="headerlink" title="教师表 Teacher"></a>教师表 Teacher</h3><pre><code>create table Teacher(TId varchar(10),Tname varchar(10));
+insert into Teacher values(&apos;01&apos; , &apos;张三&apos;);
+insert into Teacher values(&apos;02&apos; , &apos;李四&apos;);
+insert into Teacher values(&apos;03&apos; , &apos;王五&apos;);</code></pre><h3 id="成绩表-SC"><a href="#成绩表-SC" class="headerlink" title="成绩表 SC"></a>成绩表 SC</h3><pre><code>create table SC(SId varchar(10),CId varchar(10),score decimal(16,1));
+insert into SC values(&apos;01&apos; , &apos;01&apos; , 80);
+insert into SC values(&apos;01&apos; , &apos;02&apos; , 90);
+insert into SC values(&apos;02&apos; , &apos;01&apos; , 70);
+insert into SC values(&apos;02&apos; , &apos;02&apos; , 60);
+insert into SC values(&apos;02&apos; , &apos;03&apos; , 80);
+insert into SC values(&apos;03&apos; , &apos;01&apos; , 80);
+insert into SC values(&apos;03&apos; , &apos;02&apos; , 80);
+insert into SC values(&apos;03&apos; , &apos;03&apos; , 80);
+insert into SC values(&apos;04&apos; , &apos;01&apos; , 50);
+insert into SC values(&apos;04&apos; , &apos;03&apos; , 20);
+insert into SC values(&apos;05&apos; , &apos;01&apos; , 76);
+insert into SC values(&apos;05&apos; , &apos;02&apos; , 87);
+insert into SC values(&apos;06&apos; , &apos;01&apos; , 31);
+insert into SC values(&apos;06&apos; , &apos;03&apos; , 34);
+insert into SC values(&apos;07&apos; , &apos;02&apos; , 89);
+insert into SC values(&apos;07&apos; , &apos;03&apos; , 98);</code></pre><p>##　练习题目<br>查询” 01 “课程比” 02 “课程成绩高的学生的信息及课程分数<br>        SELECT * FROM student RIGHT JOIN<br>        (SELECT t1.sid,cldone_score,cldtwo_score FROM<br>        (SELECT sid,score as cldone_score FROM sc WHERE CId=’01’) as t1,<br>        (SELECT sid,score as cldtwo_score FROM sc WHERE CId=’02’) as t2<br>        WHERE t1.cldone_score&gt;t2.cldtwo_score AND t1.SId=t2.SId)r<br>        ON student.SId=r.SId;</p>
+<p>查询同时存在” 01 “课程和” 02 “课程的情况</p>
+<pre><code>SELECT * FROM(
+(SELECT * FROM sc WHERE CId=&apos;01&apos;) AS t1,
+(SELECT * FROM sc WHERE CId=&apos;02&apos;) AS t2
+) WHERE t1.SId=t2.SId;</code></pre><p>查询存在” 01 “课程但可能不存在” 02 “课程的情况(不存在时显示为 null )</p>
+<pre><code>SELECT * FROM
+(SELECT * FROM sc WHERE CId=&apos;01&apos;) AS t2
+RIGHT JOIN
+(SELECT * FROM sc WHERE CId=&apos;02&apos;) AS t1
+on t1.SId=t2.SId;</code></pre><p>查询不存在” 01 “课程但存在” 02 “课程的情况</p>
+<pre><code>SELECT * FROM sc
+WHERE sc.SId NOT in (SELECT SId FROM sc
+WHERE sc.CId = &apos;01&apos;) 
+AND sc.CId = &apos;02&apos;;</code></pre><p>查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩<br>        SELECT student.SId,Sname,ss FROM student,<br>        (SELECT SId,AVG(score) as ss FROM sc<br>        GROUP BY SId<br>        HAVING AVG(score)&gt;60<br>        ) r<br>        WHERE student.SId=r.SId;</p>
+<p>查询在 SC 表存在成绩的学生信息<br>        SELECT student.* ,sc.score FROM<br>        student,sc<br>        WHERE student.SId=sc.SId;</p>
+<p>查询所有同学的学生编号、学生姓名、选课总数、所有课程的总成绩(没成绩的显示为 null )<br>        SELECT student.SId,Sname,r.sum,r.count FROM (<br>        SELECT SID,SUM(score) as sum,COUNT(SId) as count<br>        FROM sc<br>        GROUP BY SId)r<br>        RIGHT JOIN student<br>        on student.SId = r.SID;</p>
+<p>查有成绩的学生信息</p>
+<pre><code>SELECT * FROM student
+WHERE EXISTS(
+select sc.sid from sc
+WHERE student.sid = sc.sid)
+或
+select * from student
+where student.sid in (select sc.sid from sc);</code></pre><p>查询「李」姓老师的数量<br>        SELECT COUNT(TId) FROM<br>        (SELECT * FROM teacher WHERE Tname LIKE ‘李%’)r<br>        GROUP BY r.Tid;<br>        或<br>        select count(*)<br>        from teacher<br>        where tname like ‘李%’;</p>
+<p>查询学过「张三」老师授课的同学的信息<br>        SELECT student.* FROM sc,course,student,teacher<br>        WHERE<br>        student.SId=sc.SId<br>        and course.TId=teacher.TId<br>        and sc.CId=course.CId<br>        AND Tname=’张三’;</p>
+<p>查询没有学全所有课程的同学的信息<br>        SELECT student.* FROM student<br>        WHERE SId NOT in (<br>        SELECT SId FROM sc<br>        GROUP BY SId<br>        HAVING COUNT(SId) =<br>        (SELECT COUNT(CId) FROM course));</p>
+<p>查询至少有一门课与学号为” 01 “的同学所学相同的同学的信息<br>        SELECT student.* FROM student<br>        WHERE SId in(<br>        SELECT SId FROM sc<br>        WHERE CId in(<br>        SELECT CId FROM sc WHERE SId=’01’));</p>
+<p>查询和” 01 “号的同学学习的课程 完全相同的其他同学的信息<br>        select sid<br>        from student<br>        where not exists (select 1 from (select cid from sc where sid=’01’) b<br>        where not exists(select 1 from sc<br>        where sc.sid=student.sid and sc.cid=b.cid));</p>
+<p>查询没学过”张三”老师讲授的任一门课程的学生姓名<br>        SELECT student.* FROM student<br>        WHERE SId not in(<br>        SELECT SId FROM sc WHERE CId in(<br>        SELECT course.CId FROM teacher,course<br>        WHERE Tname=’张三’ AND course.TId=teacher.TId));</p>
+<p>查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩<br>        select student.SId,student.Sname,avg<br>        from student RIGHT JOIN<br>        (select sid,AVG(score) as avg from sc<br>        where sid in<br>        (select sid from sc where score&lt;60 GROUP BY sid HAVING count(score)&gt;1)<br>        GROUP BY sid) b<br>        on student.sid=b.sid;</p>
+<p>检索” 01 “课程分数小于 60，按分数降序排列的学生信息<br>        SELECT student.* FROM student,(<br>        SELECT SId FROM(SELECT * FROM sc<br>        WHERE CId=’01’<br>        ORDER BY score)tem<br>        WHERE tem.score&lt;60)r<br>        WHERE student.SId=r.SId;</p>
+<pre><code>或
+
+select student.*, sc.score from student,sc
+WHERE student.SId=sc.SId
+AND score&lt;60
+AND CId=&apos;01&apos;
+ORDER BY score;</code></pre><p>按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩<br>        SELECT sc.*,t1.avg FROM sc RIGHT JOIN<br>        (SELECT sid,AVG(score) as avg FROM sc<br>        GROUP BY SId) as t1<br>        on t1.SId=sc.SId<br>        ORDER BY t1.avg DESC;</p>
+<p>查询各科成绩最高分、最低分和平均分：<br>• 以如下形式显示：课程 ID，课程 name，最高分，最低分，平均分，及格率，中等率，优良率，优秀率<br>• 及格为&gt;=60，中等为：70-80，优良为：80-90，优秀为：&gt;=90<br>• 要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列<br>        SELECT cid,<br>        MAX(score) as max,<br>        MIN(score) as min,<br>        AVG(score) as avg,<br>        COUNT(CId) as Count,<br>        sum(CASE when sc.score&gt;=60 THEN 1 ELSE 0 END)/COUNT(<em>) as jige,<br>        sum(CASE WHEN sc.score&gt;=70 and sc.score&lt;80 THEN 1 ELSE 0 END)/COUNT(</em>) as zhongdeng,<br>        sum(CASE WHEN sc.score&gt;=80 AND sc.score&lt;90 THEN 1 ELSE 0 END)/COUNT(<em>) as youliang,<br>        SUM(CASE WHEN sc.score&gt;=90 THEN 1 ELSE 0 END)/COUNT(</em>) as youxiu<br>        FROM  sc<br>        GROUP BY CId<br>        ORDER BY count DESC,sc.CId asc;</p>
+<p>按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺<br>• 15.1 按各科成绩进行排序，并显示排名， Score 重复时合并名次<br>        SELECT a.cid,a.SId,a.score,COUNT(b.score)+1 as rank<br>        FROM sc as a LEFT JOIN sc b<br>        on a.score&lt;b.score AND a.CId=b.CId<br>        GROUP BY a.CId,a.SId,a.score<br>        ORDER BY a.CId,rank asc;</p>
+<p>查询学生的总成绩，并进行排名，总分重复时保留名次空缺<br>• 16.1 查询学生的总成绩，并进行排名，总分重复时不保留名次空缺<br>        set @crank=0;<br>        SELECT tmp.SId,tmp.total,@crank := @crank +1 as rank FROM<br>        (SELECT sc.SId,SUM(sc.score) as total FROM sc<br>        GROUP BY SId<br>        ORDER BY total DESC)tmp;</p>
+<p>统计各科成绩各分数段人数：课程编号，课程名称，[100-85]，[85-70]，[70-60]，[60-0] 及所占百分比<br>        select course.cname, course.cid,<br>        sum(case when sc.score&lt;=100 and sc.score&gt;85 then 1 else 0 end) as “[100-85]”,<br>        CONCAT(sum(case when sc.score&lt;=100 and sc.score&gt;85 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[100-85]百分比”,<br>        sum(case when sc.score&lt;=85 and sc.score&gt;70 then 1 else 0 end) as “[85-70]”,<br>        CONCAT(sum(case when sc.score&lt;=85 and sc.score&gt;70 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[85-70]百分比]” ,<br>        sum(case when sc.score&lt;=70 and sc.score&gt;60 then 1 else 0 end) as “[70-60]”,<br>        CONCAT(sum(case when sc.score&lt;=70 and sc.score&gt;60 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[70-60]百分比”,<br>        sum(case when sc.score&lt;=60 and sc.score&gt;0 then 1 else 0 end) as “[60-0]”,<br>        CONCAT(sum(case when sc.score&lt;=60 and sc.score&gt;0 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[60-0]百分比”<br>        from sc left join course<br>        on sc.cid = course.cid<br>        group by sc.cid;</p>
+<p>查询各科成绩前三名的记录<br>        select * from sc<br>        where (select count(*) from sc as a<br>        where sc.cid = a.cid and sc.score&lt;a.score )&lt; 3<br>        order by cid asc, sc.score desc;</p>
+<p>查询每门课程被选修的学生数<br>        SELECT cid,COUNT(SId) as total FROM sc<br>        GROUP BY CId;</p>
+<p>查询出只选修两门课程的学生学号和姓名<br>        SELECT  student.SId,student.Sname,temp.total FROM student,(<br>        SELECT sid,COUNT(CId) as total FROM sc<br>        GROUP BY SId)temp<br>        WHERE temp.total=2 AND student.SId=temp.Sid;</p>
+<p>或</p>
+<pre><code>select student.sid, student.sname from student
+where student.sid in
+(select sc.sid from sc
+group by sc.sid
+having count(sc.cid)=2);</code></pre><p>查询男生、女生人数<br>        select ssex, count(*) from student<br>        group by ssex;</p>
+<p>查询名字中含有「风」字的学生信息<br>        SELECT * FROM student<br>        WHERE Sname LIKE(‘%风%’);</p>
+<p>查询同名同性学生名单，并统计同名人数<br>        SELECT sname,COUNT(<em>) FROM student<br>        GROUP BY Sname<br>        HAVING count(</em>)&gt;1;</p>
+<p>查询 1990 年出生的学生名单<br>        SELECT * FROM student<br>        WHERE YEAR(Sage)=1990;</p>
+<p>查询每门课程的平均成绩，结果按平均成绩降序排列，平均成绩相同时，按课程编号升序排列<br>        SELECT * FROM<br>        (SELECT cid,AVG(score) as cidavg FROM sc<br>        GROUP BY CId) as temp ORDER BY cidavg,cid asc;</p>
+<p>查询平均成绩大于等于 85 的所有学生的学号、姓名和平均成绩<br>        select student.sid, student.sname, AVG(sc.score) as aver from student, sc<br>        where student.sid = sc.sid<br>        group by sc.sid<br>        having aver &gt; 85;</p>
+<p>查询课程名称为「数学」，且分数低于 60 的学生姓名和分数<br>        SELECT student.Sname,sc.cid,sc.score FROM course,sc,student<br>        WHERE course.Cname=’数学’<br>        AND course.CId=sc.CId<br>        AND student.SId=sc.SId<br>        AND score&lt;60;</p>
+<p>查询所有学生的课程及分数情况（存在学生没成绩，没选课的情况）<br>        SELECT student.sid,student.Sname,sc.CId,score FROM student LEFT JOIN sc<br>        on student.SId=sc.SId;</p>
+<p>查询任何一门课程成绩在 70 分以上的姓名、课程名称和分数<br>        SELECT student.Sname,course.CId,course.Cname,sc.score<br>        FROM sc,course,student<br>        WHERE sc.score&gt;70<br>        AND sc.CId=course.CId<br>        AND sc.SId=student.SId;</p>
+<p>查询不及格的课程<br>        SELECT CId,score FROM sc<br>        WHERE sc.score&lt;60<br>        GROUP BY CId;</p>
+<p>查询课程编号为 01 且课程成绩在 80 分以上的学生的学号和姓名<br>        SELECT student.SId,student.Sname FROM sc,student<br>        WHERE CId=’01’<br>        AND sc.score&gt;=80<br>        AND sc.SId=student.SId;</p>
+<p>求每门课程的学生人数<br>        SELECT cid,count(SId) as count FROM sc<br>        GROUP BY CId;</p>
+<p>成绩不重复，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>        SELECT student.*,sc.score,sc.CId FROM sc,student,teacher,course<br>        WHERE teacher.Tname=’张三’<br>        AND teacher.TId=course.TId<br>        AND course.CId=sc.CId<br>        AND student.SId=sc.SId<br>        HAVING max(sc.score);</p>
+<p>成绩有重复的情况下，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>        select student.*, sc.score, sc.cid from student, teacher, course,sc<br>        where teacher.tname = “张三”<br>        AND teacher.tid = course.tid<br>        AND sc.sid = student.sid<br>        AND sc.cid = course.cid<br>        AND sc.score=(select Max(sc.score)<br>            from sc,student, teacher, course<br>            where teacher.tid = course.tid<br>            and sc.sid = student.sid<br>            and sc.cid = course.cid<br>            and teacher.tname = “张三”);</p>
+<p>查询不同课程成绩相同的学生的学生编号、课程编号、学生成绩<br>        SELECT a.CId,a.SId,a.score FROM sc as a INNER JOIN sc as b<br>        ON a.SId=b.SId<br>        AND a.CId!=b.CId<br>        AND a.score=b.score<br>        GROUP BY CId,SId;</p>
+<p>查询每门功成绩最好的前两名<br>        select a.sid,a.cid,a.score from sc as a<br>        left join sc as b<br>        on a.cid = b.cid and a.score&lt;b.score<br>        group by a.cid, a.sid<br>        having count(b.cid)&lt;2<br>        order by a.cid;</p>
+<p>统计每门课程的学生选修人数（超过 5 人的课程才统计）<br>        SELECT cid,COUNT(SId) FROM sc<br>        GROUP BY CId<br>        HAVING COUNT(SId)&gt;5;</p>
+<p>检索至少选修两门课程的学生学号<br>        SELECT sid,COUNT(SId) as two FROM sc<br>        GROUP BY SId<br>        HAVING two&gt;=2;</p>
+<p>查询选修了全部课程的学生信息<br>        select student.* from sc ,student<br>        where sc.SId=student.SId<br>        GROUP BY sc.SId<br>        HAVING count(<em>) = (select DISTINCT count(</em>) from course );</p>
+<p>查询各学生的年龄，只按年份来算<br>        SELECT sid,YEAR(NOW())-YEAR(Sage) as age<br>        FROM student;</p>
+<p>按照出生日期来算，当前月日 &lt; 出生年月的月日则，年龄减一<br>        select student.SId as stu_id,student.Sname  as  stu_name,<br>        TIMESTAMPDIFF(YEAR,student.Sage,CURDATE()) as age #时间差函数TIMESTAMPDIFF<br>        from student;</p>
+<p>查询本周过生日的学生<br>        SELECT * FROM student<br>        WHERE WEEKOFYEAR(Sage)=WEEKOFYEAR(CURDATE());</p>
+<p>查询下周过生日的学生<br>        select *<br>        from student<br>        where WEEKOFYEAR(student.Sage)=WEEKOFYEAR(CURDATE())+1;</p>
+<p>查询本月过生日的学生<br>        SELECT * FROM student<br>        WHERE MONTH(Sage)=MONTH(CURDATE());</p>
+<p>查询下月过生日的学生<br>        SELECT * FROM student<br>        WHERE MONTH(Sage)=MONTH(CURDATE())+1;</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/09/MYSQL面试题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-centos安装oracle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -388,7 +551,7 @@
 <p>a.选项-silent表示静默安装，免安装交互，大部分安装信息也不输出</p>
 <p>b.选项-responseFile指定应答文件，要求用绝对路径</p>
 <h3 id="16，一些常用命令"><a href="#16，一些常用命令" class="headerlink" title="16，一些常用命令"></a>16，一些常用命令</h3><p>进入到数据库后执行，查询数据库服务的名称</p>
-<p>select global_name from global_name：</p>
+<p>select global_name from global_name;</p>
 <p>启动监听</p>
 <p>lsnrctl start</p>
 <p>关闭监听</p>
@@ -1465,200 +1628,6 @@ response.sendRedirect(path+&quot;/index.jsp&quot;);
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/11/20/课堂笔记11-20/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MySQL数据库练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/12/MySQL数据库练习/">MySQL数据库练习</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/12/MySQL数据库练习/" class="archive-article-date">
-  	<time datetime="2019-11-12T13:07:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="创建customers表"><a href="#创建customers表" class="headerlink" title="创建customers表"></a>创建customers表</h1><pre><code>CREATE TABLE customers(
-cust_id INT AUTO_INCREMENT PRIMARY KEY,
-cust_name VARCHAR(20) NOT NULL,
-cust_address VARCHAR(30),
-cust_city VARCHAR(20),
-cust_state VARCHAR(20),
-cust_zip VARCHAR(20),
-cust_country VARCHAR(20),
-cust_contact VARCHAR(20),
-cust_email VARCHAR(20)
-);
-
-# 插入语句
-INSERT INTO customers VALUES(10000005,&apos;sam&apos;,&apos;郑上路81号&apos;,&apos;郑州&apos;,&apos;河南&apos;,&apos;461670&apos;,&apos;中国&apos;,&apos;15736815602&apos;,&apos;860769371@qq.com&apos;);
-UPDATE customers SET cust_name = &quot;晋文帅&quot;,cust_email = &quot;1215910549@qq.com&quot; WHERE cust_id = 10000003;
-SELECT * FROM customers;</code></pre><h1 id="创建orders表"><a href="#创建orders表" class="headerlink" title="创建orders表"></a>创建orders表</h1><pre><code>CREATE TABLE orders(
-order_num INT AUTO_INCREMENT PRIMARY KEY,
-order_date TIMESTAMP,
-cust_id INT
-);
-#插入语句
-INSERT INTO orders(order_num,cust_id) VALUES(20005,10000001);
-SELECT * FROM orders;
-#删除orders表
-DROP TABLE orders; </code></pre><h1 id="创建orderitems表"><a href="#创建orderitems表" class="headerlink" title="创建orderitems表"></a>创建orderitems表</h1><pre><code>CREATE TABLE orderitems(
-order_num INT AUTO_INCREMENT PRIMARY KEY,
-order_item INT,
-prod_id VARCHAR(20),
-quentity int,
-item_price DOUBLE
-);
-#插入语句
-INSERT INTO orderitems VALUES(200005,1,&apos;BR01&apos;,100,54.9);
-SELECT * FROM orderitems;</code></pre><h1 id="创建Products表"><a href="#创建Products表" class="headerlink" title="创建Products表"></a>创建Products表</h1><pre><code>CREATE TABLE Products(
-prod_id VARCHAR(20) PRIMARY KEY,
-vend_id VARCHAR(20),
-prod_name VARCHAR(20),
-prod_price DOUBLE,
-prod_desc VARCHAR(255)
-);
-#插入语句
-INSERT INTO Products VALUES(&apos;BR01&apos;,&apos;BRS01&apos;,&apos;King Doll&apos;,54.9,&apos;18 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR02&apos;,&apos;BRS02&apos;,&apos;King Doll&apos;,5.9,&apos;16 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR03&apos;,&apos;BRS03&apos;,&apos;King Doll&apos;,4.9,&apos;17 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR04&apos;,&apos;BRS04&apos;,&apos;King Doll&apos;,5.6,&apos;13 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR05&apos;,&apos;BRS05&apos;,&apos;King Doll&apos;,5.9,&apos;12 inch teddy&apos;);
-SELECT * FROM Products;</code></pre><h1 id="新建表Vendors"><a href="#新建表Vendors" class="headerlink" title="新建表Vendors"></a>新建表Vendors</h1><pre><code>CREATE TABLE Vendors(
-vend_id VARCHAR(20) PRIMARY KEY,
-vend_name VARCHAR(20),
-vend_address VARCHAR(30),
-vend_city VARCHAR(20),
-vend_state VARCHAR(20),
-vend_zip VARCHAR(20),
-vend_country VARCHAR(20)
-);
-#插入语句
-INSERT INTO Vendors VALUES(&apos;BRS01&apos;,&apos;Bears R Us&apos;,&apos;123 Main Street&apos;,&apos;Bear Town&apos;,&apos;MI&apos;,&apos;444&apos;,&apos;USA&apos;);
-SELECT * FROM Vendors;</code></pre><h1 id="一、检索数据-select语句"><a href="#一、检索数据-select语句" class="headerlink" title="一、检索数据-select语句"></a>一、检索数据-select语句</h1><pre><code>select prod_name from products;                        //检索单个列
-select prod_id,prod_name,prod_price from products;         //检索多个列
-select * from products;     //检索所有列
-select distinct vend_id from products;                 //选择不同的值，注意distinct作用于所有列而不仅是紧跟在其后的一列
-select prod_name from products
-limit 5;                   // 返回5行
-select prod_name from products
-limit 3 offset 2;                                          //返回从第2行起的3行数据：limit 行数   offset 偏移量</code></pre><h1 id="二、注释"><a href="#二、注释" class="headerlink" title="二、注释"></a>二、注释</h1><p>行内注释：#注释<br>多行注释：/<em>注释</em>/</p>
-<h1 id="三、排序检索数据"><a href="#三、排序检索数据" class="headerlink" title="三、排序检索数据"></a>三、排序检索数据</h1><pre><code>select prod_name from products
-order by prod_name;                                             //按单列排序
-select prod_id,prod_price,prod_name from products
-order by prod_price,prod_name;              //按多个列排序，首先对price排，再对name排，注意仅在多行具有相同的price时才会对name进行排序
-select prod_id,prod_price,prod_name from products
-order by prod_price desc,prod_name;                   //对price降序，name升序，注意desc只应用到直接位于其前面的列名</code></pre><h1 id="四、过滤数据-where子句"><a href="#四、过滤数据-where子句" class="headerlink" title="四、过滤数据-where子句"></a>四、过滤数据-where子句</h1><pre><code>select prod_name,prod_price from products
-where prod_price&lt;10;                                            //检查单个值
-where vend_id &lt;&gt;&apos;DLL01&apos;;                                     //不匹配检查
-where vend_id !=&apos;DLL01&apos;;
-select prod_name,prod_price from products
-where prod_price between 5 and 10;                     //范围性检查
-select prod_name from products
-where prod_price is null;                                         //检查空值
-select prod_id,prod_price,prod_name from products
-where vend_id=&apos;DLL01&apos; and prod_price&lt;=4;          //and操作符
-where vend_id=&apos;DLL01&apos; or vend_id=&apos;BRS01&apos;;        //or操作符
-where vend_id in(&apos;DLL01&apos;,&apos;BRS01&apos;);                      //in操作符，与or等价
-where not vend_id=&apos;DLL01&apos;;                                  //not操作符，否定跟在其后的条件，等价于：where vend_id &lt;&gt;&apos;DLL01&apos;
-where prod_name like &apos;Fish%&apos;;                             //like操作符+%通配符，返回所有以Fish起头的产品
-where prod_name like&apos;%bean bag%&apos;;                  //检索包含文本bean bag的值，不管在之前还是之后。
-where prod_name like&apos;F%y&apos;;                                //检索以F起头，以y结尾的所有产品</code></pre><h1 id="五、汇总数据"><a href="#五、汇总数据" class="headerlink" title="五、汇总数据"></a>五、汇总数据</h1><pre><code>select avg(prod_price) as avg_price                     //avg()用于求均值，只用于单列，忽略列值为null的行
-from products;
-select count(*) as num_cust from customers;      //计算表中行的数目，不忽略空值
-select count(cust_email) as num_cust                 //计算指定列中具有值的行数，掠过空值
-from customers;
-select max(prod_price） as max_price                //返回最大价格，忽略空值
-from products;
-select min(prod_price） as min_price                  //返回最低价格，忽略空值
-from products;
-select sum(quantity) as items_ordered                //求和，忽略空值
-from orderitems;</code></pre><h1 id="六、分组数据"><a href="#六、分组数据" class="headerlink" title="六、分组数据"></a>六、分组数据</h1><pre><code>select vend_id,count(*) as num_prods
-from products
-group by vend_id;                                                //按id进行分组，count对每个id都做一次计数，group by子句必须出现在where子句之后，order by之前
-group by cust_id
-having count(*)&gt;=2;//过滤分组</code></pre><h1 id="七、子查询"><a href="#七、子查询" class="headerlink" title="七、子查询"></a>七、子查询</h1><pre><code>select cust_id from orders
-where order_num in(select order_num from orderitems
-                   where prod_id=&apos;RGAN01&apos;);               //由内向外执行
-等价于：
-select order_num from orderitems
-where prod_id=&apos;RGAN01&apos;;
-输出：
-order_num
--------------
-20007
-20008
-select cust_id from orders
-where order_num in(20007,20008);</code></pre><h1 id="八、联结表"><a href="#八、联结表" class="headerlink" title="八、联结表"></a>八、联结表</h1><h2 id="内连接（等值连接）"><a href="#内连接（等值连接）" class="headerlink" title="内连接（等值连接）"></a>内连接（等值连接）</h2><pre><code>select vend_name,prod_name,prod_price
-from vendors inner join products
-on vendors.vend_id=products.vend_id;            //连接条件为vendors.vend_id=products.vend_id
-等价于：
-select vend_name,prod_name,prod_price
-from vendors,products
-where vendors.vend_id=products.vend_id;</code></pre><h2 id="多表连接"><a href="#多表连接" class="headerlink" title="多表连接"></a>多表连接</h2><pre><code>select prod_name,vend_name,prod_price,quantity
-from oederitems,products,vendors
-where products.vend_id=vendors.vend_id
-and orderitems.prod_id=products.prod_id
-and order_num=20007;</code></pre><h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><pre><code>select c1.cust_id,c1.cust_name,c1.cust_contact
-from customers as c1,customers as c2              //使用表别名
-where c1.cust_name=c2.cust_name
-and c2.cust_contact=&apos;jim jones&apos;;
-等价于：
-select cust_id,cust_name,cust_contact
-from customers
-where cust_name=(select cust_name 
-                 from customers
-                 where cust_contact=&apos;jim jones&apos;);</code></pre><h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><pre><code>select customers.cust_id,orders.order_num
-from customers left outer join orders
-on customers.cust_id=orders.cust_id;                 //左外连接，left指定from子句左边的表（customers)选择所有行</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/12/MySQL数据库练习/">展开全文 >></a>
         </p>
       
 

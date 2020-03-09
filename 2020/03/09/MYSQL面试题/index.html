@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>MYSQL面试题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="MYSQL面试题1数据表介绍1.学生表Student(SId,Sname,Sage,Ssex)SId 学生编号,Sname 学生姓名,Sage 出生年月,Ssex 学生性别 2.课程表Course(CId,Cname,TId)CId 课程编号,Cname 课程名称,TId 教师编号 3.教师表Teacher(TId,Tname)TId 教师编号,Tname 教师姓名 4.成绩表SC(SId,CId">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MYSQL面试题">
+<meta property="og:url" content="http://yoursite.com/2020/03/09/MYSQL面试题/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MYSQL面试题1数据表介绍1.学生表Student(SId,Sname,Sage,Ssex)SId 学生编号,Sname 学生姓名,Sage 出生年月,Ssex 学生性别 2.课程表Course(CId,Cname,TId)CId 课程编号,Cname 课程名称,TId 教师编号 3.教师表Teacher(TId,Tname)TId 教师编号,Tname 教师姓名 4.成绩表SC(SId,CId">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-09T02:47:42.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="MYSQL面试题">
+<meta name="twitter:description" content="MYSQL面试题1数据表介绍1.学生表Student(SId,Sname,Sage,Ssex)SId 学生编号,Sname 学生姓名,Sage 出生年月,Ssex 学生性别 2.课程表Course(CId,Cname,TId)CId 课程编号,Cname 课程名称,TId 教师编号 3.教师表Teacher(TId,Tname)TId 教师编号,Tname 教师姓名 4.成绩表SC(SId,CId">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,163 +154,151 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MySQL数据库练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-MYSQL面试题" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/12/MySQL数据库练习/">MySQL数据库练习</a>
+    <h1 class="article-title" itemprop="name">
+      MYSQL面试题
     </h1>
   
 
         
-        <a href="/2019/11/12/MySQL数据库练习/" class="archive-article-date">
-  	<time datetime="2019-11-12T13:07:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-12</time>
+        <a href="/2020/03/09/MYSQL面试题/" class="archive-article-date">
+  	<time datetime="2020-03-09T02:27:34.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="创建customers表"><a href="#创建customers表" class="headerlink" title="创建customers表"></a>创建customers表</h1><pre><code>CREATE TABLE customers(
-cust_id INT AUTO_INCREMENT PRIMARY KEY,
-cust_name VARCHAR(20) NOT NULL,
-cust_address VARCHAR(30),
-cust_city VARCHAR(20),
-cust_state VARCHAR(20),
-cust_zip VARCHAR(20),
-cust_country VARCHAR(20),
-cust_contact VARCHAR(20),
-cust_email VARCHAR(20)
-);
+        <h2 id="MYSQL面试题1"><a href="#MYSQL面试题1" class="headerlink" title="MYSQL面试题1"></a>MYSQL面试题1</h2><h3 id="数据表介绍"><a href="#数据表介绍" class="headerlink" title="数据表介绍"></a>数据表介绍</h3><p>1.学生表<br>Student(SId,Sname,Sage,Ssex)<br>SId 学生编号,Sname 学生姓名,Sage 出生年月,Ssex 学生性别</p>
+<p>2.课程表<br>Course(CId,Cname,TId)<br>CId 课程编号,Cname 课程名称,TId 教师编号</p>
+<p>3.教师表<br>Teacher(TId,Tname)<br>TId 教师编号,Tname 教师姓名</p>
+<p>4.成绩表<br>SC(SId,CId,score)<br>SId 学生编号,CId 课程编号,score 分数</p>
+<h2 id="建立数据表并插入数据"><a href="#建立数据表并插入数据" class="headerlink" title="建立数据表并插入数据"></a>建立数据表并插入数据</h2><h3 id="学生表-Student"><a href="#学生表-Student" class="headerlink" title="学生表 Student"></a>学生表 Student</h3><p>create table Student(SId varchar(10),Sname varchar(10),Sage datetime,Ssex varchar(10));<br>insert into Student values(‘01’ , ‘小米’ , ‘1990-01-01’ , ‘男’);<br>insert into Student values(‘02’ , ‘香茗’ , ‘1990-12-21’ , ‘男’);<br>insert into Student values(‘03’ , ‘孙风’ , ‘1990-12-20’ , ‘男’);<br>insert into Student values(‘04’ , ‘李云’ , ‘1990-12-06’ , ‘男’);<br>insert into Student values(‘05’ , ‘周梅’ , ‘1991-12-01’ , ‘女’);<br>insert into Student values(‘06’ , ‘吴兰’ , ‘1992-01-01’ , ‘女’);<br>insert into Student values(‘07’ , ‘郑竹’ , ‘1989-01-01’ , ‘女’);<br>insert into Student values(‘09’ , ‘张三’ , ‘2017-12-20’ , ‘男’);<br>insert into Student values(‘10’ , ‘李四’ , ‘2017-12-25’ , ‘男’);<br>insert into Student values(‘11’ , ‘李四’ , ‘2012-06-06’ , ‘男’);<br>insert into Student values(‘12’ , ‘赵六’ , ‘2013-06-13’ , ‘女’);<br>insert into Student values(‘13’ , ‘孙七’ , ‘2014-06-01’ , ‘女’);</p>
+<h3 id="科目表-Course"><a href="#科目表-Course" class="headerlink" title="科目表 Course"></a>科目表 Course</h3><p>create table Course(CId varchar(10),Cname nvarchar(10),TId varchar(10));<br>insert into Course values(‘01’ , ‘语文’ , ‘02’);<br>insert into Course values(‘02’ , ‘数学’ , ‘01’);<br>insert into Course values(‘03’ , ‘英语’ , ‘03’);</p>
+<h3 id="教师表-Teacher"><a href="#教师表-Teacher" class="headerlink" title="教师表 Teacher"></a>教师表 Teacher</h3><pre><code>create table Teacher(TId varchar(10),Tname varchar(10));
+insert into Teacher values(&apos;01&apos; , &apos;张三&apos;);
+insert into Teacher values(&apos;02&apos; , &apos;李四&apos;);
+insert into Teacher values(&apos;03&apos; , &apos;王五&apos;);</code></pre><h3 id="成绩表-SC"><a href="#成绩表-SC" class="headerlink" title="成绩表 SC"></a>成绩表 SC</h3><pre><code>create table SC(SId varchar(10),CId varchar(10),score decimal(16,1));
+insert into SC values(&apos;01&apos; , &apos;01&apos; , 80);
+insert into SC values(&apos;01&apos; , &apos;02&apos; , 90);
+insert into SC values(&apos;02&apos; , &apos;01&apos; , 70);
+insert into SC values(&apos;02&apos; , &apos;02&apos; , 60);
+insert into SC values(&apos;02&apos; , &apos;03&apos; , 80);
+insert into SC values(&apos;03&apos; , &apos;01&apos; , 80);
+insert into SC values(&apos;03&apos; , &apos;02&apos; , 80);
+insert into SC values(&apos;03&apos; , &apos;03&apos; , 80);
+insert into SC values(&apos;04&apos; , &apos;01&apos; , 50);
+insert into SC values(&apos;04&apos; , &apos;03&apos; , 20);
+insert into SC values(&apos;05&apos; , &apos;01&apos; , 76);
+insert into SC values(&apos;05&apos; , &apos;02&apos; , 87);
+insert into SC values(&apos;06&apos; , &apos;01&apos; , 31);
+insert into SC values(&apos;06&apos; , &apos;03&apos; , 34);
+insert into SC values(&apos;07&apos; , &apos;02&apos; , 89);
+insert into SC values(&apos;07&apos; , &apos;03&apos; , 98);</code></pre><p>##　练习题目<br>查询” 01 “课程比” 02 “课程成绩高的学生的信息及课程分数<br>        SELECT * FROM student RIGHT JOIN<br>        (SELECT t1.sid,cldone_score,cldtwo_score FROM<br>        (SELECT sid,score as cldone_score FROM sc WHERE CId=’01’) as t1,<br>        (SELECT sid,score as cldtwo_score FROM sc WHERE CId=’02’) as t2<br>        WHERE t1.cldone_score&gt;t2.cldtwo_score AND t1.SId=t2.SId)r<br>        ON student.SId=r.SId;</p>
+<p>查询同时存在” 01 “课程和” 02 “课程的情况</p>
+<pre><code>SELECT * FROM(
+(SELECT * FROM sc WHERE CId=&apos;01&apos;) AS t1,
+(SELECT * FROM sc WHERE CId=&apos;02&apos;) AS t2
+) WHERE t1.SId=t2.SId;</code></pre><p>查询存在” 01 “课程但可能不存在” 02 “课程的情况(不存在时显示为 null )</p>
+<pre><code>SELECT * FROM
+(SELECT * FROM sc WHERE CId=&apos;01&apos;) AS t2
+RIGHT JOIN
+(SELECT * FROM sc WHERE CId=&apos;02&apos;) AS t1
+on t1.SId=t2.SId;</code></pre><p>查询不存在” 01 “课程但存在” 02 “课程的情况</p>
+<pre><code>SELECT * FROM sc
+WHERE sc.SId NOT in (SELECT SId FROM sc
+WHERE sc.CId = &apos;01&apos;) 
+AND sc.CId = &apos;02&apos;;</code></pre><p>查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩<br>        SELECT student.SId,Sname,ss FROM student,<br>        (SELECT SId,AVG(score) as ss FROM sc<br>        GROUP BY SId<br>        HAVING AVG(score)&gt;60<br>        ) r<br>        WHERE student.SId=r.SId;</p>
+<p>查询在 SC 表存在成绩的学生信息<br>        SELECT student.* ,sc.score FROM<br>        student,sc<br>        WHERE student.SId=sc.SId;</p>
+<p>查询所有同学的学生编号、学生姓名、选课总数、所有课程的总成绩(没成绩的显示为 null )<br>        SELECT student.SId,Sname,r.sum,r.count FROM (<br>        SELECT SID,SUM(score) as sum,COUNT(SId) as count<br>        FROM sc<br>        GROUP BY SId)r<br>        RIGHT JOIN student<br>        on student.SId = r.SID;</p>
+<p>查有成绩的学生信息</p>
+<pre><code>SELECT * FROM student
+WHERE EXISTS(
+select sc.sid from sc
+WHERE student.sid = sc.sid)
+或
+select * from student
+where student.sid in (select sc.sid from sc);</code></pre><p>查询「李」姓老师的数量<br>        SELECT COUNT(TId) FROM<br>        (SELECT * FROM teacher WHERE Tname LIKE ‘李%’)r<br>        GROUP BY r.Tid;<br>        或<br>        select count(*)<br>        from teacher<br>        where tname like ‘李%’;</p>
+<p>查询学过「张三」老师授课的同学的信息<br>        SELECT student.* FROM sc,course,student,teacher<br>        WHERE<br>        student.SId=sc.SId<br>        and course.TId=teacher.TId<br>        and sc.CId=course.CId<br>        AND Tname=’张三’;</p>
+<p>查询没有学全所有课程的同学的信息<br>        SELECT student.* FROM student<br>        WHERE SId NOT in (<br>        SELECT SId FROM sc<br>        GROUP BY SId<br>        HAVING COUNT(SId) =<br>        (SELECT COUNT(CId) FROM course));</p>
+<p>查询至少有一门课与学号为” 01 “的同学所学相同的同学的信息<br>        SELECT student.* FROM student<br>        WHERE SId in(<br>        SELECT SId FROM sc<br>        WHERE CId in(<br>        SELECT CId FROM sc WHERE SId=’01’));</p>
+<p>查询和” 01 “号的同学学习的课程 完全相同的其他同学的信息<br>        select sid<br>        from student<br>        where not exists (select 1 from (select cid from sc where sid=’01’) b<br>        where not exists(select 1 from sc<br>        where sc.sid=student.sid and sc.cid=b.cid));</p>
+<p>查询没学过”张三”老师讲授的任一门课程的学生姓名<br>        SELECT student.* FROM student<br>        WHERE SId not in(<br>        SELECT SId FROM sc WHERE CId in(<br>        SELECT course.CId FROM teacher,course<br>        WHERE Tname=’张三’ AND course.TId=teacher.TId));</p>
+<p>查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩<br>        select student.SId,student.Sname,avg<br>        from student RIGHT JOIN<br>        (select sid,AVG(score) as avg from sc<br>        where sid in<br>        (select sid from sc where score&lt;60 GROUP BY sid HAVING count(score)&gt;1)<br>        GROUP BY sid) b<br>        on student.sid=b.sid;</p>
+<p>检索” 01 “课程分数小于 60，按分数降序排列的学生信息<br>        SELECT student.* FROM student,(<br>        SELECT SId FROM(SELECT * FROM sc<br>        WHERE CId=’01’<br>        ORDER BY score)tem<br>        WHERE tem.score&lt;60)r<br>        WHERE student.SId=r.SId;</p>
+<pre><code>或
 
-# 插入语句
-INSERT INTO customers VALUES(10000005,&apos;sam&apos;,&apos;郑上路81号&apos;,&apos;郑州&apos;,&apos;河南&apos;,&apos;461670&apos;,&apos;中国&apos;,&apos;15736815602&apos;,&apos;860769371@qq.com&apos;);
-UPDATE customers SET cust_name = &quot;晋文帅&quot;,cust_email = &quot;1215910549@qq.com&quot; WHERE cust_id = 10000003;
-SELECT * FROM customers;</code></pre><h1 id="创建orders表"><a href="#创建orders表" class="headerlink" title="创建orders表"></a>创建orders表</h1><pre><code>CREATE TABLE orders(
-order_num INT AUTO_INCREMENT PRIMARY KEY,
-order_date TIMESTAMP,
-cust_id INT
-);
-#插入语句
-INSERT INTO orders(order_num,cust_id) VALUES(20005,10000001);
-SELECT * FROM orders;
-#删除orders表
-DROP TABLE orders; </code></pre><h1 id="创建orderitems表"><a href="#创建orderitems表" class="headerlink" title="创建orderitems表"></a>创建orderitems表</h1><pre><code>CREATE TABLE orderitems(
-order_num INT AUTO_INCREMENT PRIMARY KEY,
-order_item INT,
-prod_id VARCHAR(20),
-quentity int,
-item_price DOUBLE
-);
-#插入语句
-INSERT INTO orderitems VALUES(200005,1,&apos;BR01&apos;,100,54.9);
-SELECT * FROM orderitems;</code></pre><h1 id="创建Products表"><a href="#创建Products表" class="headerlink" title="创建Products表"></a>创建Products表</h1><pre><code>CREATE TABLE Products(
-prod_id VARCHAR(20) PRIMARY KEY,
-vend_id VARCHAR(20),
-prod_name VARCHAR(20),
-prod_price DOUBLE,
-prod_desc VARCHAR(255)
-);
-#插入语句
-INSERT INTO Products VALUES(&apos;BR01&apos;,&apos;BRS01&apos;,&apos;King Doll&apos;,54.9,&apos;18 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR02&apos;,&apos;BRS02&apos;,&apos;King Doll&apos;,5.9,&apos;16 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR03&apos;,&apos;BRS03&apos;,&apos;King Doll&apos;,4.9,&apos;17 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR04&apos;,&apos;BRS04&apos;,&apos;King Doll&apos;,5.6,&apos;13 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR05&apos;,&apos;BRS05&apos;,&apos;King Doll&apos;,5.9,&apos;12 inch teddy&apos;);
-SELECT * FROM Products;</code></pre><h1 id="新建表Vendors"><a href="#新建表Vendors" class="headerlink" title="新建表Vendors"></a>新建表Vendors</h1><pre><code>CREATE TABLE Vendors(
-vend_id VARCHAR(20) PRIMARY KEY,
-vend_name VARCHAR(20),
-vend_address VARCHAR(30),
-vend_city VARCHAR(20),
-vend_state VARCHAR(20),
-vend_zip VARCHAR(20),
-vend_country VARCHAR(20)
-);
-#插入语句
-INSERT INTO Vendors VALUES(&apos;BRS01&apos;,&apos;Bears R Us&apos;,&apos;123 Main Street&apos;,&apos;Bear Town&apos;,&apos;MI&apos;,&apos;444&apos;,&apos;USA&apos;);
-SELECT * FROM Vendors;</code></pre><h1 id="一、检索数据-select语句"><a href="#一、检索数据-select语句" class="headerlink" title="一、检索数据-select语句"></a>一、检索数据-select语句</h1><pre><code>select prod_name from products;                        //检索单个列
-select prod_id,prod_name,prod_price from products;         //检索多个列
-select * from products;     //检索所有列
-select distinct vend_id from products;                 //选择不同的值，注意distinct作用于所有列而不仅是紧跟在其后的一列
-select prod_name from products
-limit 5;                   // 返回5行
-select prod_name from products
-limit 3 offset 2;                                          //返回从第2行起的3行数据：limit 行数   offset 偏移量</code></pre><h1 id="二、注释"><a href="#二、注释" class="headerlink" title="二、注释"></a>二、注释</h1><p>行内注释：#注释<br>多行注释：/<em>注释</em>/</p>
-<h1 id="三、排序检索数据"><a href="#三、排序检索数据" class="headerlink" title="三、排序检索数据"></a>三、排序检索数据</h1><pre><code>select prod_name from products
-order by prod_name;                                             //按单列排序
-select prod_id,prod_price,prod_name from products
-order by prod_price,prod_name;              //按多个列排序，首先对price排，再对name排，注意仅在多行具有相同的price时才会对name进行排序
-select prod_id,prod_price,prod_name from products
-order by prod_price desc,prod_name;                   //对price降序，name升序，注意desc只应用到直接位于其前面的列名</code></pre><h1 id="四、过滤数据-where子句"><a href="#四、过滤数据-where子句" class="headerlink" title="四、过滤数据-where子句"></a>四、过滤数据-where子句</h1><pre><code>select prod_name,prod_price from products
-where prod_price&lt;10;                                            //检查单个值
-where vend_id &lt;&gt;&apos;DLL01&apos;;                                     //不匹配检查
-where vend_id !=&apos;DLL01&apos;;
-select prod_name,prod_price from products
-where prod_price between 5 and 10;                     //范围性检查
-select prod_name from products
-where prod_price is null;                                         //检查空值
-select prod_id,prod_price,prod_name from products
-where vend_id=&apos;DLL01&apos; and prod_price&lt;=4;          //and操作符
-where vend_id=&apos;DLL01&apos; or vend_id=&apos;BRS01&apos;;        //or操作符
-where vend_id in(&apos;DLL01&apos;,&apos;BRS01&apos;);                      //in操作符，与or等价
-where not vend_id=&apos;DLL01&apos;;                                  //not操作符，否定跟在其后的条件，等价于：where vend_id &lt;&gt;&apos;DLL01&apos;
-where prod_name like &apos;Fish%&apos;;                             //like操作符+%通配符，返回所有以Fish起头的产品
-where prod_name like&apos;%bean bag%&apos;;                  //检索包含文本bean bag的值，不管在之前还是之后。
-where prod_name like&apos;F%y&apos;;                                //检索以F起头，以y结尾的所有产品</code></pre><h1 id="五、汇总数据"><a href="#五、汇总数据" class="headerlink" title="五、汇总数据"></a>五、汇总数据</h1><pre><code>select avg(prod_price) as avg_price                     //avg()用于求均值，只用于单列，忽略列值为null的行
-from products;
-select count(*) as num_cust from customers;      //计算表中行的数目，不忽略空值
-select count(cust_email) as num_cust                 //计算指定列中具有值的行数，掠过空值
-from customers;
-select max(prod_price） as max_price                //返回最大价格，忽略空值
-from products;
-select min(prod_price） as min_price                  //返回最低价格，忽略空值
-from products;
-select sum(quantity) as items_ordered                //求和，忽略空值
-from orderitems;</code></pre><h1 id="六、分组数据"><a href="#六、分组数据" class="headerlink" title="六、分组数据"></a>六、分组数据</h1><pre><code>select vend_id,count(*) as num_prods
-from products
-group by vend_id;                                                //按id进行分组，count对每个id都做一次计数，group by子句必须出现在where子句之后，order by之前
-group by cust_id
-having count(*)&gt;=2;//过滤分组</code></pre><h1 id="七、子查询"><a href="#七、子查询" class="headerlink" title="七、子查询"></a>七、子查询</h1><pre><code>select cust_id from orders
-where order_num in(select order_num from orderitems
-                   where prod_id=&apos;RGAN01&apos;);               //由内向外执行
-等价于：
-select order_num from orderitems
-where prod_id=&apos;RGAN01&apos;;
-输出：
-order_num
--------------
-20007
-20008
-select cust_id from orders
-where order_num in(20007,20008);</code></pre><h1 id="八、联结表"><a href="#八、联结表" class="headerlink" title="八、联结表"></a>八、联结表</h1><h2 id="内连接（等值连接）"><a href="#内连接（等值连接）" class="headerlink" title="内连接（等值连接）"></a>内连接（等值连接）</h2><pre><code>select vend_name,prod_name,prod_price
-from vendors inner join products
-on vendors.vend_id=products.vend_id;            //连接条件为vendors.vend_id=products.vend_id
-等价于：
-select vend_name,prod_name,prod_price
-from vendors,products
-where vendors.vend_id=products.vend_id;</code></pre><h2 id="多表连接"><a href="#多表连接" class="headerlink" title="多表连接"></a>多表连接</h2><pre><code>select prod_name,vend_name,prod_price,quantity
-from oederitems,products,vendors
-where products.vend_id=vendors.vend_id
-and orderitems.prod_id=products.prod_id
-and order_num=20007;</code></pre><h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><pre><code>select c1.cust_id,c1.cust_name,c1.cust_contact
-from customers as c1,customers as c2              //使用表别名
-where c1.cust_name=c2.cust_name
-and c2.cust_contact=&apos;jim jones&apos;;
-等价于：
-select cust_id,cust_name,cust_contact
-from customers
-where cust_name=(select cust_name 
-                 from customers
-                 where cust_contact=&apos;jim jones&apos;);</code></pre><h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><pre><code>select customers.cust_id,orders.order_num
-from customers left outer join orders
-on customers.cust_id=orders.cust_id;                 //左外连接，left指定from子句左边的表（customers)选择所有行</code></pre>
+select student.*, sc.score from student,sc
+WHERE student.SId=sc.SId
+AND score&lt;60
+AND CId=&apos;01&apos;
+ORDER BY score;</code></pre><p>按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩<br>        SELECT sc.*,t1.avg FROM sc RIGHT JOIN<br>        (SELECT sid,AVG(score) as avg FROM sc<br>        GROUP BY SId) as t1<br>        on t1.SId=sc.SId<br>        ORDER BY t1.avg DESC;</p>
+<p>查询各科成绩最高分、最低分和平均分：<br>• 以如下形式显示：课程 ID，课程 name，最高分，最低分，平均分，及格率，中等率，优良率，优秀率<br>• 及格为&gt;=60，中等为：70-80，优良为：80-90，优秀为：&gt;=90<br>• 要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列<br>        SELECT cid,<br>        MAX(score) as max,<br>        MIN(score) as min,<br>        AVG(score) as avg,<br>        COUNT(CId) as Count,<br>        sum(CASE when sc.score&gt;=60 THEN 1 ELSE 0 END)/COUNT(<em>) as jige,<br>        sum(CASE WHEN sc.score&gt;=70 and sc.score&lt;80 THEN 1 ELSE 0 END)/COUNT(</em>) as zhongdeng,<br>        sum(CASE WHEN sc.score&gt;=80 AND sc.score&lt;90 THEN 1 ELSE 0 END)/COUNT(<em>) as youliang,<br>        SUM(CASE WHEN sc.score&gt;=90 THEN 1 ELSE 0 END)/COUNT(</em>) as youxiu<br>        FROM  sc<br>        GROUP BY CId<br>        ORDER BY count DESC,sc.CId asc;</p>
+<p>按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺<br>• 15.1 按各科成绩进行排序，并显示排名， Score 重复时合并名次<br>        SELECT a.cid,a.SId,a.score,COUNT(b.score)+1 as rank<br>        FROM sc as a LEFT JOIN sc b<br>        on a.score&lt;b.score AND a.CId=b.CId<br>        GROUP BY a.CId,a.SId,a.score<br>        ORDER BY a.CId,rank asc;</p>
+<p>查询学生的总成绩，并进行排名，总分重复时保留名次空缺<br>• 16.1 查询学生的总成绩，并进行排名，总分重复时不保留名次空缺<br>        set @crank=0;<br>        SELECT tmp.SId,tmp.total,@crank := @crank +1 as rank FROM<br>        (SELECT sc.SId,SUM(sc.score) as total FROM sc<br>        GROUP BY SId<br>        ORDER BY total DESC)tmp;</p>
+<p>统计各科成绩各分数段人数：课程编号，课程名称，[100-85]，[85-70]，[70-60]，[60-0] 及所占百分比<br>        select course.cname, course.cid,<br>        sum(case when sc.score&lt;=100 and sc.score&gt;85 then 1 else 0 end) as “[100-85]”,<br>        CONCAT(sum(case when sc.score&lt;=100 and sc.score&gt;85 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[100-85]百分比”,<br>        sum(case when sc.score&lt;=85 and sc.score&gt;70 then 1 else 0 end) as “[85-70]”,<br>        CONCAT(sum(case when sc.score&lt;=85 and sc.score&gt;70 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[85-70]百分比]” ,<br>        sum(case when sc.score&lt;=70 and sc.score&gt;60 then 1 else 0 end) as “[70-60]”,<br>        CONCAT(sum(case when sc.score&lt;=70 and sc.score&gt;60 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[70-60]百分比”,<br>        sum(case when sc.score&lt;=60 and sc.score&gt;0 then 1 else 0 end) as “[60-0]”,<br>        CONCAT(sum(case when sc.score&lt;=60 and sc.score&gt;0 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[60-0]百分比”<br>        from sc left join course<br>        on sc.cid = course.cid<br>        group by sc.cid;</p>
+<p>查询各科成绩前三名的记录<br>        select * from sc<br>        where (select count(*) from sc as a<br>        where sc.cid = a.cid and sc.score&lt;a.score )&lt; 3<br>        order by cid asc, sc.score desc;</p>
+<p>查询每门课程被选修的学生数<br>        SELECT cid,COUNT(SId) as total FROM sc<br>        GROUP BY CId;</p>
+<p>查询出只选修两门课程的学生学号和姓名<br>        SELECT  student.SId,student.Sname,temp.total FROM student,(<br>        SELECT sid,COUNT(CId) as total FROM sc<br>        GROUP BY SId)temp<br>        WHERE temp.total=2 AND student.SId=temp.Sid;</p>
+<p>或</p>
+<pre><code>select student.sid, student.sname from student
+where student.sid in
+(select sc.sid from sc
+group by sc.sid
+having count(sc.cid)=2);</code></pre><p>查询男生、女生人数<br>        select ssex, count(*) from student<br>        group by ssex;</p>
+<p>查询名字中含有「风」字的学生信息<br>        SELECT * FROM student<br>        WHERE Sname LIKE(‘%风%’);</p>
+<p>查询同名同性学生名单，并统计同名人数<br>        SELECT sname,COUNT(<em>) FROM student<br>        GROUP BY Sname<br>        HAVING count(</em>)&gt;1;</p>
+<p>查询 1990 年出生的学生名单<br>        SELECT * FROM student<br>        WHERE YEAR(Sage)=1990;</p>
+<p>查询每门课程的平均成绩，结果按平均成绩降序排列，平均成绩相同时，按课程编号升序排列<br>        SELECT * FROM<br>        (SELECT cid,AVG(score) as cidavg FROM sc<br>        GROUP BY CId) as temp ORDER BY cidavg,cid asc;</p>
+<p>查询平均成绩大于等于 85 的所有学生的学号、姓名和平均成绩<br>        select student.sid, student.sname, AVG(sc.score) as aver from student, sc<br>        where student.sid = sc.sid<br>        group by sc.sid<br>        having aver &gt; 85;</p>
+<p>查询课程名称为「数学」，且分数低于 60 的学生姓名和分数<br>        SELECT student.Sname,sc.cid,sc.score FROM course,sc,student<br>        WHERE course.Cname=’数学’<br>        AND course.CId=sc.CId<br>        AND student.SId=sc.SId<br>        AND score&lt;60;</p>
+<p>查询所有学生的课程及分数情况（存在学生没成绩，没选课的情况）<br>        SELECT student.sid,student.Sname,sc.CId,score FROM student LEFT JOIN sc<br>        on student.SId=sc.SId;</p>
+<p>查询任何一门课程成绩在 70 分以上的姓名、课程名称和分数<br>        SELECT student.Sname,course.CId,course.Cname,sc.score<br>        FROM sc,course,student<br>        WHERE sc.score&gt;70<br>        AND sc.CId=course.CId<br>        AND sc.SId=student.SId;</p>
+<p>查询不及格的课程<br>        SELECT CId,score FROM sc<br>        WHERE sc.score&lt;60<br>        GROUP BY CId;</p>
+<p>查询课程编号为 01 且课程成绩在 80 分以上的学生的学号和姓名<br>        SELECT student.SId,student.Sname FROM sc,student<br>        WHERE CId=’01’<br>        AND sc.score&gt;=80<br>        AND sc.SId=student.SId;</p>
+<p>求每门课程的学生人数<br>        SELECT cid,count(SId) as count FROM sc<br>        GROUP BY CId;</p>
+<p>成绩不重复，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>        SELECT student.*,sc.score,sc.CId FROM sc,student,teacher,course<br>        WHERE teacher.Tname=’张三’<br>        AND teacher.TId=course.TId<br>        AND course.CId=sc.CId<br>        AND student.SId=sc.SId<br>        HAVING max(sc.score);</p>
+<p>成绩有重复的情况下，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>        select student.*, sc.score, sc.cid from student, teacher, course,sc<br>        where teacher.tname = “张三”<br>        AND teacher.tid = course.tid<br>        AND sc.sid = student.sid<br>        AND sc.cid = course.cid<br>        AND sc.score=(select Max(sc.score)<br>            from sc,student, teacher, course<br>            where teacher.tid = course.tid<br>            and sc.sid = student.sid<br>            and sc.cid = course.cid<br>            and teacher.tname = “张三”);</p>
+<p>查询不同课程成绩相同的学生的学生编号、课程编号、学生成绩<br>        SELECT a.CId,a.SId,a.score FROM sc as a INNER JOIN sc as b<br>        ON a.SId=b.SId<br>        AND a.CId!=b.CId<br>        AND a.score=b.score<br>        GROUP BY CId,SId;</p>
+<p>查询每门功成绩最好的前两名<br>        select a.sid,a.cid,a.score from sc as a<br>        left join sc as b<br>        on a.cid = b.cid and a.score&lt;b.score<br>        group by a.cid, a.sid<br>        having count(b.cid)&lt;2<br>        order by a.cid;</p>
+<p>统计每门课程的学生选修人数（超过 5 人的课程才统计）<br>        SELECT cid,COUNT(SId) FROM sc<br>        GROUP BY CId<br>        HAVING COUNT(SId)&gt;5;</p>
+<p>检索至少选修两门课程的学生学号<br>        SELECT sid,COUNT(SId) as two FROM sc<br>        GROUP BY SId<br>        HAVING two&gt;=2;</p>
+<p>查询选修了全部课程的学生信息<br>        select student.* from sc ,student<br>        where sc.SId=student.SId<br>        GROUP BY sc.SId<br>        HAVING count(<em>) = (select DISTINCT count(</em>) from course );</p>
+<p>查询各学生的年龄，只按年份来算<br>        SELECT sid,YEAR(NOW())-YEAR(Sage) as age<br>        FROM student;</p>
+<p>按照出生日期来算，当前月日 &lt; 出生年月的月日则，年龄减一<br>        select student.SId as stu_id,student.Sname  as  stu_name,<br>        TIMESTAMPDIFF(YEAR,student.Sage,CURDATE()) as age #时间差函数TIMESTAMPDIFF<br>        from student;</p>
+<p>查询本周过生日的学生<br>        SELECT * FROM student<br>        WHERE WEEKOFYEAR(Sage)=WEEKOFYEAR(CURDATE());</p>
+<p>查询下周过生日的学生<br>        select *<br>        from student<br>        where WEEKOFYEAR(student.Sage)=WEEKOFYEAR(CURDATE())+1;</p>
+<p>查询本月过生日的学生<br>        SELECT * FROM student<br>        WHERE MONTH(Sage)=MONTH(CURDATE());</p>
+<p>查询下月过生日的学生<br>        SELECT * FROM student<br>        WHERE MONTH(Sage)=MONTH(CURDATE())+1;</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -315,16 +307,75 @@ on customers.cust_id=orders.cust_id;                 //左外连接，left指定
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/12/MySQL数据库练习/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/09/MYSQL面试题/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/03/centos安装oracle/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">centos安装oracle</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -344,1253 +395,14 @@ on customers.cust_id=orders.cust_id;                 //左外连接，left指定
 
 
 
-
-  
-    <article id="post-MySQL数据库增删改查" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/08/MySQL数据库增删改查/">MySQL数据库增删改查</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/08/MySQL数据库增删改查/" class="archive-article-date">
-  	<time datetime="2019-11-08T02:31:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MySQL数据库增删改查SQL语句"><a href="#MySQL数据库增删改查SQL语句" class="headerlink" title="MySQL数据库增删改查SQL语句"></a>MySQL数据库增删改查SQL语句</h1><h2 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h2><pre><code>show databases;</code></pre><h2 id="使用数据库"><a href="#使用数据库" class="headerlink" title="使用数据库"></a>使用数据库</h2><pre><code>use 数据库名;</code></pre><h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><pre><code>CREATE DATABASE 数据库名;</code></pre><h2 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h2><pre><code>DROP DATABASE 数据库名;</code></pre><h2 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h2><pre><code>create table 表名( 列名1 类型(长度) [约束], 列名2 类型(长度) [约束], ……);</code></pre><h2 id="长度区别"><a href="#长度区别" class="headerlink" title="长度区别"></a>长度区别</h2><ul>
-<li>int类型带长度：不影响存取值，即使设定的值超出了长度的范畴，也能存，如果没有达到设定的长度，则使用空格自动填充到设定的长度 </li>
-<li>char类型：不可变字符，设定的长度就是规定当前字段能存的数据的最大长度，若超出长度，则会报错，若没有达到长度，使用空格填充到设定的长度 </li>
-<li>varchar：可变字符，设定的长度同样是规定当前字段能存的数据的最大长度，若超出长度，则会报错，若没有达到长度，不会使用空格填充，实际多长<br>就是多长<h2 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h2><pre><code>DROP TABLE 表名;</code></pre><h2 id="表约束"><a href="#表约束" class="headerlink" title="表约束"></a>表约束</h2></li>
-<li>1.非空约束 NOT NULL</li>
-<li>2.默认值约束 DEFAULT ‘男’</li>
-<li>3.唯一约束 UNIQUE4.主键约束 PRIMARY KEY<h2 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h2></li>
-<li>DESC 表名</li>
-<li>修改表<h2 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h2><pre><code>Alter table 表名 change 列名 新列名 类型;</code></pre><h2 id="修改列类型"><a href="#修改列类型" class="headerlink" title="修改列类型"></a>修改列类型</h2><pre><code>Alter table 表名 change 列名 列名 新类型;</code></pre><h2 id="修改列类型-1"><a href="#修改列类型-1" class="headerlink" title="修改列类型"></a>修改列类型</h2><pre><code>Alter table 表名 modify 列名 新类型;</code></pre><h1 id="数据查询-单表"><a href="#数据查询-单表" class="headerlink" title="===============数据查询-单表==============="></a>===============数据查询-单表===============</h1><h2 id="查询表中全部信息"><a href="#查询表中全部信息" class="headerlink" title="查询表中全部信息"></a>查询表中全部信息</h2><pre><code>select * from 表名;</code></pre><h2 id="查询表中指定列的信息"><a href="#查询表中指定列的信息" class="headerlink" title="查询表中指定列的信息"></a>查询表中指定列的信息</h2><pre><code>select 列1,列2 from 表名;</code></pre><h3 id="语句的执行顺序：from—-gt-select"><a href="#语句的执行顺序：from—-gt-select" class="headerlink" title="语句的执行顺序：from—&gt;select"></a>语句的执行顺序：from—&gt;select</h3></li>
-</ul>
-<h2 id="数据去重"><a href="#数据去重" class="headerlink" title="数据去重"></a>数据去重</h2><pre><code>select distinct 列…. From 表名;</code></pre><h2 id="拼接结果"><a href="#拼接结果" class="headerlink" title="拼接结果"></a>拼接结果</h2><pre><code>select concat(列1,列2) from 表名;</code></pre><h2 id="运算符优先级："><a href="#运算符优先级：" class="headerlink" title="运算符优先级："></a>运算符优先级：</h2><ul>
-<li>1.乘法和除法的优先级高于加法和减法 </li>
-<li>2.同级运算的顺序是从左到右 </li>
-<li>3.表达式中使用”括号”可强行改变优先级的运算顺序<pre><code>select 列1[+-*/]列2 from 表名; </code></pre><h2 id="设置别名-注意：关键字as可以省略"><a href="#设置别名-注意：关键字as可以省略" class="headerlink" title="设置别名(注意：关键字as可以省略)"></a>设置别名(注意：关键字as可以省略)</h2><pre><code>select 列 as 别名 from 表名;
-select 列 别名 from 表名;</code></pre><h2 id="语句的执行顺序：from—-gt-select-1"><a href="#语句的执行顺序：from—-gt-select-1" class="headerlink" title="语句的执行顺序：from—&gt;select"></a>语句的执行顺序：from—&gt;select</h2></li>
-</ul>
-<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><pre><code>select 列… from 表名 where 条件;</code></pre><h2 id="条件中比较运算符：-等于-大于-gt-大于等于-gt-小于-lt-小于等于-lt-不等于-或-lt-gt"><a href="#条件中比较运算符：-等于-大于-gt-大于等于-gt-小于-lt-小于等于-lt-不等于-或-lt-gt" class="headerlink" title="条件中比较运算符：( 等于:= 大于:&gt; 大于等于:&gt;= 小于:&lt; 小于等于:&lt;= 不等于:!= 或 &lt;&gt; )"></a>条件中比较运算符：( 等于:= 大于:&gt; 大于等于:&gt;= 小于:&lt; 小于等于:&lt;= 不等于:!= 或 &lt;&gt; )</h2><pre><code>where 列 比较运算符 值;</code></pre><p>注意:字符串、日期需使用单引号括起来 语句的执行顺序：from—&gt;where—&gt;select<br>##　逻辑运算符( 并且:and 或 &amp;&amp; 或:or 非:not 或 ! )<br>        where 条件1 逻辑运算符 条件2;<br>        where not 条件; </p>
-<h2 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h2><pre><code>where 列 between 条件1 and 条件2;
-//列在这个区间的值where 列 not between 条件1 and 条件2;
-//不在这个区间where !( 列 between 条件1 and 条件2 );
-//同样表示不在这个区间</code></pre><h2 id="集合查询-判断列的值是否在指定的集合中"><a href="#集合查询-判断列的值是否在指定的集合中" class="headerlink" title="集合查询( 判断列的值是否在指定的集合中 )"></a>集合查询( 判断列的值是否在指定的集合中 )</h2><pre><code>where 列 in(值1,值2);
-//列中的数据是in后的值里面的where 列 not in(值1,值2);
-//不是in中指定值的数据</code></pre><h2 id="NULL值查询-注意：列中值为null不能使用-去查询"><a href="#NULL值查询-注意：列中值为null不能使用-去查询" class="headerlink" title="NULL值查询( 注意：列中值为null不能使用=去查询 )"></a>NULL值查询( 注意：列中值为null不能使用=去查询 )</h2><pre><code>where 列 is null;
-//查询列中值为null的数据</code></pre><h2 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h2><pre><code>%：表示0到多个字符，示例：
-where 列 like &apos;%0&apos;;
-//表示以0结尾where 列 like &apos;0%&apos;;
-//表示以0开头where 列 like &apos;%0%&apos;;
-//表示数据中包含0_：表示一个字符，可多次使用，
-示例：  where 列 like &apos;%0_&apos;;     //数据结尾第二位是0</code></pre><h2 id="结果排序-对查询出的结果按照一列或多列进行升序还是降序排列-升序-asc-降序-desc-注意：不能使用中文的别名排序"><a href="#结果排序-对查询出的结果按照一列或多列进行升序还是降序排列-升序-asc-降序-desc-注意：不能使用中文的别名排序" class="headerlink" title="结果排序( 对查询出的结果按照一列或多列进行升序还是降序排列 升序:asc 降序:desc 注意：不能使用中文的别名排序)"></a>结果排序( 对查询出的结果按照一列或多列进行升序还是降序排列 升序:asc 降序:desc 注意：不能使用中文的别名排序)</h2><pre><code>where 条件 order by 列 [asc/desc]</code></pre><h2 id="语句的执行顺序：from—-gt-where—-gt-select—-gt-order-by"><a href="#语句的执行顺序：from—-gt-where—-gt-select—-gt-order-by" class="headerlink" title="语句的执行顺序：from—&gt;where—&gt;select—&gt;order by"></a>语句的执行顺序：from—&gt;where—&gt;select—&gt;order by</h2><h2 id="分页查询-beginIndex-表示从第多少条数据开始-pageSize-表示每页显示的数据条数"><a href="#分页查询-beginIndex-表示从第多少条数据开始-pageSize-表示每页显示的数据条数" class="headerlink" title="分页查询( beginIndex:表示从第多少条数据开始 pageSize:表示每页显示的数据条数 )"></a>分页查询( beginIndex:表示从第多少条数据开始 pageSize:表示每页显示的数据条数 )</h2><pre><code>where [条件] limit beginIndex,pageSize;
-ex：每页显示3条数据 
-第一页: SELECT * FROM 表名 LIMIT 0,3 --0,1,2 
-第二页: SELECT * FROM 表名 LIMIT 3,3 --3,4,5
-第三页: SELECT * FROM 表名 LIMIT 6,3 --6,7,8 
-第四页: SELECT * FROM 表名 LIMIT 9,3 --9,10,11 
-...
-第七页: SELECT * FROM 表名 LIMIT 18,3 --18,19,20</code></pre><h2 id="beginIndex公式：-当前页数-1-pageSize"><a href="#beginIndex公式：-当前页数-1-pageSize" class="headerlink" title="beginIndex公式：(当前页数-1)*pageSize"></a>beginIndex公式：(当前页数-1)*pageSize</h2><h2 id="聚集函数-作用于一组数据，并对一组数据返回一个值"><a href="#聚集函数-作用于一组数据，并对一组数据返回一个值" class="headerlink" title="聚集函数( 作用于一组数据，并对一组数据返回一个值 )"></a>聚集函数( 作用于一组数据，并对一组数据返回一个值 )</h2><ul>
-<li>COUNT:统计结果记录数，若统计的是列，列中为Null，那么count将不会计算值</li>
-<li>MAX: 统计计算最大值</li>
-<li>MIN: 统计计算最小值</li>
-<li>SUM: 统计计算求和</li>
-<li>AVG: 统计计算平均值<h2 id="分组函数-注意：如果要对分组后的数据进行筛选，那么必须使用having关键字，条件写在having后"><a href="#分组函数-注意：如果要对分组后的数据进行筛选，那么必须使用having关键字，条件写在having后" class="headerlink" title="分组函数( 注意：如果要对分组后的数据进行筛选，那么必须使用having关键字，条件写在having后 )"></a>分组函数( 注意：如果要对分组后的数据进行筛选，那么必须使用having关键字，条件写在having后 )</h2><pre><code>select 聚集函数 from 表名 where [条件] group by 列 having 分组后的条件</code></pre><h2 id="句的执行顺序：FROM—-gt-WHERE—-gt-group-by—-gt-Having—-gt-SELECT–-gt-ORDER-BY"><a href="#句的执行顺序：FROM—-gt-WHERE—-gt-group-by—-gt-Having—-gt-SELECT–-gt-ORDER-BY" class="headerlink" title="句的执行顺序：FROM—&gt; WHERE—&gt;group by—-&gt;Having—&gt;SELECT–&gt;ORDER BY"></a>句的执行顺序：FROM—&gt; WHERE—&gt;group by—-&gt;Having—&gt;SELECT–&gt;ORDER BY</h2><h2 id="Where和having的区别："><a href="#Where和having的区别：" class="headerlink" title="Where和having的区别："></a>Where和having的区别：</h2></li>
-<li>Where: 先过滤已有的数据(数据是已经存在的),在进行分组,在聚集计算</li>
-<li>Having:先分组,在对每组进行计算,根据得到结果在过滤(分组把数据算出之后，在过滤)<br>注意：使用having的时候，它是可以使用别名的</li>
-</ul>
-<h1 id="数据查询-多表"><a href="#数据查询-多表" class="headerlink" title="===============数据查询-多表==============="></a>===============数据查询-多表===============</h1><h2 id="交叉连接-又名笛卡尔积，使用交叉连接会产生笛卡尔积"><a href="#交叉连接-又名笛卡尔积，使用交叉连接会产生笛卡尔积" class="headerlink" title="交叉连接:又名笛卡尔积，使用交叉连接会产生笛卡尔积"></a>交叉连接:又名笛卡尔积，使用交叉连接会产生笛卡尔积</h2><p>假设集合A={a, b}，集合B={0, 1, 2}，则两个集合的笛卡尔积为{(a, 0), (a, 1), (a, 2), (b, 0), (b, 1), (b, 2)}。<br>        select * from 表1,表2</p>
-<h2 id="内连接：过滤为空的数据-查询的实际上是两张表数据的交集部分-目的-》解决笛卡尔积现象，正确查询了需要的数据"><a href="#内连接：过滤为空的数据-查询的实际上是两张表数据的交集部分-目的-》解决笛卡尔积现象，正确查询了需要的数据" class="headerlink" title="内连接：过滤为空的数据(查询的实际上是两张表数据的交集部分) 目的 ==》解决笛卡尔积现象，正确查询了需要的数据"></a>内连接：过滤为空的数据(查询的实际上是两张表数据的交集部分) 目的 ==》解决笛卡尔积现象，正确查询了需要的数据</h2><pre><code>select * from 表1,表2 where 表1.字段=表2.字段;</code></pre><p>//隐式内连接,使用where条件消除笛卡尔积<br>        select * from 表1 [inner] join 表2 on 表1.字段=表2.字段;<br>//显式内连接,如果是多张表，则一直在join..on后依次添加join..on即可,inner关键字可被省略</p>
-<h2 id="外连接：左外连接、右外连接、全外连接"><a href="#外连接：左外连接、右外连接、全外连接" class="headerlink" title="外连接：左外连接、右外连接、全外连接"></a>外连接：左外连接、右外连接、全外连接</h2><h2 id="左外连接-以左边表为主，返回左边表中所有数据，若右表中无数据，则显示为NULL，请参考实际查询结果来理解"><a href="#左外连接-以左边表为主，返回左边表中所有数据，若右表中无数据，则显示为NULL，请参考实际查询结果来理解" class="headerlink" title="左外连接:以左边表为主，返回左边表中所有数据，若右表中无数据，则显示为NULL，请参考实际查询结果来理解"></a>左外连接:以左边表为主，返回左边表中所有数据，若右表中无数据，则显示为NULL，请参考实际查询结果来理解</h2><pre><code>select * from 表1 left [outer] join 表2 on 表1.字段=表2.字段;</code></pre><p>//表1为左表，表2为右表,outer关键字可被省略</p>
-<h2 id="右外连接：以右边表为主，返回右表中所有数据，若左表中无数据，则显示为NULL，结合实际查询结果来理解"><a href="#右外连接：以右边表为主，返回右表中所有数据，若左表中无数据，则显示为NULL，结合实际查询结果来理解" class="headerlink" title="右外连接：以右边表为主，返回右表中所有数据，若左表中无数据，则显示为NULL，结合实际查询结果来理解"></a>右外连接：以右边表为主，返回右表中所有数据，若左表中无数据，则显示为NULL，结合实际查询结果来理解</h2><pre><code>select * from 表1 right [outer] join 表2 on 表1.字段=表2.字段;</code></pre><p>//表1为左表，表2为右表,outer关键字可被省略</p>
-<h2 id="全外连接：返回涉及的多表中的所有数据，MYSQL中不支持该查询，仅限了解自连接：单表当作多表查询，直白的讲就是一张表中"><a href="#全外连接：返回涉及的多表中的所有数据，MYSQL中不支持该查询，仅限了解自连接：单表当作多表查询，直白的讲就是一张表中" class="headerlink" title="全外连接：返回涉及的多表中的所有数据，MYSQL中不支持该查询，仅限了解自连接：单表当作多表查询，直白的讲就是一张表中"></a>全外连接：返回涉及的多表中的所有数据，MYSQL中不支持该查询，仅限了解自连接：单表当作多表查询，直白的讲就是一张表中</h2><p>数据含有多种关系，使用多表查询的语法，来查询一张表，查询过程中一定要使用别名多用在分类数据、省市县分类数据、权限…<br>        select 表1.字段1,表2.字段2 from 表名 as 表1,表名 as 表2 where 表1.字段1=表2.字段2</p>
-<h2 id="子查询：将一个查询结果作为另一个查询的对象，直白的讲就是SQL语句嵌套"><a href="#子查询：将一个查询结果作为另一个查询的对象，直白的讲就是SQL语句嵌套" class="headerlink" title="子查询：将一个查询结果作为另一个查询的对象，直白的讲就是SQL语句嵌套"></a>子查询：将一个查询结果作为另一个查询的对象，直白的讲就是SQL语句嵌套</h2><pre><code>select * from (select * from 表名) as 别名select * from where 条件</code></pre><p>//条件中包含查询语句<br>注意：1.查询结果的虚拟表必须取别名<br>2.字段与关键字一样，冲突时，需要给字段名加``,(Esc键下面、1的左边)<br>3.如果给虚拟结果表中的字段取了别名，则对虚拟结果表查询时，应该用 表别名.虚拟表字段别名</p>
-<h1 id="插入数据"><a href="#插入数据" class="headerlink" title="===============插入数据==============="></a>===============插入数据===============</h1><pre><code>insert into 表名(字段1,字段2..) values(值1,值2…);</code></pre><p>注意： 1.如果插入的表中的主键是自增类型的，可以不用插入值<br>2.如果主键是非自增 ，插入的数据则是填补主<br>键字段值空余的值<br>3.如果主键设置了自动递增，会从主键字段最大值开始插入数据<br>其他插入方式：<br>        insert into 表名(字段1,字段2) values(值1,值2),(值1,值2);<br>        //插入多条数据【MYSQL】insert into 表名 values(值1,值2);<br>        //针对全表所有字段进行插入操作insert into 表名(字段) select 字段 from 表2;<br>        //查询结果插入insert into 表名 select 字段 from 表2;<br>        //查询结果，全表插入</p>
-<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="===============修改数据==============="></a>===============修改数据===============</h1><pre><code>update 表 set 字段=值 where 条件;
-//带条件修改指定数据，否则修改全表</code></pre><h1 id="删除数据"><a href="#删除数据" class="headerlink" title="===============删除数据==============="></a>===============删除数据===============</h1><pre><code>delete from 表 where 条件;
-//删除数据带条件指定数据，否则删除全表数据</code></pre><h1 id="数据备份"><a href="#数据备份" class="headerlink" title="===============数据备份==============="></a>===============数据备份===============</h1><p>在命令行窗口进行，若操作系统版本高，则使用管理员模式导出：<br>        mysqldump -u账户 -p密码 数据库名称&gt;脚本文件存储地<br>        ex: mysqldump -uroot -proot jdbcdemo&gt; C:/shop_bak.sql 导入：<br>        mysql -u账户 -p密码 数据库名称&lt; 脚本文件存储地址<br>        ex: mysql -uroot -proot jdbcdemo&lt; C:/shop_bak.sql 使用可视化导入导出： Navicat工具的导入和导出/Navicat<br>        工具的备份和还原</p>
-<h1 id="数据索引"><a href="#数据索引" class="headerlink" title="===============数据索引==============="></a>===============数据索引===============</h1><p>索引的作用相当于图书的目录，可以根据目录中的页码快速找到所需的内容。</p>
-<h2 id="什么列适合建索引？？"><a href="#什么列适合建索引？？" class="headerlink" title="什么列适合建索引？？"></a>什么列适合建索引？？</h2><p>1.表的主键、外键必须有索引；<br>2.数据量超过30000的表应该有索引；<br>3.经常与其他表进行连接的表，在连接字段上应该建立索引；<br>4.经常出现在Where子句中的字段，特别是大表的字段，应该建立索引；<br>5.索引应该建在选择性高的字段上；<br>6.索引应该建在小字段上，对于大的文本字段甚至超长字段，不要建索引；</p>
-<h2 id="sql语句创建和删除索引："><a href="#sql语句创建和删除索引：" class="headerlink" title="sql语句创建和删除索引："></a>sql语句创建和删除索引：</h2><p>创建索引:<br>        CREATE INDEX 索引名称 ON 表名 (列名)<br>删除索引:<br>        方式一：<br>        DROP INDEX 索引名 ON 表名<br>        方式二:<br>        ALTER TABLE 表名 DROP INDEX 索引名</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/08/MySQL数据库增删改查/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JavaWeb项目中数据库连接问题解决" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/07/JavaWeb项目中数据库连接问题解决/">JavaWeb项目中数据库连接问题解决</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/07/JavaWeb项目中数据库连接问题解决/" class="archive-article-date">
-  	<time datetime="2019-11-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="数据库连接错误排查："><a href="#数据库连接错误排查：" class="headerlink" title="数据库连接错误排查："></a>数据库连接错误排查：</h2><p>一、查看项目是否导入了 “mysql-connector-java” 这个jar包。</p>
-<p>二、自己将jar包复制到项目中，并且将该jar包add to build path。</p>
-<p>三、查看数据库连接信息是否有细微的小错误。</p>
-<p>四、引入Jar包到项目文件夹WEB-INF下面。</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68261741-0d75f380-007c-11ea-85be-910a40e0ec3a.png" alt="图片1"></p>
-<p>上图显示已经引入了包。</p>
-<p>引入了包，并且没有任何错误。但是我发现无论如何都引入不进去，最后找到了一种解决方式——右键项目文件点击Properties<br>如下图</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68261780-267ea480-007c-11ea-9246-1cd496938ee3.png" alt="图片2"></p>
-<p>点击add</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68262018-eff55980-007c-11ea-83a4-d4acff1a304c.png" alt="图片3"></p>
-<p>选择java build path entries，并浏览选择你的jar包，添加后如下图。</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68262032-fdaadf00-007c-11ea-9aab-90091890618a.png" alt="图片4"></p>
-<h2 id="js报错："><a href="#js报错：" class="headerlink" title="js报错："></a>js报错：</h2><p>将windows–&gt;preferences–&gt;validation–&gt;javaScript Validation后面的勾去掉再刷新项目就可以了。</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/68262572-9857ed80-007e-11ea-9515-00f891f83c35.png" alt="图片5"></p>
-<h2 id="jsp文件报错："><a href="#jsp文件报错：" class="headerlink" title="jsp文件报错："></a>jsp文件报错：</h2><p>右键项目》build path》server》为项目选择一个tomcat容器就ok了。</p>
-<p>resource包报错：首先查看是否有错误包或者是jdk版本不一致导致，如果不是就打开项目磁盘目录》.settings》org.eclipse.wst.common.project.facet.core.xml》<runtime name="com.genuitec.runtime.generic.jee60">这行代码删除。</runtime></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/07/JavaWeb项目中数据库连接问题解决/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-11-6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/06/2019-11-6/">2019-11-6</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/06/2019-11-6/" class="archive-article-date">
-  	<time datetime="2019-11-06T00:21:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JavaWeb常见的错误总结及解决"><a href="#JavaWeb常见的错误总结及解决" class="headerlink" title="JavaWeb常见的错误总结及解决"></a>JavaWeb常见的错误总结及解决</h1><h2 id="项目错误但目录下子文件无报错"><a href="#项目错误但目录下子文件无报错" class="headerlink" title="项目错误但目录下子文件无报错"></a>项目错误但目录下子文件无报错</h2><p>原因：引入jar包不全，路径配置构件残缺</p>
-<p>解决：重新引入jar包</p>
-<h2 id="jsp中给出404-500错误"><a href="#jsp中给出404-500错误" class="headerlink" title="jsp中给出404/500错误"></a>jsp中给出404/500错误</h2><p>404原因：404是地址跳转的错误，也就是没有找到指定的页面（通常是找不到指定的jsp页面或Servlet）  </p>
-<p>解决：</p>
-<ul>
-<li>1.Tomcat未正常启动，因为在你修改过跳转地址时，有时Tomcat是没有更新源地址的，这是软件上的一个Bug，光依靠重新部署可能无法解决，你需要删除工程目录部署下（webapps内的工程和work&gt;Catalina&gt;localhost内的工程）的两个工程文件，重新部署即可。</li>
-<li>2.跳转地址有误，很基础的错误，但是比较容易犯这种错误。试着在浏览器地址栏中看看跳转地址有没有出现重复地址，多余的”/“，以及是否正确使用”.”</li>
-<li>3.跳转页面文件格式后缀有误，Jsp还是Html。很少见的马虎错误。</li>
-</ul>
-<p>可以在web.xml配置文件中捕捉这些错误</p>
-<pre><code>&lt;error-page&gt;   
-    &lt;error-code&gt;404&lt;/error-code&gt;         //捕捉的错误消息
-    &lt;location&gt;/errors/404.jsp&lt;/location&gt;       //出了错误之后跳转的页面web项目根目录下
-&lt;/error-page&gt;  
-&lt;error-page&gt; 
-    &lt;error-code&gt;500&lt;/error-code&gt;   
-    &lt;location&gt;/errors/500.jsp&lt;/location&gt;  
-&lt;/error-page&gt;</code></pre><p>当捕捉到错误消息之后，可以指向自己指定的错误模板页面，而避免出现tomcat的404错误，影响用户体验。</p>
-<p>500原因：通常是jsp中的java代码存在问题，编译不通过</p>
-<p>解决：在控制台看错误信息(里面会有异常信息)，查找代码有误的地方，改正再调试。如果还是出现500，那就继续找错，改正，调试。</p>
-<h2 id="log报错：找不到xxx-servlet-xml文件，但我从未创建或者需要使用此文件"><a href="#log报错：找不到xxx-servlet-xml文件，但我从未创建或者需要使用此文件" class="headerlink" title="log报错：找不到xxx-servlet.xml文件，但我从未创建或者需要使用此文件"></a>log报错：找不到xxx-servlet.xml文件，但我从未创建或者需要使用此文件</h2><p>原因：web.xml<servlet>里会自动查找WEB-INF/XXX-servlet.xml</servlet></p>
-<p>解决：用<init-param>强制规定其查找的配置文件名</init-param></p>
-<h2 id="sqlMapConfig-xml提示找不到XXX的配置文件"><a href="#sqlMapConfig-xml提示找不到XXX的配置文件" class="headerlink" title="sqlMapConfig.xml提示找不到XXX的配置文件"></a>sqlMapConfig.xml提示找不到XXX的配置文件</h2><p>原因：xml中文件名识别大小写</p>
-<p>解决：修改路径中的文件名至合适的大小写</p>
-<h2 id="启用startup-bat时能访问Tomcat的demo网页但是从eclipse启动不行。"><a href="#启用startup-bat时能访问Tomcat的demo网页但是从eclipse启动不行。" class="headerlink" title="启用startup.bat时能访问Tomcat的demo网页但是从eclipse启动不行。"></a>启用startup.bat时能访问Tomcat的demo网页但是从eclipse启动不行。</h2><p>原因：用eclipse启动事实上是借助Tomcat的核心组件去访问设定的工作环境<br>解决：双击服务器，移除清空项目后，修改服务器配置的Server Location为Tomcat的路径</p>
-<h2 id="关于多个Tomcat不能同时启动的问题"><a href="#关于多个Tomcat不能同时启动的问题" class="headerlink" title="关于多个Tomcat不能同时启动的问题"></a>关于多个Tomcat不能同时启动的问题</h2><p>原因：端口号不能一样，而且关系到具体Tomcat的环境变量也不能一样</p>
-<p>解决：修改conf/server.xml中的三个端口；在startup.bat里面增加“SET CATALINA_HOME=”以及Tomcat的路径</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/06/2019-11-6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-11-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/01/2019-11-1/">2019-11-1</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/01/2019-11-1/" class="archive-article-date">
-  	<time datetime="2019-11-01T02:42:48.419Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JSP实现用户登录"><a href="#JSP实现用户登录" class="headerlink" title="JSP实现用户登录"></a>JSP实现用户登录</h1><h2 id="登录成功使用服务器内部转发到login-success-jsp页面"><a href="#登录成功使用服务器内部转发到login-success-jsp页面" class="headerlink" title="登录成功使用服务器内部转发到login_success.jsp页面"></a>登录成功使用服务器内部转发到login_success.jsp页面</h2><h2 id="登录失败则请求重定向到login-failure-jsp页面"><a href="#登录失败则请求重定向到login-failure-jsp页面" class="headerlink" title="登录失败则请求重定向到login_failure.jsp页面"></a>登录失败则请求重定向到login_failure.jsp页面</h2><p>login.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;  pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;form action=&quot;dologin.jsp&quot; method=&quot;post&quot;&gt;
-        &lt;table&gt;
-        &lt;tr&gt;
-            &lt;td colspan=&quot;2&quot;&gt;登录窗口&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;用户名：&lt;/td&gt;
-            &lt;td&gt;
-                &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;密码：&lt;/td&gt;
-            &lt;td&gt;
-                &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td colspan=&quot;2&quot;&gt;
-                &lt;input type=&quot;submit&quot; value=&quot;登录&quot; /&gt; 
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;/table&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>dologin.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
-    pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;%
-    String username =&quot;&quot;;//账号默认为空
-    String password =&quot;&quot;;//密码默认为空
-    request.setCharacterEncoding(&quot;utf-8&quot;);//防止中文乱码
-    username = request.getParameter(&quot;username&quot;);//获取对象
-    password = request.getParameter(&quot;password&quot;);//获取密码
-    if(&quot;sam&quot;.equals(username)&amp;&amp;&quot;123&quot;.equals(password)){
-        session.setAttribute(&quot;loginUser&quot;, username);
-        request.getRequestDispatcher(&quot;login_success.jsp&quot;).forward(request, response);
-    }else{
-        response.sendRedirect(&quot;login_failure.jsp&quot;);
-    }
-
-%&gt;</code></pre><p>login_success.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;%
-    String loginUser = &quot;&quot;;
-    if(session.getAttribute(&quot;loginUser&quot;)!=null){
-        loginUser = session.getAttribute(&quot;loginUser&quot;).toString();
-    }
-%&gt;
-欢迎您&lt;font color=&quot;red&quot;&gt;&lt;%=loginUser %&gt;&lt;/font&gt;,登录成功！
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>login_failure.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-登录失败！请检查用户或者密码！&lt;br&gt;
-&lt;a href=&quot;login.jsp&quot;&gt;返回登录&lt;/a&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><h2 id="连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）"><a href="#连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）" class="headerlink" title="连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）"></a>连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）</h2><p>代码如下：</p>
-<pre><code>protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-response.getWriter().append(&quot;Served at: &quot;).append(request.getContextPath());
-    boolean flag = false;
-    String username =&quot;&quot;;
-    String password =&quot;&quot;;
-    request.setCharacterEncoding(&quot;utf-8&quot;);//防止中文乱码
-
-    username = request.getParameter(&quot;username&quot;);
-    password = request.getParameter(&quot;password&quot;);
-
-    try {
-    Class.forName(&quot;com.mysql.jdbc.Driver&quot;);//发射机制来获取&quot;数据库驱动(一个名称为XXX的类)&quot;
-      Connection connect = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/stu&quot;,&quot;root&quot;,&quot;root&quot;);
-
-      //连接URL为 jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
-
-      System.out.println(&quot;成功链接 Mysql服务器!&quot;);
-      Statement stmt = connect.createStatement();
-      ResultSet rs = stmt.executeQuery(&quot;select * from stu&quot;);
-
-      //stu 为你表的名称
-while (rs.next()) {
-
-    if (rs.getString(&quot;id&quot;).equals(username)&amp;&amp;rs.getString(&quot;pwd&quot;).equals(password)) {
-        flag = true;
-        break;
-    }else {
-        flag =false;
-    }
-}
-
-if (flag) {
-    request.getRequestDispatcher(&quot;welcome.jsp&quot;).forward(request, response);
-}else {
-response.sendRedirect(&quot;login.jsp&quot;);
-}
-
-}
- catch (Exception e) {
-      System.out.print(&quot;get data error!&quot;);
-      e.printStackTrace();
-    }
-}</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/01/2019-11-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-10-29" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/29/2019-10-29/">2019-10-29</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/29/2019-10-29/" class="archive-article-date">
-  	<time datetime="2019-10-29T01:29:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="在新建jsp文件开头出现红叉的原因和错误解决方法"><a href="#在新建jsp文件开头出现红叉的原因和错误解决方法" class="headerlink" title="在新建jsp文件开头出现红叉的原因和错误解决方法"></a>在新建jsp文件开头出现红叉的原因和错误解决方法</h2><p>在创建jsp完都会遇到如下的错误<br>虽然对于功能是可以实现，但是看着jsp页面报错就感觉很不舒服。</p>
-<p>报错代码：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;</code></pre><h2 id="错误原因：没有tomcat的文件。"><a href="#错误原因：没有tomcat的文件。" class="headerlink" title="错误原因：没有tomcat的文件。"></a>错误原因：没有tomcat的文件。</h2><h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><p>在项目名点击右键–&gt;点击属性（properties）–&gt;点击java构建路径（Java Build Path）–&gt;点击库（Add Library）–&gt;选Sever Runtime–&gt;点击next–&gt;然后点击你自己配置在eclipse的tomcat–&gt;最后点击Finish。就可以了</p>
-<h1 id="一个jsp页面引入另一个jsp页面的三种方式-及静态引入和动态引入的区别"><a href="#一个jsp页面引入另一个jsp页面的三种方式-及静态引入和动态引入的区别" class="headerlink" title="一个jsp页面引入另一个jsp页面的三种方式 及静态引入和动态引入的区别"></a>一个jsp页面引入另一个jsp页面的三种方式 及静态引入和动态引入的区别</h1><h2 id="第一种：jstl-import"><a href="#第一种：jstl-import" class="headerlink" title="第一种：jstl  import"></a>第一种：jstl  import</h2><pre><code>&lt;c:import url=&quot;inlayingJsp.jsp&quot;&gt;&lt;/c:import&gt; </code></pre><h2 id="第二种：jsp-include指令"><a href="#第二种：jsp-include指令" class="headerlink" title="第二种：jsp include指令"></a>第二种：jsp include指令</h2><p>include指令告诉容器：复制被包含文件汇总的所有内容，再把它粘贴到这个文件中。</p>
-<pre><code>&lt;%@ include file=&quot;inlayingJsp.jsp&quot; %&gt;</code></pre><h2 id="第三种：jsp-include动作"><a href="#第三种：jsp-include动作" class="headerlink" title="第三种：jsp include动作"></a>第三种：jsp include动作</h2><pre><code>&lt;jsp:include   page=&quot;inlayingJsp.jsp&quot; flush=&quot;true&quot;/&gt;</code></pre><h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><ul>
-<li>include指令在转换时插入“Header.jsp”的源代码，而<a href="jsp:include" target="_blank" rel="noopener">jsp:include</a>动作在运行时插入“Header.jsp”的响应。</li>
-</ul>
-<p>&lt;%@include为静态包含，&lt;%@include不论包含的是txt文本还是jsp文件，被包含的页面都不会从新编译。</p>
-<p>&lt;%@include为静态包含,包含了几个JSP转译成servlet时就会有几个class文件，如果在jsp1定义了变量i同时在jsp2也定义了变量i那么你编译都会通不过的,jsp容器会告诉你i重复定义了.</p>
-<p>&lt;jsp:include 为动态包含，&lt;jsp:include 如包含jsp文件，这每次加载主页面的时候，被包含的页面都要重新编译。就是说不管你包含了几个jsp页面转译成servlet时中有一个class文件所以说对于&lt;%@include要慎用!</p>
-<ul>
-<li>(2)使用jstl标签时，一定要在jsp文件头加入以下代码：&lt;%@taglib prefix=”c” uri=”<a href="http://Java.sun.com/jsp/jstl/core&quot;%&gt;" target="_blank" rel="noopener">http://Java.sun.com/jsp/jstl/core&quot;%&gt;</a></li>
-</ul>
-<h2 id="什么是静态导入？"><a href="#什么是静态导入？" class="headerlink" title="什么是静态导入？"></a>什么是静态导入？</h2><p>静态导入指的是，将一个外部文件嵌入到当前JSP文件中，同时解析这个页面的JSP语句，它会把目标页面的其他编译指令也包含进来。<br>include的静态导入指令使用语法：</p>
-<pre><code>&lt;%@include file=&quot;relativeURLSpec&quot;%&gt;</code></pre><p>静态导入使用范例include1.jsp：<br>代码如下:</p>
-<pre><code>&lt;%@ page contentType=&quot;text/html; charset=utf-8&quot; language=&quot;java&quot; errorPage=&quot;&quot; %&gt;
-&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-&lt;head&gt;
-&lt;title&gt;静态include范例&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;!--使用include编译指定导入页面--&gt;
-&lt;%@include file=&quot;error.jsp&quot;%&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>其中error.jsp是一个简单的错误处理页面，代码如下：</p>
-<pre><code>&lt;%@ page contentType=&quot;text/html; charset=utf-8&quot; language=&quot;java&quot; isErrorPage=&quot;true&quot; %&gt;
-&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-&lt;head&gt;
-&lt;title&gt;错误提示页&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-这是一个错误处理页面&lt;/br&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>在tomcat下运行该静态include范例后，查看生成的servlet类可看到如下代码段</p>
-<p>（查看方式：windows下，找到tomcat安装目录下的work文件夹，进入Catalina文件夹下的localhost文件夹，找到当前项目所在的文件夹，找到org目录，进入其下的apache目录下的jsp文件夹，即可看到一个include1_jsp.java文件，这就是该include1.jsp对应生成的servlet类。ps：我是把这个测试页面放在webDemo下的，所以我的目录是\apache-tomcat-7.0.47\work\Catalina\localhost\webDemo\org\apache\jsp）</p>
-<p>从方框中即可看出静态导入是：包含页面在编译时将完全包含被包含页面的代码。需要指出的是，静态导入还会将被包含页面的编译指令也包含进来，如果两个页面的编译指令有冲突，那么页面就会出错。</p>
-<h2 id="什么是动态导入"><a href="#什么是动态导入" class="headerlink" title="什么是动态导入"></a>什么是动态导入</h2><p>动态导入是不会导入include页面的编译指令的，而是仅仅将被导入页面的body内容插入本页面。<br>动态导入的语法格式：<br>代码如下:</p>
-<pre><code>&lt;jsp:include page=&quot;{relativeURL|&lt;%=expression%&gt;}&quot; flush=&quot;true&quot;/&gt;</code></pre><p>或者<br>代码如下:</p>
-<pre><code>&lt;jsp:include page=&quot;{relativeURL|&lt;%=expression%&gt;}&quot; flush=&quot;true&quot;&gt;
-&lt;jsp:param name=&quot;parameterName&quot; value=&quot;parameterValue&quot;/&gt;
-&lt;/jsp:include&gt;</code></pre><p>flush属性用语指定输出缓存是否转移到被导入文件中。如果指定为true，则包含在被导入文件中，如果指定为false，则包含在原文件中，对于JSP1.1旧版本，只能设置为false。<br>对于第二种语法格式，则可在被导入页面中加入额外的请求参数。</p>
-<p>动态导入范例：</p>
-<p>我们将上面的include1.jsp代码静态导入改为动态导入<br>代码如下:</p>
-<pre><code>&lt;%@ page contentType=&quot;text/html; charset=utf-8&quot; language=&quot;java&quot; errorPage=&quot;&quot; %&gt;
-&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-&lt;head&gt;
-&lt;title&gt;静态include范例&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;!--使用include编译指定导入页面--&gt;
-&lt;jsp：include page=&quot;error.jsp&quot; /&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>归纳起来，静态导入和动态导入有如下三点区别：</p>
-<ul>
-<li><p>1、静态导入是将被导入页面的代码完全融入，两个页面融合成一个整体Servlet；而动态导入则在Servlet中使用include方法来引入被导入页面的内容。</p>
-</li>
-<li><p>2、静态导入时被导入页面的编译指令会起作用；而动态导入时被导入页面的编译指令则失去作用，只是插入被导入页面的body内容。</p>
-</li>
-<li><p>3、动态导入还可以增加额外的参数。即如下代码方式：</p>
-<pre><code>&lt;jsp:include page=&quot;{relativeURL|&lt;%=expression%&gt;}&quot; flush=&quot;true&quot;&gt;
-&lt;jsp:param name=&quot;parameterName&quot; value=&quot;parameterValue&quot;/&gt;
-&lt;/jsp:include&gt;</code></pre></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/29/2019-10-29/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-10-28" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/28/2019-10-28/">2019-10-28</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/28/2019-10-28/" class="archive-article-date">
-  	<time datetime="2019-10-28T09:50:31.500Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="jsp有哪些内置对象-作用分别是什么"><a href="#jsp有哪些内置对象-作用分别是什么" class="headerlink" title="jsp有哪些内置对象?作用分别是什么?"></a>jsp有哪些内置对象?作用分别是什么?</h1><h2 id="九个内置对象-作用："><a href="#九个内置对象-作用：" class="headerlink" title="九个内置对象+作用："></a>九个内置对象+作用：</h2><p>1.request: 用户端请求，此请求会包含来自GET/POST请求的参数</p>
-<p>2.response: 网页传回用户端的回应</p>
-<p>3.pageContext: 网页的属性是在这里管理，代表的编译后JSP内容</p>
-<p>4.session: 与请求有关的会话期</p>
-<p>5.application: servlet正在执行的内容，共享性</p>
-<p>6.out: 用来传送回应的输出</p>
-<p>7.config:  servlet的构架部件，配置对象</p>
-<p>8.page: JSP网页本身</p>
-<p>9.exception: 针对错误网页，未捕捉的例外</p>
-<h1 id="jsp和servlet的区别、共同点、各自应用的范围？"><a href="#jsp和servlet的区别、共同点、各自应用的范围？" class="headerlink" title="jsp和servlet的区别、共同点、各自应用的范围？"></a>jsp和servlet的区别、共同点、各自应用的范围？</h1><h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><ul>
-<li>Servlet和JSP最主要的不同点在于：Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。<br>而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。（JSP可以内嵌HTML、EL、Java和JSTL， servlet只能包含Java）</li>
-<li>JSP侧重于视图，Servlet主要用于控制逻辑。（JSP可作为前端显示页面，servlet只能作为后台控制）</li>
-<li>JSP控制不需要项目中去注册，servlet必须注册（web.xml/注解）</li>
-<li>JSP常作为小型项目，servlet常用作框架类的大型项目</li>
-</ul>
-<h2 id="相同点："><a href="#相同点：" class="headerlink" title="相同点："></a>相同点：</h2><ul>
-<li>处理后台逻辑，作为MVC控制</li>
-<li>九个内置对象</li>
-<li>都可用Java语言</li>
-</ul>
-<h2 id="JSP四个作用域范围"><a href="#JSP四个作用域范围" class="headerlink" title="JSP四个作用域范围"></a>JSP四个作用域范围</h2><ul>
-<li>page【只在一个页面中保存属性，跳转页面无效】有效域是当前页面，可以把参数放入PageContext中，只要跳转就失效。</li>
-<li>request【只在一次请求中保存属性，服务器跳转有效，浏览器跳转无效】有效域是当前请求周期。所谓请求周期，就是指从http请求发起，到服务器处理结束，<br>返回响应的整个过程。在这个过程中可能使用forward的方式跳转了多个jsp页面，在这些页面里你都可以<br>使用这个变量。</li>
-<li>session【在一个会话范围中保存属性，无论何种跳转均有效，关闭浏览器后无效】会话。隔离。生命周期是从用户发起链接服务器至彻底与服务器完全断开。可以包含很多个request。所谓当前会话，就是指从用户打开浏览器开始，到用户关闭浏览器这中间的过程。</li>
-<li>application【在整个服务器中保存，所有用户都可以使用】共享、全局、服务器启动时产生，重启服务器销毁。可以包含很多个session。</li>
-</ul>
-<h2 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h2><ul>
-<li>request：如果客户向服务器发请求，产生的数据，用户看完就没用了，像这样的数据就存在request域,像新闻数据，属于用户看完就没用的</li>
-<li>session：如果客户向服务器发请求，产生的数据，用户用完了等一会儿还有用，像这样的数据就存在session域中，像购物数据，用户需要看到自己购物信息，并且等一会儿，还要用这个购物数据结帐</li>
-<li>servletContext：如果客户向服务器发请求，产生的数据，用户用完了，还要给其它用户用，像这样的数据就存在servletContext域中，像聊天数据</li>
-</ul>
-<h1 id="JSP七种传参方式"><a href="#JSP七种传参方式" class="headerlink" title="JSP七种传参方式"></a>JSP七种传参方式</h1><ul>
-<li>（一）JavaBean：&lt;jsp:useBean id=”XXX” class=”JavaBean的全限定名(page+calssName)” scope=”session” /&gt;</li>
-<li>（二）Session：session.setAttribute(String key,Object value)/seesion.getAttribute(String key)</li>
-<li>（三）Application:application.setAttribute(String key,Object value)/application.getAttribute(String key)</li>
-<li>（四）Request:request.setParater(String key,String value)/request.getParater(String key)<br>  request.setAttribute(String key,Object value)/request.getAttribute(String key)</li>
-<li>（五）JSP动作指令：&lt;jsp:forward/redirect page=”XXX.jsp”&gt; &lt;jsp:param name=”key-x”              value=”value-x”/&gt;&lt;jsp:param name=”key-y” value=”value-y” /&gt; &lt;/jsp:forward/redirect&gt;</li>
-<li>（六）Form表单：用户操作</li>
-<li>（七）URL传参：URL.jsp?参数1 的key=参数1的value&amp; 参数n的key=参数n 的value</li>
-</ul>
-<h2 id="JSP是如何被执行的？执行效率比SERVLET低吗？"><a href="#JSP是如何被执行的？执行效率比SERVLET低吗？" class="headerlink" title="JSP是如何被执行的？执行效率比SERVLET低吗？"></a>JSP是如何被执行的？执行效率比SERVLET低吗？</h2><ul>
-<li><p>当客户端向一个jsp页面发送请求时，Web Container将jsp转化成servlet的源代码（只在第一次请求时），然后编译转化后的servlet并加载到内存中执行，执行的结果response到客户端</p>
-</li>
-<li><p>jsp只在第一次执行的时候会转化成servlet，以后每次执行，web容器都是直接执行编译后的servlet，所以jsp和servlet只是在第一次执行的时候不一样，jsp慢一点，以后的执行都是相同的</p>
-</li>
-</ul>
-<h2 id="JSP的缺点？"><a href="#JSP的缺点？" class="headerlink" title="JSP的缺点？"></a>JSP的缺点？</h2><p>1）不好调试</p>
-<p>2）与其他脚本语言的交互(可读性差)</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/28/2019-10-28/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JavaOOP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/24/JavaOOP/">JavaOOP</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/24/JavaOOP/" class="archive-article-date">
-  	<time datetime="2019-10-24T12:19:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JavaOOP填空题"><a href="#JavaOOP填空题" class="headerlink" title="JavaOOP填空题"></a>JavaOOP填空题</h1><p>1、分层开发过程中，实体类最好实现 java.io.Serializable 接口，以支持<strong>__</strong>机制，可以将该对象转换成字节序列而保存在磁盘上或在网络上传输</p>
-<h2 id="答案：序列化"><a href="#答案：序列化" class="headerlink" title="答案：序列化"></a>答案：序列化</h2><p>2、如下代码所示：</p>
-<pre><code>public interface PersonDao 
-{  
-        int add(Person person);  
-        int delete(Person person);  
-        int update(Person person);  
-        Person getByName(String name);  
-        List&lt;Person&gt; findByName(String name); 
-} </code></pre><p>其中add()，delete()，update()方法是以<strong>__</strong>为单位来进行参数传递</p>
-<h2 id="答案：对象"><a href="#答案：对象" class="headerlink" title="答案：对象"></a>答案：对象</h2><p>3、数据库操作结束后，应该<strong>__</strong>，释放系统资源。为了确保程序的执行，关闭数据库连接语句要放到<strong>__</strong>语句块中。</p>
-<h2 id="答案：关闭数据库连接-finally"><a href="#答案：关闭数据库连接-finally" class="headerlink" title="答案：关闭数据库连接,  finally"></a>答案：关闭数据库连接,  finally</h2><p>4、补全以下填空处的代码:</p>
-<pre><code>Statement stmt = con.createStatement() ; 
-ResultSet rs = stmt.executeQuery (&quot;SELECT  id,  name  FROM  master&quot;) ; 
-
-while(____) {
-    int id=_______;  
-    String name=________;  
-    System.out.println(id+&quot; : &quot;+name);
-}</code></pre><h2 id="答案：-rs-next-rs-getInt-“id”-rs-getString-“name”"><a href="#答案：-rs-next-rs-getInt-“id”-rs-getString-“name”" class="headerlink" title="答案： rs.next(),  rs.getInt(“id”),  rs.getString(“name”);"></a>答案： rs.next(),  rs.getInt(“id”),  rs.getString(“name”);</h2><p>5、使用Class.forName()方法加载和注册驱动程序后，由<strong><strong>____</strong></strong>类负责管理并跟踪JDBC驱动程序，在数据库和相应驱动程序之间建立连接</p>
-<h2 id="答案：DriverManager"><a href="#答案：DriverManager" class="headerlink" title="答案：DriverManager"></a>答案：DriverManager</h2><p>6、JDBC&ensp;APl的含义是Java应用程序连接<strong>_____</strong>的编程接口</p>
-<h2 id="答案：数据库"><a href="#答案：数据库" class="headerlink" title="答案：数据库"></a>答案：数据库</h2><p>7、HashMap集合中，获取所有键的集合，是用_____方法</p>
-<h2 id="答案：keySet"><a href="#答案：keySet" class="headerlink" title="答案：keySet()"></a>答案：keySet()</h2><p>8、往HashMap中添加元素，可以通过_____方法</p>
-<h2 id="答案：put"><a href="#答案：put" class="headerlink" title="答案：put()"></a>答案：put()</h2><p>9、List 接口继承_____接口，存储一组不唯一、有序的对象</p>
-<h2 id="答案：Collection"><a href="#答案：Collection" class="headerlink" title="答案：Collection"></a>答案：Collection</h2><p>10、ArrayList获取长度的方法是____</p>
-<h2 id="答案：size"><a href="#答案：size" class="headerlink" title="答案：size()"></a>答案：size()</h2><p>11、____方法是线程类Thread的静态方法，调用该方法使线程暂停执行指定的时间，将CPU让给其他线程，并不释放所持有的对象锁，休眠时间结束后线程回到就绪状态。</p>
-<h2 id="答案：sleep（）"><a href="#答案：sleep（）" class="headerlink" title="答案：sleep（）"></a>答案：sleep（）</h2><p>12、<strong>____</strong>是线程因为某种原因放弃 CPU 使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态</p>
-<h2 id="答案：阻塞状态"><a href="#答案：阻塞状态" class="headerlink" title="答案：阻塞状态"></a>答案：阻塞状态</h2><p>13、创建一个新线程出来有两种方法：第一个是从 <strong><strong>_ 类继承，另一个是实现<br>_</strong></strong> 接口。</p>
-<h2 id="答案：Thread-Runnable"><a href="#答案：Thread-Runnable" class="headerlink" title="答案：Thread,  Runnable"></a>答案：Thread,  Runnable</h2><p>14、<strong><strong><em>是进程中的一个执行单元，_</em></strong></strong>本身依靠进程进行运行</p>
-<h2 id="答案：线程，-线程"><a href="#答案：线程，-线程" class="headerlink" title="答案：线程，  线程"></a>答案：线程，  线程</h2><p>15、多线程编程又叫<strong><strong>___</strong></strong>，使我们可以将运行的程序划分为多个分离的、独立运行的任务。</p>
-<h2 id="答案：并发编程"><a href="#答案：并发编程" class="headerlink" title="答案：并发编程"></a>答案：并发编程</h2><p>16、FileInputStream 类的无参 read()方法从输入流读取1个8位的字节，把它转换为<strong>____</strong>之间的整数返回。</p>
-<h2 id="答案：0—255"><a href="#答案：0—255" class="headerlink" title="答案：0—255"></a>答案：0—255</h2><p>17、我们通常使用InputStream的子类<strong><strong>_____</strong></strong>类来实现文本文件内容的读取。</p>
-<h2 id="答案：FileInputStream"><a href="#答案：FileInputStream" class="headerlink" title="答案：FileInputStream"></a>答案：FileInputStream</h2><p>18、字节流操作的最小数据单元为___位的字节，而字符流操作的最小数据单元是16位的字符。</p>
-<h2 id="答案：8"><a href="#答案：8" class="headerlink" title="答案：8"></a>答案：8</h2><p>19、___是指一连串流动的字符，是以先进先出的方式发送和接收数据的通道。</p>
-<h2 id="答案：流"><a href="#答案：流" class="headerlink" title="答案：流"></a>答案：流</h2><p>20、_____包提供了一些接口和类，对文件进行基本的操作，包括对文件和目录属性的操作 ，对文件读写的操作。</p>
-<h2 id="答案：-java-io"><a href="#答案：-java-io" class="headerlink" title="答案： java.io"></a>答案： java.io</h2><p>21、面向对象的三大特征       、       、         。</p>
-<h2 id="答案：封装，-继承，-多态"><a href="#答案：封装，-继承，-多态" class="headerlink" title="答案：封装， 继承， 多态"></a>答案：封装， 继承， 多态</h2><p>22、静态方法中不能使用       和      关键字。</p>
-<h2 id="答案：this-super"><a href="#答案：this-super" class="headerlink" title="答案：this, super"></a>答案：this, super</h2><p>23、用        修饰的类，不能再被继承</p>
-<h2 id="答案：final"><a href="#答案：final" class="headerlink" title="答案：final"></a>答案：final</h2><p>24、     可以用来修饰类和方法，但不能用来修饰属性和构造方法。</p>
-<h2 id="答案：abstract"><a href="#答案：abstract" class="headerlink" title="答案：abstract"></a>答案：abstract</h2><p>25、在定义一个类时，如果没有使用 extends 关键字，那么这个类直接继承       类。</p>
-<h2 id="答案：object"><a href="#答案：object" class="headerlink" title="答案：object"></a>答案：object</h2><p>26、继承通过         关键字来实现。</p>
-<h2 id="答案：extends"><a href="#答案：extends" class="headerlink" title="答案：extends"></a>答案：extends</h2><p>27、相同，      不同，这称为构造方法的重载</p>
-<h2 id="答案：方法名，-参数列表"><a href="#答案：方法名，-参数列表" class="headerlink" title="答案：方法名， 参数列表"></a>答案：方法名， 参数列表</h2><p>28、Java 中有常量，使用        关键字修饰</p>
-<h2 id="答案：final-1"><a href="#答案：final-1" class="headerlink" title="答案：final"></a>答案：final</h2><p>29、关键字      通常指当前对象的引用，它可以调用当前对象 的成员。</p>
-<h2 id="答案：this"><a href="#答案：this" class="headerlink" title="答案：this"></a>答案：this</h2><p>30、通过构造方法来创建对象：Army army=       Army()；</p>
-<h2 id="答案：new"><a href="#答案：new" class="headerlink" title="答案：new"></a>答案：new</h2><p>31、抛出异常，交给上一级处理的关键字是</p>
-<h2 id="答案：throw"><a href="#答案：throw" class="headerlink" title="答案：throw"></a>答案：throw</h2><p>32、在当前位置捕获并处理通过</p>
-<h2 id="答案：try-catch"><a href="#答案：try-catch" class="headerlink" title="答案：try-catch"></a>答案：try-catch</h2><p>33、如果一个方法体有异常，可以声明的关键字是</p>
-<h2 id="答案：throws"><a href="#答案：throws" class="headerlink" title="答案：throws"></a>答案：throws</h2><p>34、接口中没有的方法是</p>
-<h2 id="答案：构造方法"><a href="#答案：构造方法" class="headerlink" title="答案：构造方法"></a>答案：构造方法</h2><p>35、接口中的方法都是</p>
-<h2 id="答案：抽象方法"><a href="#答案：抽象方法" class="headerlink" title="答案：抽象方法"></a>答案：抽象方法</h2><p>36、一个类要实现接口，关键字是</p>
-<h2 id="答案：implements"><a href="#答案：implements" class="headerlink" title="答案：implements"></a>答案：implements</h2><p>37、如果要把带参方法的name赋值给本类中的name，应写</p>
-<h2 id="答案：this-name-name"><a href="#答案：this-name-name" class="headerlink" title="答案：this.name=name"></a>答案：this.name=name</h2><p>38、构造方法的作用是</p>
-<h2 id="答案：参数初始化或初始化参数"><a href="#答案：参数初始化或初始化参数" class="headerlink" title="答案：参数初始化或初始化参数"></a>答案：参数初始化或初始化参数</h2><p>39、如果一个类中有一个方法是抽象方法，那这个类是</p>
-<h2 id="答案：抽象类"><a href="#答案：抽象类" class="headerlink" title="答案：抽象类"></a>答案：抽象类</h2><h1 id="JavaOOP简答题"><a href="#JavaOOP简答题" class="headerlink" title="JavaOOP简答题"></a>JavaOOP简答题</h1><p>1、根据自己的理解，典型的DAO模式主要由哪几部分组成？</p>
-<h2 id="参考答案要点："><a href="#参考答案要点：" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>典型的 DAO 模式主要由 DAO 接口、DAO 实现类、实体类组成。基于代码复用考虑， 通常创建一个数据库连接和关闭工具类</p>
-<p>2、根据自己的理解简单说明下什么是DAO？</p>
-<h2 id="参考答案要点：-1"><a href="#参考答案要点：-1" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>Data Access Objects，数据存取对象，位于业务逻辑和持久化数据之间，实现对持久化数据的访问</p>
-<p>3、简述开发JDBC程序一般需要经过哪几个基本步骤？</p>
-<h2 id="参考答案要点：-2"><a href="#参考答案要点：-2" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1.加载JDBC驱动<br>2.与数据库建立连接<br>3.创建statement对象，发送sql语句，并得到返回结果<br>4.处理返回结果<br>5.关闭相关资源</p>
-<p>4、请写出JDBC中常见的4个接口</p>
-<h2 id="参考答案要点：-3"><a href="#参考答案要点：-3" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>Connection、Statement、ResultSet、PreparedStatement</p>
-<p>5、ArrayList的初始化内容如下： </p>
-<pre><code>ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
-        list.add(&quot;java&quot;);
-        list.add(&quot;aaa&quot;);
-        list.add(&quot;java&quot;);
-        list.add(&quot;bbb&quot;);
-for (int i = list.size()-1; i &gt;= 0; i--) {
-   if(&quot;java&quot;.equals(list.get(i))) {
-        __________
-    }
-}</code></pre><p>请在填空处写出代码，删除list中所有的“java”</p>
-<h2 id="参考答案要点：-4"><a href="#参考答案要点：-4" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>list.remove(i);</p>
-<p>6、线程生命周期的几种状态？</p>
-<h2 id="参考答案要点：-5"><a href="#参考答案要点：-5" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>新建状态、就绪状态、运行状态、阻塞状态、死亡状态</p>
-<p>7、补全实现 Runnable 接口创建新线程的代码。主线程中循环输出0-9，新线程中循环输出10-19。</p>
-<pre><code>public class TestThread {
-    public static void main(String args[]){
-    //new一个线程类的对象出来
-    Runner runner =         1        ;
-    Thread t =         2        ;
-    //启动新开辟的线程，执行run()方法，
-                3         ;
-    for(int i=0;i&lt;10;i++){
-    System.out.println(i);
-}
-}
-
-}
-
-/*定义一个类Runner用来实现Runnable接口，得到线程类Runner*/
-class Runner         4      {
-
-        5     {
-for(int i=10;i&lt;20;i++){
-System.out.println(i);
-}
-}
-}</code></pre><h2 id="参考答案要点：-6"><a href="#参考答案要点：-6" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1.new Runner()<br>2.new Thread(runner)<br>3.t.start()<br>4.implements Runnable<br>5.public void run()</p>
-<p>8、线程和进程的区别？</p>
-<h2 id="参考答案要点：-7"><a href="#参考答案要点：-7" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、每个运行中的程序（如word,QQ）都是一个进程。进程都有独立的代码和数据空间，进程切换开销大。<br>2、线程在程序中是独立的执行流，同一个进程中可以有多个线程，也就是可以有多个执行路线。线程共享进程的代码和数据空间，线程切换开销小。<br>3、多进程：在操作系统中能同时运行多个任务（程序）。<br>4、多线程：在同一应用程序中有多个顺序流同时执行。</p>
-<p>9、FileWriter和BufferedWriter的区别与联系？</p>
-<h2 id="参考答案要点：-8"><a href="#参考答案要点：-8" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>联系：<br>1、FileWriter和BufferedWriter都是用于字符输出流。<br>2、如果要使用BufferedWriter，一定会用到FileWriter，BufferedWriter是FileWriter 为parameter(参数)的！<br>Public BufferedWriter(FileWriter fileWriter)<br>区别：<br>1、使用BufferedWriter的效率要比FileWriter高很多。因为BufferedWriter把一批数据写到缓冲区，当缓冲区满的时候，再把缓冲区的数据写到字符输出</p>
-<p>10、列出字节输出流FileOutputStream类中的三个构造方法,及构造方法中参数的含义？</p>
-<h2 id="参考答案要点：-9"><a href="#参考答案要点：-9" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1.FileOutputStream(File file)，file指定文件目标数据源<br>2.FileOutputStream (String name),name指定文件目标数据源,包含路径信息<br>3.FileOutputStream(String name,boolean append),name指定文件目标数据源，包含路径信息。 append 表示是否在文件末尾添加数据，若设置为true，则在文件末尾添加数据。</p>
-<p>11、java流按照流向进行划分可以分为哪两类？按照处理数据单元划分可以分为哪两类？</p>
-<h2 id="参考答案要点：-10"><a href="#参考答案要点：-10" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>按照流向进行划分可分为输出流和输入流，按照处理数据单元划分可以分为字节流和字符流。</p>
-<p>12、抽有象类中可以有构造方法吗？</p>
-<h2 id="参考答案要点：-11"><a href="#参考答案要点：-11" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>解答：抽象类可以有构造方法，其构造方法可以被本类的其他构造方法调用，若此构造方法<br>不是由 private 修饰，也可以被本类的子类中的构造方法调用。</p>
-<p>13、抽象类和抽象方法的特点？</p>
-<h2 id="参考答案要点：-12"><a href="#参考答案要点：-12" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>答：(1) 抽象类和抽象方法都通过 abstract 关键字来修饰。<br>(2) 抽象类不能实例化。抽象类中可以没有、有一个或多个抽象方法，甚至全部方法都可以<br>是抽象方法。<br>(3) 抽象方法只有方法声明，没有方法实现。有抽象方法的类必须声明为抽象类。子类必须<br>重写所有的抽象方法才能实例化，否则子类还是一个抽象类。</p>
-<p>14、重载(overloading)和重写(overriding)有什么区别和联系?</p>
-<h2 id="参考答案要点：-13"><a href="#参考答案要点：-13" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>答：重载涉及同一个类中的同名方法，要求方法名相同，参数列表不同，与返回值类型和<br>修饰符无关。<br>重写涉及的是子类和父类之间的同名方法，要求方法名相同、参数列表相同、返回值类型相<br>同（或是其子类)、访问修饰符不能严于父类。</p>
-<p>15、请写出 java.lang.Object 的 6 个方法。</p>
-<h2 id="参考答案要点：-14"><a href="#参考答案要点：-14" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、equals()方法<br>2、finalize()方法<br>3、hashCode()方法<br>4、toString()方法<br>5、clone()方法<br>6、wait（）方法</p>
-<p>16、方法重载的判断依据？</p>
-<h2 id="参考答案要点：-15"><a href="#参考答案要点：-15" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1.必须在同一个类里。<br>2.方法名相同。<br>3.参数列表(方法形参的个数或参数类型)不同。<br>4.与方法返回值和方法修饰符没有任何关系。</p>
-<p>17、类和对象有什么区别？</p>
-<h2 id="参考答案要点：-16"><a href="#参考答案要点：-16" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>答：类(Class)和对象(Object)是面向对象中的两个核心概念。类是对某一类事物的描述，是抽象的、概念上的定义。对象是实际存在的、具体的事物个体。类和对象的关系就好比模具和用模具<br>制作出的物品的关系。因此我们可以由一个类创建多个对象。</p>
-<p>18、面向过程和面向对象有什么区别？</p>
-<h2 id="参考答案要点：-17"><a href="#参考答案要点：-17" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>答：例如五子棋，面向过程是首先分析问题的思路。1 开始游戏&mdash;2 黑子先走–3 判断输<br>赢&mdash;4 白子再走–5 判断输赢&mdash;6 返回步骤(2)&mdash;7 最后输出结果。</p>
-<p>而面向对象的设计则是从另外的思路来解决问题，则首先分析游戏需要哪些类：黑白双方玩<br>家、棋盘系统和游戏规则。然后分析各种类的行为：选手行为是一致的，棋盘系统负责绘制<br>画面，规则系统负责判定诸如犯规、输赢等。</p>
-<p>面向过程的核心是函数，以功能为中心，实现了函数级别的代码重用。面向对象的核心是封<br>装了属性和方法(行为)的类，以数据为中心，实现了类级别的代码重用。面向对象因为采用<br>了类，所以具有封装、继承和多态特性，提高了代码重用性、可维护性和扩展性，适合大型<br>项目的开发。</p>
-<p>19、简述throw和throws的区别</p>
-<h2 id="参考答案要点：-18"><a href="#参考答案要点：-18" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、作用不同：throw用于程序中抛出异常；throws声明该方法内抛出了异常<br>2、使用位置不同：throw位于方法体内部，可以作为单独语句使用；<br>throws必须跟在方法参数列表的后面，不能单独使用<br>3、内容不同：throw抛出一个异常对象，而且只能是一个；<br>throws后面跟异常类，而且可以跟多个异常类</p>
-<p>20、简述为什么不使用if-else处理异常</p>
-<h2 id="参考答案要点：-19"><a href="#参考答案要点：-19" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、代码臃肿，加入了大量的异常情况判断和处理代码<br>2、减少了编写业务代码的时间，影响开发效率<br>3、异常处理和业务代码交织在一起，影响代码的可读性，加大了程序的可维护性<br>21、简述接口和抽象类的区别</p>
-<h2 id="参考答案要点：-20"><a href="#参考答案要点：-20" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>抽象类利用代码复用；接口利于代码维护</p>
-<p>22、简述接口的作用和优势</p>
-<h2 id="参考答案要点：-21"><a href="#参考答案要点：-21" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>接口弥补了java只支持单继承的缺点，还利于代码的扩展和维护</p>
-<p>23、简述实现多态的两种方式</p>
-<h2 id="参考答案要点：-22"><a href="#参考答案要点：-22" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>1、使用父类作为方法形参实现多态<br>2、使用父类作为方法返回值实现多态</p>
-<p>24、简述多态的作用和优势</p>
-<h2 id="参考答案要点：-23"><a href="#参考答案要点：-23" class="headerlink" title="参考答案要点："></a>参考答案要点：</h2><p>多态可以减少类中的代码量，提高了代码的扩展性和可维护性</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/24/JavaOOP/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-10-22" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/23/2019-10-22/">2019-10-22</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/23/2019-10-22/" class="archive-article-date">
-  	<time datetime="2019-10-23T13:21:15.219Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h1><h2 id="实现登录功能"><a href="#实现登录功能" class="headerlink" title="实现登录功能"></a>实现登录功能</h2><h2 id="第一步-创建login-jsp登录页面"><a href="#第一步-创建login-jsp登录页面" class="headerlink" title="第一步: 创建login.jsp登录页面"></a>第一步: 创建login.jsp登录页面</h2><p>在所创建的动态项目his_v1中，于WebContent文件夹下创建login.jsp。其显示效果类似于下图:<br>对应源代码如下：</p>
-<pre><code>&lt;html&gt;
-&lt;body&gt;
-&lt;!-- 需要注意的是:xml配置文件中的url-pattern这里写的是/LoginServlet，而在jsp中form表单 的action写的是LoginServlet,而不是/LoginServlet。 --&gt;
-    &lt;form action=”LoginServlet” method=”post”&gt;
-        &lt;table&gt;
-            &lt;tr&gt;
-                &lt;td colspan=”2”&gt;登录窗口&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;用户名：&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;input type=”text” name=”username” /&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;密码：&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;input type=”password” name=”password” /&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td colspan=”2”&gt;
-                    &lt;input type=”submit” value=”登录” /&gt; 
-                    &lt;a href=”register.jsp”&gt;注册&lt;/a&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/table&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><h2 id="第二步：创建处理登录判定的Servlet-LoginServlet"><a href="#第二步：创建处理登录判定的Servlet-LoginServlet" class="headerlink" title="第二步：创建处理登录判定的Servlet:LoginServlet"></a>第二步：创建处理登录判定的Servlet:LoginServlet</h2><p>在第一步中的login.jsp中，我们需要特别注意这句代码：</p>
-<pre><code>&lt;form action=”LoginServlet” method=”post”&gt;</code></pre><p>这行代码中有两个属性，说明如下：</p>
-<ul>
-<li><p>action属性：点击登录按钮后，接下来的动作，这里是转到了LoginServlet。</p>
-</li>
-<li><p>method属性：表单中数据的提交方式。</p>
-</li>
-</ul>
-<p>接下来，再src文件夹下创建LoginServlet类，其中的doPost()方法参考代码如下：</p>
-<pre><code>/**
- * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
- */
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // TODO Auto-generated method stub
-    request.setCharacterEncoding(&quot;utf-8&quot;);//设置request编码
-    response.setContentType(&quot;text/html;charset=utf-8&quot;);//设置response编码
-    String id = request.getParameter(&quot;username&quot;);//获取表单用户名
-    String pwd = request.getParameter(&quot;password&quot;);//获取表单密码
-    if(pwd==null || pwd.equals(&quot;&quot;)){//若没有密码，或为空
-        response.getWriter().print(&quot;密码不能为空！&quot;);//在当前页面(login.jsp)添加显示一句话。
-        return;//跳出doPost()方法，等待login.jsp页面再次提交表单。
-    }
-    if(id==null || id.equals(&quot;&quot;)){//若没有账号，或为空
-        response.getWriter().print(&quot;用户名不能为空！&quot;);//在当前页面(login.jsp)添加显示一句话。
-        return;//跳出doPost()方法，等待login.jsp页面再次提交表单。
-    }
-    if(id.equals(&quot;sam&quot;) &amp;&amp; pwd.equals(&quot;123&quot;)) {//用户名、密码正确
-        request.getRequestDispatcher(&quot;welcome.jsp&quot;).forward(request, response);//页面转发
-        //页面跳转的方式：(1)转发：foward(地址栏地址不变);(2)重定向：redirect(地址栏地址变化)
-    }else//用户名、密码错误
-    {
-        response.getWriter().print(&quot;用户名或密码有误，请重新输入！&quot;);//在当前页面(login.jsp)添加显示一句话。
-        return;//跳出doPost()方法，等待login.jsp页面再次提交表单。
-    }
-}</code></pre><p>}</p>
-<h2 id="第三步：LoginServlet在项目配置文件web-xml中注册："><a href="#第三步：LoginServlet在项目配置文件web-xml中注册：" class="headerlink" title="第三步：LoginServlet在项目配置文件web.xml中注册："></a>第三步：LoginServlet在项目配置文件web.xml中注册：</h2><pre><code>&lt;servlet&gt;&lt;/servlet&gt;
-&lt;servlet-name&gt;&lt;/servlet-name&gt;
-&lt;servlet-class&gt;&lt;/servlet-class&gt;
-&lt;servlet-mapping&gt;&lt;/servlet-mapping&gt;
-&lt;url-pattern&gt;&lt;/url-pattern&gt;
-这五个都是注册一个servlet组件必须的节点</code></pre><p>1.servlet是用来注册Servlet的存放地址<br>servlet-name这个是我们要注册servlet的名字<br>servlet-class这个就是指向我们要注册的servlet 的类地址, 要带包路径。<br>2.servlet-mapping是用来配置我们注册的组件的访问路径<br>3.servlet-name 要与前面写的servlet的名字一致<br>4.url-pattern 配置这个组件的访问路径<br>5.实例</p>
-<pre><code>接续第一步、第二步内容为例： 
-&lt;servlet&gt; 
-&lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt; 
-&lt;servlet-class&gt;sam.his.servlet.LoginServlet&lt;/servlet-class&gt;  &lt;!--存放路径 --&gt;  
-&lt;/servlet&gt; 
-&lt;servlet-mapping&gt; 
-&lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;                       &lt;!-- 与上面的 
-&lt;servlet-name&gt; 要一致 --&gt; 
-&lt;url-pattern&gt;/LoginServlet&lt;/url-pattern&gt;  &lt;!-- 访问路径 --&gt; 
-&lt;/servlet-mapping&gt; </code></pre><h2 id="第四步：实施登录"><a href="#第四步：实施登录" class="headerlink" title="第四步：实施登录"></a>第四步：实施登录</h2><p>注意：需要再添加一个登录成功页面welcome.jsp(参考第二步的doPost方法中代码) 项目部署在tomcat服务器上，运行后在地址栏输入地址访问项目的login.jsp页面，表单中录入用户名、密码， 尝试登录。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/23/2019-10-22/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Java面向对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/23/Java面向对象/">Java面向对象</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/23/Java面向对象/" class="archive-article-date">
-  	<time datetime="2019-10-23T10:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="new关键字创建对象的过程"><a href="#new关键字创建对象的过程" class="headerlink" title="new关键字创建对象的过程"></a>new关键字创建对象的过程</h1><ul>
-<li><p>1.为对象分配内存空间，将对象的实例变量自动初始化为期变量类型的默认值</p>
-</li>
-<li><p>2:如果实例变量在声明时显示初始化，那就把初始化值赋给 实例变量</p>
-</li>
-<li><p>3:调用构造方法</p>
-</li>
-<li><p>4:返回对象引用</p>
-</li>
-</ul>
-<h1 id="变量的作用域和生命周期"><a href="#变量的作用域和生命周期" class="headerlink" title="变量的作用域和生命周期"></a>变量的作用域和生命周期</h1><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
-<li><p>成员变量：在类中声明，作用域是整个类</p>
-</li>
-<li><p>局部变量：在方法内部或者方法的代码块的内部声明。<br>如果在方法内部声明，作用域是整个方法。<br>如果是方法的某个代码块，也就是{ }里面的内容，作用域也局限在{ }</p>
-</li>
-<li><p>方法参数：方法或者构造方法的参数，作用域是方法参数的( )里</p>
-<h2 id="类的成员变量有两种：静态变量和实例变量"><a href="#类的成员变量有两种：静态变量和实例变量" class="headerlink" title="类的成员变量有两种：静态变量和实例变量"></a>类的成员变量有两种：静态变量和实例变量</h2></li>
-<li><p>类的静态变量在内存中只有一个，java虚拟机在加载类的过程中为静态变量分配内存，它位于方法区，被类的所有实例共享，可以直接用类名 . 直接访问，生命周期取决于类</p>
-</li>
-<li><p>类的实例变量，每次创建一个类的实例，Java虚拟机就会为实例变量分配一次内存，实例变量位于堆中。实例变量的生命周期取决于实例的生命周期</p>
-</li>
-</ul>
-<h2 id="局部变量的声明周期："><a href="#局部变量的声明周期：" class="headerlink" title="局部变量的声明周期："></a>局部变量的声明周期：</h2><ul>
-<li><p>当调用一个方法时，会为这个方法中的局部变量分配内存，当结束调用时，会结束这个方法中的局部变量的声明周期。（局部变量必须显示初始化）</p>
-</li>
-<li><p>局部变量不能被public private protect  static等修饰，也不能通过类名和引用变量名来访问。</p>
-</li>
-</ul>
-<h2 id="this关键字："><a href="#this关键字：" class="headerlink" title="this关键字："></a>this关键字：</h2><p>当一个对象创建好后，java虚拟机会分配一个引用自身的指针：this,   this是指当前对象自己</p>
-<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><ul>
-<li><p>Sub类和Base类位于同一包下：Sub继承Base类中public,protected,和默认级别的成员变量和成员方法</p>
-</li>
-<li><p>Sub类和Base类位于不同包下：Sub继承Base类中public,protected的成员变量和成员方法</p>
-</li>
-</ul>
-<h2 id="方法重载："><a href="#方法重载：" class="headerlink" title="方法重载："></a>方法重载：</h2><ul>
-<li>方法名相同</li>
-<li>方法参数的类型，个数，顺序至少有一个不同</li>
-<li>方法返回类型可以不同</li>
-<li>方法修饰符可以不同</li>
-</ul>
-<h2 id="方法覆盖"><a href="#方法覆盖" class="headerlink" title="方法覆盖"></a>方法覆盖</h2><ul>
-<li>子类方法的名称，参数，和返回类型必须与父类方法相同</li>
-<li>子类方法不能缩小父类方法的访问权限</li>
-<li>子类方法不能抛出比父类方法更多的异常</li>
-<li>方法覆盖只存在于子类和父类</li>
-<li>子类可以定义与父类的静态方法同名的静态方法</li>
-<li>父类的非静态方法不可以被子类覆盖为静态方法</li>
-<li>父类的私有方法不能被子类覆盖</li>
-<li>父类的抽象方法可以被子类通过两种途径覆盖：一是子类实现父类的抽象方法；二是子类重新声明父类的抽象方法</li>
-</ul>
-<h2 id="super"><a href="#super" class="headerlink" title="super"></a>super</h2><p>super的使用场景:</p>
-<ul>
-<li>在子类的构造方法中调用父类构造方法</li>
-<li>在子类中使用被父类的被屏蔽的方法和属性<br>(Tips:只能在构造方法和实例方法中使用使用super关键字，而在静态方法和静态代码块中不能使用super关键字)</li>
-</ul>
-<h2 id="继承的利弊和使用原则"><a href="#继承的利弊和使用原则" class="headerlink" title="继承的利弊和使用原则"></a>继承的利弊和使用原则</h2><ul>
-<li>可以提高程序代码的可重用性，提高可扩展性。</li>
-<li>继承树的层次不可太多，继承树的上层为抽象层，</li>
-<li>继承的最大弱点：打破封装</li>
-</ul>
-<h2 id="精心设计用于被继承的类"><a href="#精心设计用于被继承的类" class="headerlink" title="精心设计用于被继承的类"></a>精心设计用于被继承的类</h2><p>由于继承关系会打破封装，因此随意继承对象模型中的任意一个类是不安全的做法。<br>在建立对象模型时，应该充分考虑软件系统中哪些地方需要扩展，为这些地方提供扩展点。</p>
-<p>(1)对这些类提供良好的文档说明，使得创建该类的子类的开发人员指导如何正确安全的扩展它。</p>
-<p>对于那些允许子类覆盖的方法，应该详细的描述该方法的自用型，以及子类覆盖此方法可能带来的影响。</p>
-<p>比如父类有一个speak()方法，此方法里面又调用了change()方法，这样在子类覆盖父类的speak()方法时，change()也会受到影响。</p>
-<p>(2)尽可能封装父类的实现细节，也就是把代表实现细节的属性和方法定义为private类型。如果这些实现细节必须被子类访问，可以在父类中把包含</p>
-<p>这种实现细节的方法定义为protected类型。当子类仅仅调用父类的protected类型的方法，而不覆盖它时，可以把这种protected类型的方法看做父类</p>
-<p>向子类但不对外公开的接口。</p>
-<p>(3) 把不允许子类覆盖的方法定义为final类型。</p>
-<p>(4)父类的构造方法中不可以调用不能被子类覆盖的方法，因为子类的构造方法中默认super()调用父类构造方法，这样会导致不可预料的错误。</p>
-<p>(5)如果某些类不是专门为了继承而设计，那么随意继承它时不安全的。</p>
-<p>那么可以把这这个类定义为final类型，</p>
-<p>或者把这个类的所有构造方法声明为priavte类型，然后通过一些静态方法来负责构建自身的实例。</p>
-<h2 id="组合关系和继承关系的比较"><a href="#组合关系和继承关系的比较" class="headerlink" title="组合关系和继承关系的比较"></a>组合关系和继承关系的比较</h2><h2 id="组合关系"><a href="#组合关系" class="headerlink" title="组合关系:"></a>组合关系:</h2><ul>
-<li>不破坏封装，整体类于局部类之间松耦合，彼此相对独立 破坏封装，子类与父类之间紧密耦合，子类依赖父类的实现，子类缺乏独立性</li>
-<li>具有良好的可扩展性 支持扩展，但是增加系统结构的复杂程度</li>
-<li>支持动态组合，在运行时，整体对象可以选择不同类型的局部对象  不支持动态继承，在运+ 行时，子类无法选择不同的父类<br>整体类可以对局部类进行包装，封装局部类的接口，提供新的接口 子类不能改变父类的接口<h2 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h2></li>
-<li>整体类不能自动获得和局部类相同的接口 子类能自动继承父类的接口</li>
-<li>创建整体类的对象时，需要创建所有局部类的对象 创建子类的对象时，无须创建父类的对象</li>
-</ul>
-<h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><h2 id="访问修饰符："><a href="#访问修饰符：" class="headerlink" title="访问修饰符："></a>访问修饰符：</h2><ul>
-<li>public: 公开的</li>
-<li>private： 私有的，只有类本身可以访问，不对外公开</li>
-<li>默认修饰符：向同一包内的类公开</li>
-<li>protected：只向子类和同一包的类公开</li>
-<li>abstract：抽象</li>
-</ul>
-<p>(1)抽象类中可以没有抽象方法，但包含了抽象方法的类必须是抽象类。如果子类没有实现父类所有的抽象方法，那么子类也必须是抽象类</p>
-<p>(2)没有抽象构造方法，也没有抽象静态方法。</p>
-<p>(3)抽象类中可以有非抽象的构造方法，创建子类的实例时可能会调用这些构造方法。<br>抽象类不能实例化，但是可以创建一个引用变量，其类型是个抽象类，并让它指向子类的一个实例。</p>
-<p>(4)抽象类及抽象方法不能被final修饰符修饰。<br>abstract与final，private，static连接是无意义的</p>
-<h2 id="final修饰符"><a href="#final修饰符" class="headerlink" title="final修饰符"></a>final修饰符</h2><ul>
-<li>用final修饰的类不能被继承</li>
-<li>用final修饰的方法不能被子类覆盖</li>
-<li>private类型的方法都默认是final的方法，因为不能被子类的方法覆盖</li>
-<li>用final修饰的变量表示常量，只能被赋值一次</li>
-</ul>
-<h2 id="final类-例如String类不可以被继承"><a href="#final类-例如String类不可以被继承" class="headerlink" title="final类   (例如String类不可以被继承)"></a>final类   (例如String类不可以被继承)</h2><p>继承关系的弱点是打破封装，子类能够访问父类的实现细节，而且能以方法覆盖的方式修改实现细节。<br>如果不是专门为继承而设计的类，类本身的方法之间有复杂的地调度关系，假如随意创建这些类的子类，可能会错误的修改父类的实现细节<br>出于安全的原因，类的实现细节不允许有任何改动<br>在创建对象模型时，确信这个类不会再被扩展</p>
-<h2 id="final方法-例如getClass-方法不可以被覆盖"><a href="#final方法-例如getClass-方法不可以被覆盖" class="headerlink" title="final方法 (例如getClass()方法不可以被覆盖)"></a>final方法 (例如getClass()方法不可以被覆盖)</h2><p>出于安全的考虑，父类不允许子类覆盖某个方法，此时可以把这个方法声明为final类型<br>final变量<br>final修饰符可以修饰静态变量，实例变量和局部变量分别为静态常量，实例常量和局部常量<br>静态常量一般以大写字母命名，单词之间用_分开<br>final修饰的成员变量必须显示初始化，否则会导致编译错误<br>对于final类型的实例变量，可以在定义变量时，或者在构造方法中进行初始化，对于final类型的静态变量，可以在定义变量时进行初始化，或者在静态代码块中初始化<br>final变量只能被赋值一次</p>
-<p>final修饰的变量的作用:</p>
-<ul>
-<li>提高程序的安全性，</li>
-<li>提高程序代码的可维护性</li>
-<li>提高程序代码的可读性</li>
-</ul>
-<h2 id="static修饰符"><a href="#static修饰符" class="headerlink" title="static修饰符"></a>static修饰符</h2><p>static修饰符可以用来修饰类的成员变量，成员方法和代码块：</p>
-<ul>
-<li>用static修饰的成员变量表示静态变量，可以直接通过类名访问</li>
-<li>用static修饰的成员方法表示静态方法，可以直接通过类名访问</li>
-<li>用static修饰的程序代码块表示静态代码块，当Java虚拟机加载类时，就会执行该代码块</li>
-</ul>
-<h2 id="static方法"><a href="#static方法" class="headerlink" title="static方法"></a>static方法</h2><p>静态方法和静态变量一样，直接用类名可以访问<br>静态方法中不能使用this关键字，也不能直接访问所属类的实例变量和实例方法，只能访问所属类的静态变量和静态方法<br>静态方法中也不能使用super关键字<br>在实例方法中可以直接访问所属类的实例变量实例方法，静态变量静态方法<br>静态方法不能被定义成抽象方法<br>实例方法和静态方法，它们的字节码都位于方法区。Java编译器把Java方法的源程序代码编译成二进制的编码，成为字节码，java虚拟机的解析器能够解析这种字节码</p>
-<h1 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h1><p>接口中的成员变量默认都是public，static，final类型的，必须被显式初始化</p>
-<p>接口中的方法默认都是public，abstract类型的</p>
-<p>接口中只能包含public，static，final类型的成员变量和public，abstract类型的成员方法</p>
-<p>接口没有构造方法，不能被实例化</p>
-<p>一个接口不能实现另一个接口，但是可以继承另一个接口</p>
-<p>接口必须通过类来实现它的抽象方法，类实现接口的关键字为implements</p>
-<p>与子类继承抽象父类相似，当类实现了某个接口时，它必须实现接口中所有的抽象方法，否则这个类必须被定义为抽象类</p>
-<p>不允许创建接口的实例，但允许定义接口类型的引用变量，该变量引用实现了这个接口的实例</p>
-<p>一个类只能继承一个直接的父类，但能实现多个接口</p>
-<h2 id="比较抽象类和接口"><a href="#比较抽象类和接口" class="headerlink" title="比较抽象类和接口"></a>比较抽象类和接口</h2><p>代表系统的抽象层</p>
-<p>都不能被实例化</p>
-<p>都能包含抽象方法，这些抽象方法用于描述系统能提供哪些服务，但不必提供具体的实现</p>
-<h2 id="抽象类与接口主要有两大区别"><a href="#抽象类与接口主要有两大区别" class="headerlink" title="抽象类与接口主要有两大区别"></a>抽象类与接口主要有两大区别</h2><ul>
-<li>在抽象类中可以为部分方法提供默认的实现，从而避免在子类中重复实现它们，提高代码的可重用性，这是抽象类的优势所在；而接口中只能包含抽象方法，如果为接口增加了一个的方法，那么所有实现它的类都要去实现这个方法，不利于扩展。</li>
-<li>一个类只能继承一个父类，但是能实现多个接口，这个是接口的优势</li>
-</ul>
-<p>(Tips:为什么Java语言不允许一个类继承多个直接的父类呢？     因为当子类覆盖父类的实例方法，或者隐藏父类的成员变量及静态方法，或者成员变量和静态方法时，会使Java虚拟机绑定规则更加复杂。</p>
-<p>而接口中只有抽象方法，没有实例变量和静态方法，只有接口的实现类才会实现接口的抽象方法。因此，一个类即使实现了多个接口，也不会增加Java虚拟机进行动态绑定的复杂度，因为虚拟机永远不会把方法与接口绑定，只会把方法与它的实现类绑定</p>
-<p>对于已经存在的继承树，可以方便地从类中抽象出新的接口，但是从类中抽象出新的抽象类却不那么容易，因此接口更有利于软件系统的维护与重构。）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/23/Java面向对象/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1613,8 +425,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
