@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/3 | Hexo</title>
+  <title>sql面试题2 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2020/03/index.html">
+  <meta name="description" content="利用Oracle联系语句1,用一条SQL语句,查询出每门课都大于80分的学生姓名name   kecheng   fenshu张三     语文       81张三     数学       75李四     语文       76李四     数学       90王五     语文       81王五     数学       100王五     英语       90 SELECT DI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql面试题2">
+<meta property="og:url" content="http://yoursite.com/2020/03/11/sql面试题/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="利用Oracle联系语句1,用一条SQL语句,查询出每门课都大于80分的学生姓名name   kecheng   fenshu张三     语文       81张三     数学       75李四     语文       76李四     数学       90王五     语文       81王五     数学       100王五     英语       90 SELECT DI">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-11T11:59:45.082Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="sql面试题2">
+<meta name="twitter:description" content="利用Oracle联系语句1,用一条SQL语句,查询出每门课都大于80分的学生姓名name   kecheng   fenshu张三     语文       81张三     数学       75李四     语文       76李四     数学       90王五     语文       81王五     数学       100王五     英语       90 SELECT DI">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,103 +154,315 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-sql面试题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      sql面试题2
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/11/sql面试题/" class="archive-article-date">
+
+        
+        <a href="/2020/03/11/sql面试题/" class="archive-article-date">
   	<time datetime="2020-03-11T11:39:51.206Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/11/sql面试题/">sql面试题2</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="利用Oracle联系语句"><a href="#利用Oracle联系语句" class="headerlink" title="利用Oracle联系语句"></a>利用Oracle联系语句</h3><p>1,用一条SQL语句,查询出每门课都大于80分的学生姓名<br>name   kecheng   fenshu<br>张三     语文       81<br>张三     数学       75<br>李四     语文       76<br>李四     数学       90<br>王五     语文       81<br>王五     数学       100<br>王五     英语       90</p>
+<pre><code>SELECT DISTINCT NAME FROM STUDENT1 WHERE NAME NOT IN (SELECT DISTINCT NAME FROM STUDENT1 WHERE SCORE &lt;= 80);</code></pre><p>2,所有部门之间的比赛组合<br>一个叫department的表，里面只有一个字段name,一共有4条纪录，分别是a,b,c,d,对应四个球对，现在四个球对进行比赛，用一条sql语句显示所有可能的比赛组合.</p>
+<pre><code>SELECT a.name 队伍1, b.name 队伍2 FROM DEPARTMENT a, DEPARTMENT b WHERE a.name &lt; b.name;</code></pre><p>3,统计每年每月的信息<br>year  month amount<br>1991   1     1.1<br>1991   2     1.2<br>1991   3     1.3<br>1991   4     1.4<br>1992   1     2.1<br>1992   2     2.2<br>1992   3     2.3<br>1992   4     2.4<br>查成这样一个结果<br>year m1  m2  m3  m4<br>1991 1.1 1.2 1.3 1.4<br>1992 2.1 2.2 2.3 2.4 </p>
+<pre><code>select year,
+(select amount from AMOUNT m where month=1 and m.year=AMOUNT.year) as m1,
+(select amount from AMOUNT m where month=2 and m.year=AMOUNT.year) as m2,
+(select amount from AMOUNT m where month=3 and m.year=AMOUNT.year) as m3,
+(select amount from AMOUNT m where month=4 and m.year=AMOUNT.year) as m4
+from AMOUNT group by year;</code></pre><p>4,删除除了id号不同,其他都相同的学生冗余信息<br>学生表 如下:<br>id号   学号   姓名 课程编号 课程名称 分数<br>1        2005001  张三  0001      数学    69<br>2        2005002  李四  0001      数学    89<br>3        2005001  张三  0001      数学    69<br>        DELETE STUDENT_4 WHERE ID NOT IN (SELECT MIN(ID) FROM STUDENT_4 GROUP BY STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE);<br>       或<br>        /*<br>            DELETE FROM STUDENT_4 WHERE (STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE) IN<br>            (SELECT STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE FROM STUDENT_4 GROUP BY STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE<br>            HAVING COUNT(1)&gt;1) AND ROWID NOT IN (<br>            SELECT MIN(ROWID) FROM STUDENT_4 GROUP BY STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE<br>            HAVING count(1)&gt;1);<br>        – 伪列ROWID<br>        */</p>
+<p>5,求出小于45岁的各个老师所带的大于12岁的学生人数<br>数据库中有3个表 teacher 表，student表，tea_stu关系表。<br>teacher 表 teaID name age<br>student 表 stuID name age<br>teacher_student表 teaID stuID<br>要求用一条sql查询出这样的结果<br>    1.显示的字段要有老师name, age 每个老师所带的学生人数<br>    2 只列出老师age为40以下，学生age为12以上的记录</p>
+<pre><code>SELECT b.tea_name,b.age,count(1) 
+FROM STUDENT_5 a,
+TEACHER_5 b,
+TEA_STU_5 c 
+WHERE a.STU_ID = c.STU_ID
+AND c.TEA_ID = b.TEA_ID
+AND b.AGE &lt; 40 
+AND a.AGE &gt;12
+GROUP BY b.tea_name,b.age;</code></pre><p>6,<br>  Student(S#,Sname,Sage,Ssex) 学生表<br>        S#：学号；<br>        Sname：学生姓名；<br>        Sage：学生年龄；<br>        Ssex：学生性别<br>    Course(C#,Cname,T#) 课程表<br>        C#,课程编号；<br>        Cname：课程名字；<br>        T#：教师编号<br>    SC(S#,C#,score) 成绩表<br>        S#：学号；<br>        C#,课程编号；<br>        score：成绩<br>    Teacher(T#,Tname) 教师表<br>        T#：教师编号；<br>        Tname：教师名字</p>
+<pre><code>问题：</code></pre><p>–     1、查询“’001’”课程比“’002’”课程成绩高的所有学生的学号； </p>
+<pre><code>SELECT
+    a.S# 
+FROM
+    SC a,
+    SC b 
+WHERE
+    a.S#= b.S# 
+    AND a.C#= &apos;001&apos; 
+    AND b.C#= &apos;002&apos; 
+    AND a.SCORE &gt; b.SCORE;</code></pre><p>–     2、查询平均成绩大于60分的同学的学号和平均成绩；<br>        SELECT S# ,AVG(SCORE) FROM SC GROUP BY S# HAVING AVG(SCORE)&gt;60;</p>
+<p>–     3、查询所有同学的学号、姓名、选课数、总成绩； </p>
+<pre><code>SELECT * FROM STUDENT ;
+SELECT STUDENT.S# 学号,STUDENT.SNAME 姓名 ,COUNT(1) 选课数 ,SUM(SCORE) 总成绩
+FROM STUDENT ,SC WHERE STUDENT.S# = SC.S# 
+GROUP BY STUDENT.S# , STUDENT.SNAME 
+ORDER BY STUDENT.S#;</code></pre><p>–     4、查询姓“李”的老师的个数；<br>        SELECT COUNT(1) FROM TEACHER WHERE TNAME LIKE ‘李%’ ;<br>–     5、查询没学过“叶平”老师课的同学的学号、姓名；<br>            SELECT S#,SNAME<br>            FROM student<br>            WHERE S# NOT IN (<br>                    SELECT DISTINCT S#<br>                    FROM SC<br>                    WHERE C# IN (<br>                            SELECT C#<br>                            FROM COURSE<br>                            WHERE T# = (<br>                                    SELECT T#<br>                                    FROM TEACHER<br>                                    WHERE TNAME = ‘叶平’<br>                            )<br>                    )<br>            );</p>
+<p>–     6、查询学过“’001’”并且也学过编号“’002’”课程的同学的学号、姓名； </p>
+<pre><code>SELECT
+    S#,
+    SNAME 
+FROM
+    STUDENT 
+WHERE
+    S# IN (
+    SELECT
+        S# 
+    FROM
+        ( SELECT S# FROM SC WHERE C# = 1 ) 
+    WHERE
+        S# IN ( SELECT S# FROM SC WHERE C# = 2 ) 
+    );</code></pre><p>–     7、查询学过“叶平”老师所教的所有课的同学的学号、姓名；</p>
+<pre><code>SELECT S#,SNAME
+FROM student
+WHERE S#  IN (
+        SELECT DISTINCT S#
+        FROM SC
+        WHERE C# IN (
+                SELECT C#
+                FROM COURSE
+                WHERE T# = (
+                        SELECT T#
+                        FROM TEACHER
+                        WHERE TNAME = &apos;叶平&apos;
+                )
+        )
+);</code></pre><p>–     8、查询课程编号“’002’”的成绩比课程编号“’001’”课程低的所有同学的学号、姓名；<br>        SELECT<br>            a.S# ,c.SNAME<br>        FROM<br>            SC a,<br>            SC b ,<br>            STUDENT c<br>        WHERE<br>            a.S#= b.S#<br>            AND a.C#= ‘001’<br>            AND b.C#= ‘002’<br>            AND a.SCORE &gt; b.SCORE<br>            AND C.S# = a.S#;</p>
+<p>–     9、查询所有课程成绩小于60分的同学的学号、姓名； </p>
+<pre><code>SELECT
+    S# ,
+    SNAME 
+FROM
+    STUDENT 
+WHERE
+    S# IN ( SELECT DISTINCT S# FROM SC WHERE SCORE &lt; 60 );</code></pre><p>–     10、查询没有学全所有课的同学的学号、姓名； </p>
+<pre><code>SELECT
+    S# ,
+    SNAME 
+FROM
+    STUDENT 
+WHERE
+    S# IN (
+    SELECT
+        S# 
+    FROM
+        (
+        SELECT
+            S# ,
+            COUNT( C# )  
+        FROM
+            SC 
+        GROUP BY
+            S# 
+        HAVING
+            COUNT( C# )  &lt; ( SELECT COUNT( C# ) FROM COURSE ) 
+        )  
+    );</code></pre><p>–     11、查询至少有一门课与学号为“1’001’”的同学所学相同的同学的学号和姓名；<br>        SELECT<br>            S# ,<br>            SNAME<br>        FROM<br>            STUDENT<br>        WHERE<br>            S# IN ( SELECT DISTINCT S# FROM SC WHERE C# IN ( SELECT C# FROM SC WHERE S# = 1’001’ )  );</p>
+<p>–     12、查询至少学过学号为“’001’”同学所有一门课的其他同学学号和姓名；<br>        SELECT<br>            S# ,<br>            SNAME<br>        FROM<br>            STUDENT<br>        WHERE<br>            S# IN ( SELECT DISTINCT S# FROM SC WHERE C# IN ( SELECT C# FROM SC WHERE S# = 1’001’ ) AND S# != 1’001’ );</p>
+<p>–     13、把“SC”表中“叶平”老师教的课的成绩都更改为此课程的平均成绩； </p>
+<pre><code>UPDATE SC a 
+SET SCORE = ( SELECT AVG( SCORE ) FROM SC WHERE a.C# = C# GROUP BY C# ) 
+WHERE
+    a.C# IN ( SELECT C# FROM TEACHER, COURSE WHERE TEACHER.T# = COURSE.T# AND TNAME = &apos;叶平&apos; );</code></pre><p>–     14、查询和“1’002’”号的同学学习的课程完全相同的其他同学学号和姓名；<br>        SELECT<br>            S# ,<br>            COUNT( 1 )<br>        FROM<br>            SC<br>        WHERE<br>            S# NOT IN ( SELECT S# FROM SC WHERE C# NOT IN ( SELECT C# FROM SC WHERE S# = ‘1’002’’ ) )<br>        GROUP BY<br>            S#<br>        HAVING<br>            COUNT( 1 ) = ( SELECT COUNT( 1 ) FROM SC WHERE S# = ‘1’002’’ GROUP BY S# );</p>
+<p>–     15、删除学习“叶平”老师课的SC表记录；<br>        DELETE SC </p>
+<pre><code>FROM COURSE ,TEACHER 
 
-        <div class="article-info info-on-right">
-          
-          
+where Course.C#=SC.C# and Course.T#= Teacher.T# and Tname=&apos;叶平&apos;; </code></pre><p>–     16、向SC表中插入一些记录，这些记录要求符合以下条件：没有上过编号“’003’”课程的同学学号2号课的平均成绩；<br>        insert into sc select S#,’002’,<br>        (select avg(score) from sc where C#=’0022’)<br>        from student<br>        where S# not in (SELECT S# FROM SC WHERE C#=’002’);</p>
+<p>–     17、按平均成绩从高到低显示所有学生的“数据库”、“企业管理”、“英语”三门的课程成绩，按如下形式显示：<br>– 学生ID,,数据库,企业管理,英语,有效课程数,有效平均分<br>ROUND(值, 2)四舍五入<br>        SELECT S# ,<br>        (SELECT SCORE FROM SC , COURSE WHERE SC.C# = COURSE.C# AND CNAME = ‘数据库’ AND SC.S# = a.S#) 数据库,<br>        (SELECT SCORE FROM SC , COURSE WHERE SC.C# = COURSE.C# AND CNAME = ‘企业管理’ AND SC.S# = a.S#) 企业管理,<br>        (SELECT SCORE FROM SC , COURSE WHERE SC.C# = COURSE.C# AND CNAME = ‘英语’ AND SC.S# = a.S#) 英语,<br>        (SELECT COUNT(1) FROM SC , COURSE WHERE SC.C# = COURSE.C# AND SC.S# = a.S# AND CNAME IN (‘数据库’,’企业管理’,’英语’<br>        )) 有效课程数,<br>        ROUND((SELECT AVG(SCORE) FROM SC,COURSE WHERE SC.C# = COURSE.C# AND SC.S# = a.S# AND CNAME IN (‘数据库’,’企业管理’,’英语’<br>        )), 2)  有效平均分<br>        FROM SC a ;</p>
+<p>–     18、查询各科成绩最高和最低的分：以如下形式显示：课程ID，最高分，最低分<br>        SELECT<br>            C#,<br>            max( SCORE ) max,<br>            min( SCORE ) min<br>        FROM<br>            SC<br>        GROUP BY<br>            C#<br>        ORDER BY<br>            C#;<br>–     19、按各科平均成绩从低到高和及格率的百分数从高到低顺序 </p>
+<pre><code>select SC.C# as 课程id, ROUND(avg(SC.SCORE), 2)  as 平均成绩,
+100*sum(case when SC.SCORE&gt;=60 then 1 else 0 end)/count(1)||&apos;%&apos; as 及格率
+from SC
+group by SC.C#
+order by avg(SC.SCORE),
+sum(case when SC.SCORE&gt;=60 then 1 else 0 end)/count(1) deSC;</code></pre><p>–     20、查询如下课程平均成绩和及格率的百分数(用”1行”显示): 企业管理（’001’），马克思（’002’），OO&amp;UML （’003’），数据库（004） </p>
+<pre><code>select
+sum(case when SC.C#=&apos;001&apos; then SC.SCORE else 0 end)/sum(case when SC.C#=&apos;001&apos; then 1 else 0 end) as 企业管理平均成绩,
+100*sum(case when SC.C#=&apos;001&apos; and nvl(SC.SCORE,0)&gt;=60 then 1 else 0 end)/sum(case when SC.C#=&apos;001&apos; then 1 else 0 end)||&apos;%&apos;as 企业管理及格率,
+sum(case when SC.C#=&apos;002&apos; then SC.SCORE else 0 end)/sum(case when SC.C#=&apos;002&apos; then 1 else 0 end) as 马克思平均成绩,
+100*sum(case when SC.C#=&apos;002&apos; and nvl(SC.SCORE,0)&gt;=60 then 1 else 0 end)/sum(case when SC.C#=&apos;002&apos; then 1 else 0 end)||&apos;%&apos;as 马克思及格率,
+sum(case when SC.C#=&apos;003&apos; then SC.SCORE else 0 end)/sum(case when SC.C#=&apos;003&apos; then 1 else 0 end) as UML平均成绩,
+100*sum(case when SC.C#=&apos;003&apos; and nvl(SC.SCORE,0)&gt;=60 then 1 else 0 end)/sum(case when SC.C#=&apos;003&apos; then 1 else 0 end)||&apos;%&apos;as UML及格率
+from SC</code></pre><p>–     21、查询不同老师所教不同课程平均分从高到低显示 </p>
+<pre><code>SELECT max(Z.T#) AS 教师ID,MAX(Z.TNAME) AS 教师姓名,C.C# AS 课程ＩＤ,MAX(C.CNAME) AS 课程名称,AVG(SCORE) AS 平均成绩 
+    FROM SC AS T,COURSE AS C ,TEACHER AS Z 
+    where T.C#=C.C# and C.T#=Z.T# 
+GROUP BY C.C# 
+ORDER BY AVG(SCORE) DESC ;</code></pre><p>–     23、统计列印各科成绩,各分数段人数:课程ID,课程名称,[100-85],[85-70],[70-60],[ &lt;60]<br>        SELECT<br>            SC.C# AS 课程 ID,<br>            CNAME AS 课程名称<br>            ,<br>            SUM( CASE WHEN SCORE BETWEEN 85 AND 100 THEN 1 ELSE 0 END ) AS “[100 - 85]”,<br>            SUM( CASE WHEN SCORE BETWEEN 70 AND 85 THEN 1 ELSE 0 END ) AS “[85 - 70]”,<br>            SUM( CASE WHEN SCORE BETWEEN 60 AND 70 THEN 1 ELSE 0 END ) AS “[70 - 60]”,<br>            SUM( CASE WHEN SCORE &lt; 60 THEN 1 ELSE 0 END ) AS “[60-]” FROM<br>            SC,<br>            COURSE<br>        WHERE<br>            SC.C#= COURSE.C#<br>        GROUP BY<br>            SC.C#,<br>            CNAME ;<br>–     24、查询学生平均成绩及其名次 </p>
+<pre><code>SELECT 1+(SELECT COUNT( distinct 平均成绩) 
+            FROM (SELECT S#,AVG(score) AS 平均成绩 
+                    FROM SC 
+                GROUP BY S# 
+                ) AS T1 
+            WHERE 平均成绩 &gt; T2.平均成绩) as 名次, 
+    S# as 学生学号,平均成绩 
+    FROM (SELECT S#,AVG(score) 平均成绩 
+            FROM SC 
+        GROUP BY S# 
+        ) AS T2 
+    ORDER BY 平均成绩 desc; </code></pre><p>–     25、查询各科成绩前三名的记录:(不考虑成绩并列情况) </p>
+<pre><code>SELECT t1.S# as 学生ID,t1.C# as 课程ID,Score as 分数 
+FROM SC t1 
+WHERE score IN (SELECT TOP 3 score 
+        FROM SC 
+        WHERE t1.C#= C# 
+        ORDER BY score DESC 
+        ) 
+ORDER BY t1.C#; </code></pre><p>– 26查询每门课程的选修的学生数<br>        SELECT C#,COUNT(1)学生数 FROM SC GROUP BY C#;<br>– 27、查询出只选修了一门课程的全部学生的学号和姓名<br>        SELECT S#,SNAME,FROM SC,STUDENT WHERE SC.S# = STUDENT.S# GROUP BY STUDENT.S#,SNAME HAVING COUNT(1);<br>– 28、查询男生、女生人数<br>        SELECT COUNT(1),CASE SSEX WHERE 1 THEN ‘男’ WHERE 2 THEN ‘女’ END FROM STUDENT GROUP BY SSEX;<br>– 29、查询姓“张”的学生名单<br>        SELECT S#,SNAME FROM STUDENT WHERE SNAME LIKE (‘刘%’);<br>– 30、查询同名同性学生名单，并统计同名人数<br>        SELECT SNAME,SSEX,COUNT(1) FROM STUDENT GROUP BY SNAME,SSEX HAVING COUNT(1) &gt;1;<br>–31、1981年出生的学生名单(注：Student表中Sage列的类型是datetime)<br>        SELECT * FROM STUDENT WHERE BIRTH BETWEEN TO_DATE(‘1981-01-01 00:00:00’, ‘yyyy-mm-dd hh24:mi:ss’) AND TO_DATE(‘1981-01-01 00:00:00’, ‘yyyy-mm-dd hh24:mi:ss’);<br>– 32、查询每门课程的平均成绩，结果按平均成绩升序排列，平均成绩相同时，按课程号降序排列<br>        SELECT C#,ROUND(AVG(SCORE),2) 平均成绩 FROM SC  GROUP BY C# ORDER BY 平均成绩 ASC,C# DESC;<br>– 33、查询平均成绩大于85的所有学生的学号、姓名和平均成绩<br>        SELECT SC.S#,SNAME,AVG(SCORE) FROM SC,STUDENT WHERE SC.S# = STUDENT.S# GROUP BY SC.S#,SNAME HAVING AVG(SCORE) &gt;85;<br>– 34、查询课程名称为“数据库”，且分数低于60的学生姓名和分数<br>        SELECT SNAME,SCORE FROM SC,STUDENT,COURSE WHERE SC.S#  = STUDENT.S# AND SC.C# = COURSE.C# AND CNAME = ‘数据库’ AND SCORE &lt; 60;<br>– 35、查询所有学生的选课情况；<br>        SELECT SC.S#,SC.C#,CNAME,SNAME FROM SC,COURSE,STUDENT WHERE SC.C# = COURSE.C# AND STUDENT.S# = SC.S#;<br>– 36、查询任何一门课程成绩在70分以上的姓名、课程名称和分数；<br>        SELECT SNAME,CNAME,SCORE FROM SC,COURSE,STUDENT WHERE STUDENT.S# = SC.S# AND COURSE.C# = SC.C# AND SC.S# IN(SELECT S# FROM SC WHERE SCORE &gt; 70);<br>– 37、查询不及格的课程，并按课程号从大到小排列<br>        select cid<br>        from sc<br>        where score&lt;60<br>        ORDER BY cid;<br>– 38、查询课程编号为003且课程成绩在80分以上的学生的学号和姓名；<br>        SELECT SC.S#,SNAME FROM STUDENT,SC WHERE SC.S# = STUDENT.S# AND SCORE &gt; 80 AND C# = ‘003’;</p>
+<p>– 39、求选了课程的学生人数<br>        SELECT COUNT(1) FROM (<br>        SELECT DISTINCT S# FROM SC WHERE SCORE IS NOT NULL )a;<br>– 40、查询选修“叶平”老师所授课程的学生中，成绩最高的学生姓名及其成绩<br>        SELECT SNAME,SCORE FROM STUDENT ,SC WHERE SC.S# = STUDENT.S# AND (SCORE.C#) IN(<br>        SELECT MAX(SCORE) ,C# FROM SC WHERE C# IN(<br>        SELECT C# FROM TEACHER,COURSE WHERE TEACHER.T# = COURSE.T# AND TNAME =’叶平’)<br>        GROUP BY C#);<br>– 41、查询各个课程及相应的选修人数<br>        SELECT C#,COUNT(1) FROM SC GROUP BY C#;<br>– 42、查询不同课程成绩相同的学生的学号、课程号、学生成绩<br>SELECT a.S#,a.C#,b.C#,a.SCORE<br>        FROM SC a,SC b<br>        WHERE a.C#&gt;b.C#<br>        AND a.S# = b.S# AND a.SCORE = b.SCORE;<br>– 43、查询每门功成绩最好的前两名  </p>
+<pre><code>SELECT t1.S# as 学生ID,t1.C# as 课程ID , Score AS &quot;分数&quot; 
+FROM SC t1 
+WHERE score IN (SELECT TOP 2 score 
+            FROM SC 
+            WHERE t1.C#= C# 
+            ORDER BY score DESC 
+            ) 
+    ORDER BY t1.C#; </code></pre><p>– 44统计每门课程的学生选修人数（超过10人的课程才统计）。要求输出课程号和选修人数，查询结果按人数降序排列，查询结果按人数降序排列，若人数相同，按课程号升序排列<br>            select  C# as 课程号,count(<em>) as 人数<br>            from  sc<br>            group  by  C#<br>            order  by  count(</em>) desc,c#<br>        –   45、检索至少选修两门课程的学生学号<br>        select  S#<br>            from  sc<br>            group  by  s#<br>            having  count(*)  &gt;  =  2<br>        –   46、查询全部学生都选修的课程的课程号和课程名<br>            select  C#,Cname<br>            from  Course<br>            where  C#  in  (select  c#  from  sc group  by  c#)</p>
+<p>–   47、查询没学过“叶平”老师讲授的任一门课程的学生姓名<br>        SELECT<br>        Sname<br>        FROM<br>        Student<br>        WHERE<br>        S # NOT IN (<br>        SELECT<br>            S #<br>        FROM<br>            Course,<br>            Teacher,<br>            SC<br>        WHERE<br>            Course.T #= Teacher.T #<br>            AND SC.C #= course.C #<br>            AND Tname = ‘叶平’<br>        );</p>
+<p>–   48、查询两门以上不及格课程的同学的学号及其平均成绩<br>        SELECT<br>        S #,<br>        avg( isnull ( score, 0 ) )<br>        FROM<br>        SC<br>        WHERE<br>        S # IN ( SELECT S # FROM SC WHERE score &lt; 60 GROUP BY S # HAVING count( * ) &gt; 2 )<br>        GROUP BY<br>        S #;</p>
+<p>–   49、检索“004”课程分数小于60，按分数降序排列的同学学号<br>        select S# from SC where C#=’004’and score &lt;60 order by score desc; </p>
+<p>–   50、删除“’002’”同学的“’001’”课程的成绩 </p>
+<pre><code>delete from Sc where S#=&apos;001&apos;and C#=&apos;001&apos;; </code></pre>
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/11/sql面试题/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/09/MYSQL面试题/" class="archive-article-date">
-  	<time datetime="2020-03-09T02:27:34.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/09/MYSQL面试题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MYSQL面试题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/09/MYSQL面试题/">MYSQL面试题</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/03/centos安装oracle/" class="archive-article-date">
-  	<time datetime="2020-03-03T06:13:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/03/centos安装oracle/">centos安装oracle</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -269,8 +485,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

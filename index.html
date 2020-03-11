@@ -152,6 +152,228 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-sql面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/11/sql面试题/">sql面试题2</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/11/sql面试题/" class="archive-article-date">
+  	<time datetime="2020-03-11T11:39:51.206Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="利用Oracle联系语句"><a href="#利用Oracle联系语句" class="headerlink" title="利用Oracle联系语句"></a>利用Oracle联系语句</h3><p>1,用一条SQL语句,查询出每门课都大于80分的学生姓名<br>name   kecheng   fenshu<br>张三     语文       81<br>张三     数学       75<br>李四     语文       76<br>李四     数学       90<br>王五     语文       81<br>王五     数学       100<br>王五     英语       90</p>
+<pre><code>SELECT DISTINCT NAME FROM STUDENT1 WHERE NAME NOT IN (SELECT DISTINCT NAME FROM STUDENT1 WHERE SCORE &lt;= 80);</code></pre><p>2,所有部门之间的比赛组合<br>一个叫department的表，里面只有一个字段name,一共有4条纪录，分别是a,b,c,d,对应四个球对，现在四个球对进行比赛，用一条sql语句显示所有可能的比赛组合.</p>
+<pre><code>SELECT a.name 队伍1, b.name 队伍2 FROM DEPARTMENT a, DEPARTMENT b WHERE a.name &lt; b.name;</code></pre><p>3,统计每年每月的信息<br>year  month amount<br>1991   1     1.1<br>1991   2     1.2<br>1991   3     1.3<br>1991   4     1.4<br>1992   1     2.1<br>1992   2     2.2<br>1992   3     2.3<br>1992   4     2.4<br>查成这样一个结果<br>year m1  m2  m3  m4<br>1991 1.1 1.2 1.3 1.4<br>1992 2.1 2.2 2.3 2.4 </p>
+<pre><code>select year,
+(select amount from AMOUNT m where month=1 and m.year=AMOUNT.year) as m1,
+(select amount from AMOUNT m where month=2 and m.year=AMOUNT.year) as m2,
+(select amount from AMOUNT m where month=3 and m.year=AMOUNT.year) as m3,
+(select amount from AMOUNT m where month=4 and m.year=AMOUNT.year) as m4
+from AMOUNT group by year;</code></pre><p>4,删除除了id号不同,其他都相同的学生冗余信息<br>学生表 如下:<br>id号   学号   姓名 课程编号 课程名称 分数<br>1        2005001  张三  0001      数学    69<br>2        2005002  李四  0001      数学    89<br>3        2005001  张三  0001      数学    69<br>        DELETE STUDENT_4 WHERE ID NOT IN (SELECT MIN(ID) FROM STUDENT_4 GROUP BY STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE);<br>       或<br>        /*<br>            DELETE FROM STUDENT_4 WHERE (STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE) IN<br>            (SELECT STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE FROM STUDENT_4 GROUP BY STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE<br>            HAVING COUNT(1)&gt;1) AND ROWID NOT IN (<br>            SELECT MIN(ROWID) FROM STUDENT_4 GROUP BY STU_NO,STU_NAME,CLASS_NO,CLASS_NAME,SCORE<br>            HAVING count(1)&gt;1);<br>        – 伪列ROWID<br>        */</p>
+<p>5,求出小于45岁的各个老师所带的大于12岁的学生人数<br>数据库中有3个表 teacher 表，student表，tea_stu关系表。<br>teacher 表 teaID name age<br>student 表 stuID name age<br>teacher_student表 teaID stuID<br>要求用一条sql查询出这样的结果<br>    1.显示的字段要有老师name, age 每个老师所带的学生人数<br>    2 只列出老师age为40以下，学生age为12以上的记录</p>
+<pre><code>SELECT b.tea_name,b.age,count(1) 
+FROM STUDENT_5 a,
+TEACHER_5 b,
+TEA_STU_5 c 
+WHERE a.STU_ID = c.STU_ID
+AND c.TEA_ID = b.TEA_ID
+AND b.AGE &lt; 40 
+AND a.AGE &gt;12
+GROUP BY b.tea_name,b.age;</code></pre><p>6,<br>  Student(S#,Sname,Sage,Ssex) 学生表<br>        S#：学号；<br>        Sname：学生姓名；<br>        Sage：学生年龄；<br>        Ssex：学生性别<br>    Course(C#,Cname,T#) 课程表<br>        C#,课程编号；<br>        Cname：课程名字；<br>        T#：教师编号<br>    SC(S#,C#,score) 成绩表<br>        S#：学号；<br>        C#,课程编号；<br>        score：成绩<br>    Teacher(T#,Tname) 教师表<br>        T#：教师编号；<br>        Tname：教师名字</p>
+<pre><code>问题：</code></pre><p>–     1、查询“’001’”课程比“’002’”课程成绩高的所有学生的学号； </p>
+<pre><code>SELECT
+    a.S# 
+FROM
+    SC a,
+    SC b 
+WHERE
+    a.S#= b.S# 
+    AND a.C#= &apos;001&apos; 
+    AND b.C#= &apos;002&apos; 
+    AND a.SCORE &gt; b.SCORE;</code></pre><p>–     2、查询平均成绩大于60分的同学的学号和平均成绩；<br>        SELECT S# ,AVG(SCORE) FROM SC GROUP BY S# HAVING AVG(SCORE)&gt;60;</p>
+<p>–     3、查询所有同学的学号、姓名、选课数、总成绩； </p>
+<pre><code>SELECT * FROM STUDENT ;
+SELECT STUDENT.S# 学号,STUDENT.SNAME 姓名 ,COUNT(1) 选课数 ,SUM(SCORE) 总成绩
+FROM STUDENT ,SC WHERE STUDENT.S# = SC.S# 
+GROUP BY STUDENT.S# , STUDENT.SNAME 
+ORDER BY STUDENT.S#;</code></pre><p>–     4、查询姓“李”的老师的个数；<br>        SELECT COUNT(1) FROM TEACHER WHERE TNAME LIKE ‘李%’ ;<br>–     5、查询没学过“叶平”老师课的同学的学号、姓名；<br>            SELECT S#,SNAME<br>            FROM student<br>            WHERE S# NOT IN (<br>                    SELECT DISTINCT S#<br>                    FROM SC<br>                    WHERE C# IN (<br>                            SELECT C#<br>                            FROM COURSE<br>                            WHERE T# = (<br>                                    SELECT T#<br>                                    FROM TEACHER<br>                                    WHERE TNAME = ‘叶平’<br>                            )<br>                    )<br>            );</p>
+<p>–     6、查询学过“’001’”并且也学过编号“’002’”课程的同学的学号、姓名； </p>
+<pre><code>SELECT
+    S#,
+    SNAME 
+FROM
+    STUDENT 
+WHERE
+    S# IN (
+    SELECT
+        S# 
+    FROM
+        ( SELECT S# FROM SC WHERE C# = 1 ) 
+    WHERE
+        S# IN ( SELECT S# FROM SC WHERE C# = 2 ) 
+    );</code></pre><p>–     7、查询学过“叶平”老师所教的所有课的同学的学号、姓名；</p>
+<pre><code>SELECT S#,SNAME
+FROM student
+WHERE S#  IN (
+        SELECT DISTINCT S#
+        FROM SC
+        WHERE C# IN (
+                SELECT C#
+                FROM COURSE
+                WHERE T# = (
+                        SELECT T#
+                        FROM TEACHER
+                        WHERE TNAME = &apos;叶平&apos;
+                )
+        )
+);</code></pre><p>–     8、查询课程编号“’002’”的成绩比课程编号“’001’”课程低的所有同学的学号、姓名；<br>        SELECT<br>            a.S# ,c.SNAME<br>        FROM<br>            SC a,<br>            SC b ,<br>            STUDENT c<br>        WHERE<br>            a.S#= b.S#<br>            AND a.C#= ‘001’<br>            AND b.C#= ‘002’<br>            AND a.SCORE &gt; b.SCORE<br>            AND C.S# = a.S#;</p>
+<p>–     9、查询所有课程成绩小于60分的同学的学号、姓名； </p>
+<pre><code>SELECT
+    S# ,
+    SNAME 
+FROM
+    STUDENT 
+WHERE
+    S# IN ( SELECT DISTINCT S# FROM SC WHERE SCORE &lt; 60 );</code></pre><p>–     10、查询没有学全所有课的同学的学号、姓名； </p>
+<pre><code>SELECT
+    S# ,
+    SNAME 
+FROM
+    STUDENT 
+WHERE
+    S# IN (
+    SELECT
+        S# 
+    FROM
+        (
+        SELECT
+            S# ,
+            COUNT( C# )  
+        FROM
+            SC 
+        GROUP BY
+            S# 
+        HAVING
+            COUNT( C# )  &lt; ( SELECT COUNT( C# ) FROM COURSE ) 
+        )  
+    );</code></pre><p>–     11、查询至少有一门课与学号为“1’001’”的同学所学相同的同学的学号和姓名；<br>        SELECT<br>            S# ,<br>            SNAME<br>        FROM<br>            STUDENT<br>        WHERE<br>            S# IN ( SELECT DISTINCT S# FROM SC WHERE C# IN ( SELECT C# FROM SC WHERE S# = 1’001’ )  );</p>
+<p>–     12、查询至少学过学号为“’001’”同学所有一门课的其他同学学号和姓名；<br>        SELECT<br>            S# ,<br>            SNAME<br>        FROM<br>            STUDENT<br>        WHERE<br>            S# IN ( SELECT DISTINCT S# FROM SC WHERE C# IN ( SELECT C# FROM SC WHERE S# = 1’001’ ) AND S# != 1’001’ );</p>
+<p>–     13、把“SC”表中“叶平”老师教的课的成绩都更改为此课程的平均成绩； </p>
+<pre><code>UPDATE SC a 
+SET SCORE = ( SELECT AVG( SCORE ) FROM SC WHERE a.C# = C# GROUP BY C# ) 
+WHERE
+    a.C# IN ( SELECT C# FROM TEACHER, COURSE WHERE TEACHER.T# = COURSE.T# AND TNAME = &apos;叶平&apos; );</code></pre><p>–     14、查询和“1’002’”号的同学学习的课程完全相同的其他同学学号和姓名；<br>        SELECT<br>            S# ,<br>            COUNT( 1 )<br>        FROM<br>            SC<br>        WHERE<br>            S# NOT IN ( SELECT S# FROM SC WHERE C# NOT IN ( SELECT C# FROM SC WHERE S# = ‘1’002’’ ) )<br>        GROUP BY<br>            S#<br>        HAVING<br>            COUNT( 1 ) = ( SELECT COUNT( 1 ) FROM SC WHERE S# = ‘1’002’’ GROUP BY S# );</p>
+<p>–     15、删除学习“叶平”老师课的SC表记录；<br>        DELETE SC </p>
+<pre><code>FROM COURSE ,TEACHER 
+
+where Course.C#=SC.C# and Course.T#= Teacher.T# and Tname=&apos;叶平&apos;; </code></pre><p>–     16、向SC表中插入一些记录，这些记录要求符合以下条件：没有上过编号“’003’”课程的同学学号2号课的平均成绩；<br>        insert into sc select S#,’002’,<br>        (select avg(score) from sc where C#=’0022’)<br>        from student<br>        where S# not in (SELECT S# FROM SC WHERE C#=’002’);</p>
+<p>–     17、按平均成绩从高到低显示所有学生的“数据库”、“企业管理”、“英语”三门的课程成绩，按如下形式显示：<br>– 学生ID,,数据库,企业管理,英语,有效课程数,有效平均分<br>ROUND(值, 2)四舍五入<br>        SELECT S# ,<br>        (SELECT SCORE FROM SC , COURSE WHERE SC.C# = COURSE.C# AND CNAME = ‘数据库’ AND SC.S# = a.S#) 数据库,<br>        (SELECT SCORE FROM SC , COURSE WHERE SC.C# = COURSE.C# AND CNAME = ‘企业管理’ AND SC.S# = a.S#) 企业管理,<br>        (SELECT SCORE FROM SC , COURSE WHERE SC.C# = COURSE.C# AND CNAME = ‘英语’ AND SC.S# = a.S#) 英语,<br>        (SELECT COUNT(1) FROM SC , COURSE WHERE SC.C# = COURSE.C# AND SC.S# = a.S# AND CNAME IN (‘数据库’,’企业管理’,’英语’<br>        )) 有效课程数,<br>        ROUND((SELECT AVG(SCORE) FROM SC,COURSE WHERE SC.C# = COURSE.C# AND SC.S# = a.S# AND CNAME IN (‘数据库’,’企业管理’,’英语’<br>        )), 2)  有效平均分<br>        FROM SC a ;</p>
+<p>–     18、查询各科成绩最高和最低的分：以如下形式显示：课程ID，最高分，最低分<br>        SELECT<br>            C#,<br>            max( SCORE ) max,<br>            min( SCORE ) min<br>        FROM<br>            SC<br>        GROUP BY<br>            C#<br>        ORDER BY<br>            C#;<br>–     19、按各科平均成绩从低到高和及格率的百分数从高到低顺序 </p>
+<pre><code>select SC.C# as 课程id, ROUND(avg(SC.SCORE), 2)  as 平均成绩,
+100*sum(case when SC.SCORE&gt;=60 then 1 else 0 end)/count(1)||&apos;%&apos; as 及格率
+from SC
+group by SC.C#
+order by avg(SC.SCORE),
+sum(case when SC.SCORE&gt;=60 then 1 else 0 end)/count(1) deSC;</code></pre><p>–     20、查询如下课程平均成绩和及格率的百分数(用”1行”显示): 企业管理（’001’），马克思（’002’），OO&amp;UML （’003’），数据库（004） </p>
+<pre><code>select
+sum(case when SC.C#=&apos;001&apos; then SC.SCORE else 0 end)/sum(case when SC.C#=&apos;001&apos; then 1 else 0 end) as 企业管理平均成绩,
+100*sum(case when SC.C#=&apos;001&apos; and nvl(SC.SCORE,0)&gt;=60 then 1 else 0 end)/sum(case when SC.C#=&apos;001&apos; then 1 else 0 end)||&apos;%&apos;as 企业管理及格率,
+sum(case when SC.C#=&apos;002&apos; then SC.SCORE else 0 end)/sum(case when SC.C#=&apos;002&apos; then 1 else 0 end) as 马克思平均成绩,
+100*sum(case when SC.C#=&apos;002&apos; and nvl(SC.SCORE,0)&gt;=60 then 1 else 0 end)/sum(case when SC.C#=&apos;002&apos; then 1 else 0 end)||&apos;%&apos;as 马克思及格率,
+sum(case when SC.C#=&apos;003&apos; then SC.SCORE else 0 end)/sum(case when SC.C#=&apos;003&apos; then 1 else 0 end) as UML平均成绩,
+100*sum(case when SC.C#=&apos;003&apos; and nvl(SC.SCORE,0)&gt;=60 then 1 else 0 end)/sum(case when SC.C#=&apos;003&apos; then 1 else 0 end)||&apos;%&apos;as UML及格率
+from SC</code></pre><p>–     21、查询不同老师所教不同课程平均分从高到低显示 </p>
+<pre><code>SELECT max(Z.T#) AS 教师ID,MAX(Z.TNAME) AS 教师姓名,C.C# AS 课程ＩＤ,MAX(C.CNAME) AS 课程名称,AVG(SCORE) AS 平均成绩 
+    FROM SC AS T,COURSE AS C ,TEACHER AS Z 
+    where T.C#=C.C# and C.T#=Z.T# 
+GROUP BY C.C# 
+ORDER BY AVG(SCORE) DESC ;</code></pre><p>–     23、统计列印各科成绩,各分数段人数:课程ID,课程名称,[100-85],[85-70],[70-60],[ &lt;60]<br>        SELECT<br>            SC.C# AS 课程 ID,<br>            CNAME AS 课程名称<br>            ,<br>            SUM( CASE WHEN SCORE BETWEEN 85 AND 100 THEN 1 ELSE 0 END ) AS “[100 - 85]”,<br>            SUM( CASE WHEN SCORE BETWEEN 70 AND 85 THEN 1 ELSE 0 END ) AS “[85 - 70]”,<br>            SUM( CASE WHEN SCORE BETWEEN 60 AND 70 THEN 1 ELSE 0 END ) AS “[70 - 60]”,<br>            SUM( CASE WHEN SCORE &lt; 60 THEN 1 ELSE 0 END ) AS “[60-]” FROM<br>            SC,<br>            COURSE<br>        WHERE<br>            SC.C#= COURSE.C#<br>        GROUP BY<br>            SC.C#,<br>            CNAME ;<br>–     24、查询学生平均成绩及其名次 </p>
+<pre><code>SELECT 1+(SELECT COUNT( distinct 平均成绩) 
+            FROM (SELECT S#,AVG(score) AS 平均成绩 
+                    FROM SC 
+                GROUP BY S# 
+                ) AS T1 
+            WHERE 平均成绩 &gt; T2.平均成绩) as 名次, 
+    S# as 学生学号,平均成绩 
+    FROM (SELECT S#,AVG(score) 平均成绩 
+            FROM SC 
+        GROUP BY S# 
+        ) AS T2 
+    ORDER BY 平均成绩 desc; </code></pre><p>–     25、查询各科成绩前三名的记录:(不考虑成绩并列情况) </p>
+<pre><code>SELECT t1.S# as 学生ID,t1.C# as 课程ID,Score as 分数 
+FROM SC t1 
+WHERE score IN (SELECT TOP 3 score 
+        FROM SC 
+        WHERE t1.C#= C# 
+        ORDER BY score DESC 
+        ) 
+ORDER BY t1.C#; </code></pre><p>– 26查询每门课程的选修的学生数<br>        SELECT C#,COUNT(1)学生数 FROM SC GROUP BY C#;<br>– 27、查询出只选修了一门课程的全部学生的学号和姓名<br>        SELECT S#,SNAME,FROM SC,STUDENT WHERE SC.S# = STUDENT.S# GROUP BY STUDENT.S#,SNAME HAVING COUNT(1);<br>– 28、查询男生、女生人数<br>        SELECT COUNT(1),CASE SSEX WHERE 1 THEN ‘男’ WHERE 2 THEN ‘女’ END FROM STUDENT GROUP BY SSEX;<br>– 29、查询姓“张”的学生名单<br>        SELECT S#,SNAME FROM STUDENT WHERE SNAME LIKE (‘刘%’);<br>– 30、查询同名同性学生名单，并统计同名人数<br>        SELECT SNAME,SSEX,COUNT(1) FROM STUDENT GROUP BY SNAME,SSEX HAVING COUNT(1) &gt;1;<br>–31、1981年出生的学生名单(注：Student表中Sage列的类型是datetime)<br>        SELECT * FROM STUDENT WHERE BIRTH BETWEEN TO_DATE(‘1981-01-01 00:00:00’, ‘yyyy-mm-dd hh24:mi:ss’) AND TO_DATE(‘1981-01-01 00:00:00’, ‘yyyy-mm-dd hh24:mi:ss’);<br>– 32、查询每门课程的平均成绩，结果按平均成绩升序排列，平均成绩相同时，按课程号降序排列<br>        SELECT C#,ROUND(AVG(SCORE),2) 平均成绩 FROM SC  GROUP BY C# ORDER BY 平均成绩 ASC,C# DESC;<br>– 33、查询平均成绩大于85的所有学生的学号、姓名和平均成绩<br>        SELECT SC.S#,SNAME,AVG(SCORE) FROM SC,STUDENT WHERE SC.S# = STUDENT.S# GROUP BY SC.S#,SNAME HAVING AVG(SCORE) &gt;85;<br>– 34、查询课程名称为“数据库”，且分数低于60的学生姓名和分数<br>        SELECT SNAME,SCORE FROM SC,STUDENT,COURSE WHERE SC.S#  = STUDENT.S# AND SC.C# = COURSE.C# AND CNAME = ‘数据库’ AND SCORE &lt; 60;<br>– 35、查询所有学生的选课情况；<br>        SELECT SC.S#,SC.C#,CNAME,SNAME FROM SC,COURSE,STUDENT WHERE SC.C# = COURSE.C# AND STUDENT.S# = SC.S#;<br>– 36、查询任何一门课程成绩在70分以上的姓名、课程名称和分数；<br>        SELECT SNAME,CNAME,SCORE FROM SC,COURSE,STUDENT WHERE STUDENT.S# = SC.S# AND COURSE.C# = SC.C# AND SC.S# IN(SELECT S# FROM SC WHERE SCORE &gt; 70);<br>– 37、查询不及格的课程，并按课程号从大到小排列<br>        select cid<br>        from sc<br>        where score&lt;60<br>        ORDER BY cid;<br>– 38、查询课程编号为003且课程成绩在80分以上的学生的学号和姓名；<br>        SELECT SC.S#,SNAME FROM STUDENT,SC WHERE SC.S# = STUDENT.S# AND SCORE &gt; 80 AND C# = ‘003’;</p>
+<p>– 39、求选了课程的学生人数<br>        SELECT COUNT(1) FROM (<br>        SELECT DISTINCT S# FROM SC WHERE SCORE IS NOT NULL )a;<br>– 40、查询选修“叶平”老师所授课程的学生中，成绩最高的学生姓名及其成绩<br>        SELECT SNAME,SCORE FROM STUDENT ,SC WHERE SC.S# = STUDENT.S# AND (SCORE.C#) IN(<br>        SELECT MAX(SCORE) ,C# FROM SC WHERE C# IN(<br>        SELECT C# FROM TEACHER,COURSE WHERE TEACHER.T# = COURSE.T# AND TNAME =’叶平’)<br>        GROUP BY C#);<br>– 41、查询各个课程及相应的选修人数<br>        SELECT C#,COUNT(1) FROM SC GROUP BY C#;<br>– 42、查询不同课程成绩相同的学生的学号、课程号、学生成绩<br>SELECT a.S#,a.C#,b.C#,a.SCORE<br>        FROM SC a,SC b<br>        WHERE a.C#&gt;b.C#<br>        AND a.S# = b.S# AND a.SCORE = b.SCORE;<br>– 43、查询每门功成绩最好的前两名  </p>
+<pre><code>SELECT t1.S# as 学生ID,t1.C# as 课程ID , Score AS &quot;分数&quot; 
+FROM SC t1 
+WHERE score IN (SELECT TOP 2 score 
+            FROM SC 
+            WHERE t1.C#= C# 
+            ORDER BY score DESC 
+            ) 
+    ORDER BY t1.C#; </code></pre><p>– 44统计每门课程的学生选修人数（超过10人的课程才统计）。要求输出课程号和选修人数，查询结果按人数降序排列，查询结果按人数降序排列，若人数相同，按课程号升序排列<br>            select  C# as 课程号,count(<em>) as 人数<br>            from  sc<br>            group  by  C#<br>            order  by  count(</em>) desc,c#<br>        –   45、检索至少选修两门课程的学生学号<br>        select  S#<br>            from  sc<br>            group  by  s#<br>            having  count(*)  &gt;  =  2<br>        –   46、查询全部学生都选修的课程的课程号和课程名<br>            select  C#,Cname<br>            from  Course<br>            where  C#  in  (select  c#  from  sc group  by  c#)</p>
+<p>–   47、查询没学过“叶平”老师讲授的任一门课程的学生姓名<br>        SELECT<br>        Sname<br>        FROM<br>        Student<br>        WHERE<br>        S # NOT IN (<br>        SELECT<br>            S #<br>        FROM<br>            Course,<br>            Teacher,<br>            SC<br>        WHERE<br>            Course.T #= Teacher.T #<br>            AND SC.C #= course.C #<br>            AND Tname = ‘叶平’<br>        );</p>
+<p>–   48、查询两门以上不及格课程的同学的学号及其平均成绩<br>        SELECT<br>        S #,<br>        avg( isnull ( score, 0 ) )<br>        FROM<br>        SC<br>        WHERE<br>        S # IN ( SELECT S # FROM SC WHERE score &lt; 60 GROUP BY S # HAVING count( * ) &gt; 2 )<br>        GROUP BY<br>        S #;</p>
+<p>–   49、检索“004”课程分数小于60，按分数降序排列的同学学号<br>        select S# from SC where C#=’004’and score &lt;60 order by score desc; </p>
+<p>–   50、删除“’002’”同学的“’001’”课程的成绩 </p>
+<pre><code>delete from Sc where S#=&apos;001&apos;and C#=&apos;001&apos;; </code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/11/sql面试题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MYSQL面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1524,110 +1746,6 @@ set character-set-system=utf8;</code></pre></li>
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/11/26/乱码及解决/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-课堂笔记11-20" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/20/课堂笔记11-20/">课堂笔记11-20</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/20/课堂笔记11-20/" class="archive-article-date">
-  	<time datetime="2019-11-20T01:48:51.034Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JSP登录"><a href="#JSP登录" class="headerlink" title="JSP登录"></a>JSP登录</h1><h2 id="1-表单提交数据到Servlet的方式"><a href="#1-表单提交数据到Servlet的方式" class="headerlink" title="1.表单提交数据到Servlet的方式"></a>1.表单提交数据到Servlet的方式</h2><h3 id="整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个Servlet，在其内进行判定是否登录。"><a href="#整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个Servlet，在其内进行判定是否登录。" class="headerlink" title="整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。"></a>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。</h3><h2 id="1-Servlet中的doPost-方法："><a href="#1-Servlet中的doPost-方法：" class="headerlink" title="(1)Servlet中的doPost()方法："></a>(1)Servlet中的doPost()方法：</h2><ul>
-<li>A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</li>
-<li>B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</li>
-<li>C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。<h2 id="2-跳转到的页面：登录成功页面-在Session中保存用户信息-不跳转"><a href="#2-跳转到的页面：登录成功页面-在Session中保存用户信息-不跳转" class="headerlink" title="(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/不跳转"></a>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/不跳转</h2></li>
-</ul>
-<h2 id="2-表单提交数据到JSP的方式"><a href="#2-表单提交数据到JSP的方式" class="headerlink" title="2.表单提交数据到JSP的方式"></a>2.表单提交数据到JSP的方式</h2><h3 id="整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个JSP，在其内进行判定是否登录。"><a href="#整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个JSP，在其内进行判定是否登录。" class="headerlink" title="整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。"></a>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。</h3><h2 id="1-JSP中的-lt-gt-脚本内容："><a href="#1-JSP中的-lt-gt-脚本内容：" class="headerlink" title="(1)JSP中的&lt;% %&gt;脚本内容："></a>(1)JSP中的&lt;% %&gt;脚本内容：</h2><ul>
-<li>A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</li>
-<li>B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</li>
-<li>C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。<h2 id="2-跳转到的页面：登录成功页面-在Session中保存用户信息-重定向到登录JSP页面，为地址栏添加一个属性-response-sendRedirect-“index-jsp-info-”登录失败”"><a href="#2-跳转到的页面：登录成功页面-在Session中保存用户信息-重定向到登录JSP页面，为地址栏添加一个属性-response-sendRedirect-“index-jsp-info-”登录失败”" class="headerlink" title="(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))"></a>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))</h2></li>
-</ul>
-<h2 id="登录成功重定向到success-jsp页面-response-sendRedirect-“-success-jsp”"><a href="#登录成功重定向到success-jsp页面-response-sendRedirect-“-success-jsp”" class="headerlink" title="//登录成功重定向到success.jsp页面 response.sendRedirect(“/success.jsp”);"></a>//登录成功重定向到success.jsp页面 response.sendRedirect(“/success.jsp”);</h2><pre><code>&lt;body&gt;
-&lt;%
-//从Request获取id、pwd、name的值
-String id= request.getParameter(&quot;id&quot;);
-String pwd= request.getParameter(&quot;pwd&quot;);
-String name= request.getParameter(&quot;name&quot;);
-//获取Session对象
-String path = request.getContextPath();
-HttpSession session=request.getSession();
-//向Session对象内放属性
-session.setAttribute(&quot;id&quot;, id);
-session.setAttribute(&quot;pwd&quot;, pwd);
-session.setAttribute(&quot;name&quot;, name);
-//页面输出
-out.println(&quot;&lt;span&gt;欢迎&quot;+name+&quot;登录&lt;/span&gt;&quot;);  
-//注销链接
-&lt;a href=&quot;out.jsp&quot;&gt;注销&lt;/a&gt;
-%&gt;
-&lt;/body&gt;</code></pre><h2 id="注销页面-out-jsp-如下："><a href="#注销页面-out-jsp-如下：" class="headerlink" title="注销页面(out.jsp)如下："></a>注销页面(out.jsp)如下：</h2><pre><code>&lt;body&gt;
-&lt;%
-//获取Session对象
-String path = request.getContextPath();
-HttpSession session=request.getSession();
-//清空Session中的登录信息相关属性
-    session.removeAttribute(&quot;id&quot;);
-    session.removeAttribute(&quot;pwd&quot;);
-    session.removeAttribute(&quot;name&quot;);
-//上下文路径
-String path = request.getContextPath();
-//重定向到首页(未登录状态)
-response.sendRedirect(path+&quot;/index.jsp&quot;);
-%&gt;
-&lt;/body&gt;</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/20/课堂笔记11-20/">展开全文 >></a>
         </p>
       
 

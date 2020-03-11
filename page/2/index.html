@@ -152,6 +152,110 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-课堂笔记11-20" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/20/课堂笔记11-20/">课堂笔记11-20</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/20/课堂笔记11-20/" class="archive-article-date">
+  	<time datetime="2019-11-20T01:48:51.034Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JSP登录"><a href="#JSP登录" class="headerlink" title="JSP登录"></a>JSP登录</h1><h2 id="1-表单提交数据到Servlet的方式"><a href="#1-表单提交数据到Servlet的方式" class="headerlink" title="1.表单提交数据到Servlet的方式"></a>1.表单提交数据到Servlet的方式</h2><h3 id="整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个Servlet，在其内进行判定是否登录。"><a href="#整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个Servlet，在其内进行判定是否登录。" class="headerlink" title="整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。"></a>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。</h3><h2 id="1-Servlet中的doPost-方法："><a href="#1-Servlet中的doPost-方法：" class="headerlink" title="(1)Servlet中的doPost()方法："></a>(1)Servlet中的doPost()方法：</h2><ul>
+<li>A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</li>
+<li>B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</li>
+<li>C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。<h2 id="2-跳转到的页面：登录成功页面-在Session中保存用户信息-不跳转"><a href="#2-跳转到的页面：登录成功页面-在Session中保存用户信息-不跳转" class="headerlink" title="(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/不跳转"></a>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/不跳转</h2></li>
+</ul>
+<h2 id="2-表单提交数据到JSP的方式"><a href="#2-表单提交数据到JSP的方式" class="headerlink" title="2.表单提交数据到JSP的方式"></a>2.表单提交数据到JSP的方式</h2><h3 id="整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个JSP，在其内进行判定是否登录。"><a href="#整体流程：登录页面提交form表单-get或post方式到action指定的位置-的数据到一个JSP，在其内进行判定是否登录。" class="headerlink" title="整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。"></a>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。</h3><h2 id="1-JSP中的-lt-gt-脚本内容："><a href="#1-JSP中的-lt-gt-脚本内容：" class="headerlink" title="(1)JSP中的&lt;% %&gt;脚本内容："></a>(1)JSP中的&lt;% %&gt;脚本内容：</h2><ul>
+<li>A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</li>
+<li>B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</li>
+<li>C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。<h2 id="2-跳转到的页面：登录成功页面-在Session中保存用户信息-重定向到登录JSP页面，为地址栏添加一个属性-response-sendRedirect-“index-jsp-info-”登录失败”"><a href="#2-跳转到的页面：登录成功页面-在Session中保存用户信息-重定向到登录JSP页面，为地址栏添加一个属性-response-sendRedirect-“index-jsp-info-”登录失败”" class="headerlink" title="(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))"></a>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))</h2></li>
+</ul>
+<h2 id="登录成功重定向到success-jsp页面-response-sendRedirect-“-success-jsp”"><a href="#登录成功重定向到success-jsp页面-response-sendRedirect-“-success-jsp”" class="headerlink" title="//登录成功重定向到success.jsp页面 response.sendRedirect(“/success.jsp”);"></a>//登录成功重定向到success.jsp页面 response.sendRedirect(“/success.jsp”);</h2><pre><code>&lt;body&gt;
+&lt;%
+//从Request获取id、pwd、name的值
+String id= request.getParameter(&quot;id&quot;);
+String pwd= request.getParameter(&quot;pwd&quot;);
+String name= request.getParameter(&quot;name&quot;);
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//向Session对象内放属性
+session.setAttribute(&quot;id&quot;, id);
+session.setAttribute(&quot;pwd&quot;, pwd);
+session.setAttribute(&quot;name&quot;, name);
+//页面输出
+out.println(&quot;&lt;span&gt;欢迎&quot;+name+&quot;登录&lt;/span&gt;&quot;);  
+//注销链接
+&lt;a href=&quot;out.jsp&quot;&gt;注销&lt;/a&gt;
+%&gt;
+&lt;/body&gt;</code></pre><h2 id="注销页面-out-jsp-如下："><a href="#注销页面-out-jsp-如下：" class="headerlink" title="注销页面(out.jsp)如下："></a>注销页面(out.jsp)如下：</h2><pre><code>&lt;body&gt;
+&lt;%
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//清空Session中的登录信息相关属性
+    session.removeAttribute(&quot;id&quot;);
+    session.removeAttribute(&quot;pwd&quot;);
+    session.removeAttribute(&quot;name&quot;);
+//上下文路径
+String path = request.getContextPath();
+//重定向到首页(未登录状态)
+response.sendRedirect(path+&quot;/index.jsp&quot;);
+%&gt;
+&lt;/body&gt;</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/20/课堂笔记11-20/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MySQL数据库练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1365,199 +1469,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/10/23/2019-10-22/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Java面向对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/23/Java面向对象/">Java面向对象</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/23/Java面向对象/" class="archive-article-date">
-  	<time datetime="2019-10-23T10:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="new关键字创建对象的过程"><a href="#new关键字创建对象的过程" class="headerlink" title="new关键字创建对象的过程"></a>new关键字创建对象的过程</h1><ul>
-<li><p>1.为对象分配内存空间，将对象的实例变量自动初始化为期变量类型的默认值</p>
-</li>
-<li><p>2:如果实例变量在声明时显示初始化，那就把初始化值赋给 实例变量</p>
-</li>
-<li><p>3:调用构造方法</p>
-</li>
-<li><p>4:返回对象引用</p>
-</li>
-</ul>
-<h1 id="变量的作用域和生命周期"><a href="#变量的作用域和生命周期" class="headerlink" title="变量的作用域和生命周期"></a>变量的作用域和生命周期</h1><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
-<li><p>成员变量：在类中声明，作用域是整个类</p>
-</li>
-<li><p>局部变量：在方法内部或者方法的代码块的内部声明。<br>如果在方法内部声明，作用域是整个方法。<br>如果是方法的某个代码块，也就是{ }里面的内容，作用域也局限在{ }</p>
-</li>
-<li><p>方法参数：方法或者构造方法的参数，作用域是方法参数的( )里</p>
-<h2 id="类的成员变量有两种：静态变量和实例变量"><a href="#类的成员变量有两种：静态变量和实例变量" class="headerlink" title="类的成员变量有两种：静态变量和实例变量"></a>类的成员变量有两种：静态变量和实例变量</h2></li>
-<li><p>类的静态变量在内存中只有一个，java虚拟机在加载类的过程中为静态变量分配内存，它位于方法区，被类的所有实例共享，可以直接用类名 . 直接访问，生命周期取决于类</p>
-</li>
-<li><p>类的实例变量，每次创建一个类的实例，Java虚拟机就会为实例变量分配一次内存，实例变量位于堆中。实例变量的生命周期取决于实例的生命周期</p>
-</li>
-</ul>
-<h2 id="局部变量的声明周期："><a href="#局部变量的声明周期：" class="headerlink" title="局部变量的声明周期："></a>局部变量的声明周期：</h2><ul>
-<li><p>当调用一个方法时，会为这个方法中的局部变量分配内存，当结束调用时，会结束这个方法中的局部变量的声明周期。（局部变量必须显示初始化）</p>
-</li>
-<li><p>局部变量不能被public private protect  static等修饰，也不能通过类名和引用变量名来访问。</p>
-</li>
-</ul>
-<h2 id="this关键字："><a href="#this关键字：" class="headerlink" title="this关键字："></a>this关键字：</h2><p>当一个对象创建好后，java虚拟机会分配一个引用自身的指针：this,   this是指当前对象自己</p>
-<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><ul>
-<li><p>Sub类和Base类位于同一包下：Sub继承Base类中public,protected,和默认级别的成员变量和成员方法</p>
-</li>
-<li><p>Sub类和Base类位于不同包下：Sub继承Base类中public,protected的成员变量和成员方法</p>
-</li>
-</ul>
-<h2 id="方法重载："><a href="#方法重载：" class="headerlink" title="方法重载："></a>方法重载：</h2><ul>
-<li>方法名相同</li>
-<li>方法参数的类型，个数，顺序至少有一个不同</li>
-<li>方法返回类型可以不同</li>
-<li>方法修饰符可以不同</li>
-</ul>
-<h2 id="方法覆盖"><a href="#方法覆盖" class="headerlink" title="方法覆盖"></a>方法覆盖</h2><ul>
-<li>子类方法的名称，参数，和返回类型必须与父类方法相同</li>
-<li>子类方法不能缩小父类方法的访问权限</li>
-<li>子类方法不能抛出比父类方法更多的异常</li>
-<li>方法覆盖只存在于子类和父类</li>
-<li>子类可以定义与父类的静态方法同名的静态方法</li>
-<li>父类的非静态方法不可以被子类覆盖为静态方法</li>
-<li>父类的私有方法不能被子类覆盖</li>
-<li>父类的抽象方法可以被子类通过两种途径覆盖：一是子类实现父类的抽象方法；二是子类重新声明父类的抽象方法</li>
-</ul>
-<h2 id="super"><a href="#super" class="headerlink" title="super"></a>super</h2><p>super的使用场景:</p>
-<ul>
-<li>在子类的构造方法中调用父类构造方法</li>
-<li>在子类中使用被父类的被屏蔽的方法和属性<br>(Tips:只能在构造方法和实例方法中使用使用super关键字，而在静态方法和静态代码块中不能使用super关键字)</li>
-</ul>
-<h2 id="继承的利弊和使用原则"><a href="#继承的利弊和使用原则" class="headerlink" title="继承的利弊和使用原则"></a>继承的利弊和使用原则</h2><ul>
-<li>可以提高程序代码的可重用性，提高可扩展性。</li>
-<li>继承树的层次不可太多，继承树的上层为抽象层，</li>
-<li>继承的最大弱点：打破封装</li>
-</ul>
-<h2 id="精心设计用于被继承的类"><a href="#精心设计用于被继承的类" class="headerlink" title="精心设计用于被继承的类"></a>精心设计用于被继承的类</h2><p>由于继承关系会打破封装，因此随意继承对象模型中的任意一个类是不安全的做法。<br>在建立对象模型时，应该充分考虑软件系统中哪些地方需要扩展，为这些地方提供扩展点。</p>
-<p>(1)对这些类提供良好的文档说明，使得创建该类的子类的开发人员指导如何正确安全的扩展它。</p>
-<p>对于那些允许子类覆盖的方法，应该详细的描述该方法的自用型，以及子类覆盖此方法可能带来的影响。</p>
-<p>比如父类有一个speak()方法，此方法里面又调用了change()方法，这样在子类覆盖父类的speak()方法时，change()也会受到影响。</p>
-<p>(2)尽可能封装父类的实现细节，也就是把代表实现细节的属性和方法定义为private类型。如果这些实现细节必须被子类访问，可以在父类中把包含</p>
-<p>这种实现细节的方法定义为protected类型。当子类仅仅调用父类的protected类型的方法，而不覆盖它时，可以把这种protected类型的方法看做父类</p>
-<p>向子类但不对外公开的接口。</p>
-<p>(3) 把不允许子类覆盖的方法定义为final类型。</p>
-<p>(4)父类的构造方法中不可以调用不能被子类覆盖的方法，因为子类的构造方法中默认super()调用父类构造方法，这样会导致不可预料的错误。</p>
-<p>(5)如果某些类不是专门为了继承而设计，那么随意继承它时不安全的。</p>
-<p>那么可以把这这个类定义为final类型，</p>
-<p>或者把这个类的所有构造方法声明为priavte类型，然后通过一些静态方法来负责构建自身的实例。</p>
-<h2 id="组合关系和继承关系的比较"><a href="#组合关系和继承关系的比较" class="headerlink" title="组合关系和继承关系的比较"></a>组合关系和继承关系的比较</h2><h2 id="组合关系"><a href="#组合关系" class="headerlink" title="组合关系:"></a>组合关系:</h2><ul>
-<li>不破坏封装，整体类于局部类之间松耦合，彼此相对独立 破坏封装，子类与父类之间紧密耦合，子类依赖父类的实现，子类缺乏独立性</li>
-<li>具有良好的可扩展性 支持扩展，但是增加系统结构的复杂程度</li>
-<li>支持动态组合，在运行时，整体对象可以选择不同类型的局部对象  不支持动态继承，在运+ 行时，子类无法选择不同的父类<br>整体类可以对局部类进行包装，封装局部类的接口，提供新的接口 子类不能改变父类的接口<h2 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h2></li>
-<li>整体类不能自动获得和局部类相同的接口 子类能自动继承父类的接口</li>
-<li>创建整体类的对象时，需要创建所有局部类的对象 创建子类的对象时，无须创建父类的对象</li>
-</ul>
-<h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><h2 id="访问修饰符："><a href="#访问修饰符：" class="headerlink" title="访问修饰符："></a>访问修饰符：</h2><ul>
-<li>public: 公开的</li>
-<li>private： 私有的，只有类本身可以访问，不对外公开</li>
-<li>默认修饰符：向同一包内的类公开</li>
-<li>protected：只向子类和同一包的类公开</li>
-<li>abstract：抽象</li>
-</ul>
-<p>(1)抽象类中可以没有抽象方法，但包含了抽象方法的类必须是抽象类。如果子类没有实现父类所有的抽象方法，那么子类也必须是抽象类</p>
-<p>(2)没有抽象构造方法，也没有抽象静态方法。</p>
-<p>(3)抽象类中可以有非抽象的构造方法，创建子类的实例时可能会调用这些构造方法。<br>抽象类不能实例化，但是可以创建一个引用变量，其类型是个抽象类，并让它指向子类的一个实例。</p>
-<p>(4)抽象类及抽象方法不能被final修饰符修饰。<br>abstract与final，private，static连接是无意义的</p>
-<h2 id="final修饰符"><a href="#final修饰符" class="headerlink" title="final修饰符"></a>final修饰符</h2><ul>
-<li>用final修饰的类不能被继承</li>
-<li>用final修饰的方法不能被子类覆盖</li>
-<li>private类型的方法都默认是final的方法，因为不能被子类的方法覆盖</li>
-<li>用final修饰的变量表示常量，只能被赋值一次</li>
-</ul>
-<h2 id="final类-例如String类不可以被继承"><a href="#final类-例如String类不可以被继承" class="headerlink" title="final类   (例如String类不可以被继承)"></a>final类   (例如String类不可以被继承)</h2><p>继承关系的弱点是打破封装，子类能够访问父类的实现细节，而且能以方法覆盖的方式修改实现细节。<br>如果不是专门为继承而设计的类，类本身的方法之间有复杂的地调度关系，假如随意创建这些类的子类，可能会错误的修改父类的实现细节<br>出于安全的原因，类的实现细节不允许有任何改动<br>在创建对象模型时，确信这个类不会再被扩展</p>
-<h2 id="final方法-例如getClass-方法不可以被覆盖"><a href="#final方法-例如getClass-方法不可以被覆盖" class="headerlink" title="final方法 (例如getClass()方法不可以被覆盖)"></a>final方法 (例如getClass()方法不可以被覆盖)</h2><p>出于安全的考虑，父类不允许子类覆盖某个方法，此时可以把这个方法声明为final类型<br>final变量<br>final修饰符可以修饰静态变量，实例变量和局部变量分别为静态常量，实例常量和局部常量<br>静态常量一般以大写字母命名，单词之间用_分开<br>final修饰的成员变量必须显示初始化，否则会导致编译错误<br>对于final类型的实例变量，可以在定义变量时，或者在构造方法中进行初始化，对于final类型的静态变量，可以在定义变量时进行初始化，或者在静态代码块中初始化<br>final变量只能被赋值一次</p>
-<p>final修饰的变量的作用:</p>
-<ul>
-<li>提高程序的安全性，</li>
-<li>提高程序代码的可维护性</li>
-<li>提高程序代码的可读性</li>
-</ul>
-<h2 id="static修饰符"><a href="#static修饰符" class="headerlink" title="static修饰符"></a>static修饰符</h2><p>static修饰符可以用来修饰类的成员变量，成员方法和代码块：</p>
-<ul>
-<li>用static修饰的成员变量表示静态变量，可以直接通过类名访问</li>
-<li>用static修饰的成员方法表示静态方法，可以直接通过类名访问</li>
-<li>用static修饰的程序代码块表示静态代码块，当Java虚拟机加载类时，就会执行该代码块</li>
-</ul>
-<h2 id="static方法"><a href="#static方法" class="headerlink" title="static方法"></a>static方法</h2><p>静态方法和静态变量一样，直接用类名可以访问<br>静态方法中不能使用this关键字，也不能直接访问所属类的实例变量和实例方法，只能访问所属类的静态变量和静态方法<br>静态方法中也不能使用super关键字<br>在实例方法中可以直接访问所属类的实例变量实例方法，静态变量静态方法<br>静态方法不能被定义成抽象方法<br>实例方法和静态方法，它们的字节码都位于方法区。Java编译器把Java方法的源程序代码编译成二进制的编码，成为字节码，java虚拟机的解析器能够解析这种字节码</p>
-<h1 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h1><p>接口中的成员变量默认都是public，static，final类型的，必须被显式初始化</p>
-<p>接口中的方法默认都是public，abstract类型的</p>
-<p>接口中只能包含public，static，final类型的成员变量和public，abstract类型的成员方法</p>
-<p>接口没有构造方法，不能被实例化</p>
-<p>一个接口不能实现另一个接口，但是可以继承另一个接口</p>
-<p>接口必须通过类来实现它的抽象方法，类实现接口的关键字为implements</p>
-<p>与子类继承抽象父类相似，当类实现了某个接口时，它必须实现接口中所有的抽象方法，否则这个类必须被定义为抽象类</p>
-<p>不允许创建接口的实例，但允许定义接口类型的引用变量，该变量引用实现了这个接口的实例</p>
-<p>一个类只能继承一个直接的父类，但能实现多个接口</p>
-<h2 id="比较抽象类和接口"><a href="#比较抽象类和接口" class="headerlink" title="比较抽象类和接口"></a>比较抽象类和接口</h2><p>代表系统的抽象层</p>
-<p>都不能被实例化</p>
-<p>都能包含抽象方法，这些抽象方法用于描述系统能提供哪些服务，但不必提供具体的实现</p>
-<h2 id="抽象类与接口主要有两大区别"><a href="#抽象类与接口主要有两大区别" class="headerlink" title="抽象类与接口主要有两大区别"></a>抽象类与接口主要有两大区别</h2><ul>
-<li>在抽象类中可以为部分方法提供默认的实现，从而避免在子类中重复实现它们，提高代码的可重用性，这是抽象类的优势所在；而接口中只能包含抽象方法，如果为接口增加了一个的方法，那么所有实现它的类都要去实现这个方法，不利于扩展。</li>
-<li>一个类只能继承一个父类，但是能实现多个接口，这个是接口的优势</li>
-</ul>
-<p>(Tips:为什么Java语言不允许一个类继承多个直接的父类呢？     因为当子类覆盖父类的实例方法，或者隐藏父类的成员变量及静态方法，或者成员变量和静态方法时，会使Java虚拟机绑定规则更加复杂。</p>
-<p>而接口中只有抽象方法，没有实例变量和静态方法，只有接口的实现类才会实现接口的抽象方法。因此，一个类即使实现了多个接口，也不会增加Java虚拟机进行动态绑定的复杂度，因为虚拟机永远不会把方法与接口绑定，只会把方法与它的实现类绑定</p>
-<p>对于已经存在的继承树，可以方便地从类中抽象出新的接口，但是从类中抽象出新的抽象类却不那么容易，因此接口更有利于软件系统的维护与重构。）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/23/Java面向对象/">展开全文 >></a>
         </p>
       
 
