@@ -152,6 +152,177 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Oracle-序列-试图-索引-同义词" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/Oracle-序列-试图-索引-同义词/">Oracle 序列 试图 索引 同义词</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/15/Oracle-序列-试图-索引-同义词/" class="archive-article-date">
+  	<time datetime="2020-03-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h2><p>Oracle 12C 之后，Oracle 之中提供的是一种手工的自动增长列控制，<br>而这样的控制在 Oracle 之中使用序列（对象）完成。</p>
+<h3 id="序列的创建："><a href="#序列的创建：" class="headerlink" title="序列的创建："></a>序列的创建：</h3><pre><code>CREATE SEQUENCE 序列名称
+[INCREMENT BY 步长] [START WITH 开始值]
+[MAXVALUE 最大值 | NOMAXVALUE] 
+[MINVALUE 最小值 | NOMINVALUE]
+[CYCLE | NOCYCLE]
+[CACHE 缓存大小 | NOCACHE]
+
+在此数据字典之中主要包含如下列的数据信息：
+SEQUENCE_NAME：表示的序列名称；
+MIN_VALUE：表示序列的最小值，默认的序列最小值是 1；
+MAX_VALUE：表示序列的最大值，默认序列是没有最大值，1028已经很大了。
+INCREMENT_BY：步长，每次增长的数据，默认的是 1；
+CYCLE：是否为循环序列，如果是 N 表示非循环，如果是 Y 表示循环；
+ORDER：表示序列是否排序；
+CACHE_SIZE：序列的缓存数据；
+LAST_NUMBER：序列最后一次的增长值（缓存中最大的值）。
+复制代码</code></pre><p>当一个序列对象已经创建完成之后，可以采用如下的两个伪列来进行序列的控制：</p>
+<ul>
+<li>取得序列下一个增长数据（每次调用序列值都增长指定的步长）：序列.nextval；</li>
+<li>取得序列的当前数据（每次调用序列都不增长）：序列.currval；</li>
+<li>在使用 currval 之前一定要首先使用 nextval，否则会出现“ORA-08002: 尚未在此会话中定义”。<br>可是该如何实现行的自动编号呢？<br>DROP TABLE mytab PURGE ;<br>CREATE TABLE mytab(<br>mid NUMBER ,<br>title VARCHAR2(50) ,<br>CONSTRAINT pk_mid PRIMARY KEY(mid)<br>) ;<br>INSERT INTO mytab(mid,title) VALUES (myseq.nextval,’JAVA’) ;</li>
+</ul>
+<p>循环序列：</p>
+<p>1、3、5、7、9 五个数据之间循环显示</p>
+<p>序列的最大值是 9；<br>序列的最小值是 1；<br>步长应该为2；</p>
+<pre><code>DROP SEQUENCE myseq ;
+CREATE SEQUENCE myseq
+INCREMENT BY 2 
+START WITH 1
+MAXVALUE 9 MINVALUE 1
+CYCLE NOCACHE;
+
+oracle 12c新特性
+
+CREATE TABLE test1 (
+　　id int GENERATED ALWAYS AS IDENTITY
+);</code></pre><p>自增列会自动加上 not null 约束。</p>
+<p>新增时不能向自增列插入值。</p>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>视图就是包装了一条复杂的 SQL 语句。</p>
+<pre><code>/* 创建视图 （OR REPLACE 表示如果视图存在，就替代已有的）*/
+CREATE [OR REPLACE] VIEW 视图名称 AS 子查询
+[WITH CHECK OPTIONI] [WITH READ ONLY] ;
+注意：从 Oracle 10g R2 版本之后出现了一个创建视图的权限问题，在这之前，scott 用户本身是具备有创建视图权限的，但是之后就没有了，那么下面首先执行如下的语句，
+来实现权限的分配：GRANT CREATE VIEW TO scott ;
+
+CREATE OR REPLACE NOFORCE VIEW /* NOFORCE 表示只有引用的基表存在才创建视图，另一参数为 FORCE,表示不考虑基表是否存在，强制创建视图*/
+ANIMAL_VIEW (ANIMAL_NAME, ANIMAL_GENDER)
+AS
+SELECT ANIMAL_NAME, ANIMAL_GENDER FROM ANIMAL WHERE ANIMAL_GENDER=&apos;男&apos;
+
+/* 查看视图 */
+SELECT * FROM ANIMAL_VIEW
+
+/* 修改视图 */
+CREATE OR REPLACE VIEW ANIMAL_VIEW (ANIMAL_ID, ANIMAL_NAME, ANIMAL_ADDRESS)
+AS
+SELECT ANIMAL_ID, ANIMAL_NAME, ANIMAL_ADDRESS FROM ANIMAL;
+
+/* 删除视图 */
+DROP VIEW ANIMAL_VIEW</code></pre><p>实际工作之中，一定要本着一个原则：“视图只能够用于查询，而不要用于任何更新”。</p>
+<p>1、 避免视图创建条件更新：WITH CHECK OPTION</p>
+<p>2、 设置只读视图：WITH READ ONLY</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><ol>
+<li>简介</li>
+</ol>
+<ul>
+<li><p>查询性的表，要多建索引; 修改型的表，要少建索引</p>
+</li>
+<li><p>索引有唯一索引的和非唯一索引两种</p>
+</li>
+<li><p>oracle提供了B树，散列，位图等索引类型，主要使用B树索引和位图索引。</p>
+</li>
+<li><p>B树索引是默认条件下创建的，可以是唯一的也可以是非唯一的，可以是基于一列的，也可以是多列的。B树索引在检索高基数数据列时有很好的性能，对于取出较小的数据，B树索引也更有效。但是当检查范围超过表的10%时，就不行了。</p>
+</li>
+<li><p>位图索引主要用于决策支持系统或者静态数据，不支持行级锁定。位图索引可以是单列的，也可以是多列的。最好用于小型或者中型群集列。位图以一种压缩格式存放，占用的空间小。</p>
+<pre><code>/* 创建索引 */
+CREATE INDEX ANIMAL_INDEX ON ANIMAL(ANIMAL_ID ASC, ANIMAL_NAME DESC);
+/* 创建唯一索引 */
+CREATE UNIQUE INDEX ANIMAL_UNIQUE_INDEX ON ANIMAL(ANIMAL_REGDATE)
+/* 删除索引 */
+DROP INDEX ANIMAL_INDEX;</code></pre></li>
+</ul>
+<h2 id="同义词"><a href="#同义词" class="headerlink" title="同义词"></a>同义词</h2><h3 id="同义词是表，视图，序列，存储函数，包，快照，或者其他同义词的另一个名字。同义词有公共的和私有的之分。在本地数据库同义词还可以通过链接表示另一个数据库的对象。使用同义词可以有以下优点：引用对象无需指出对象的所有者和数据库"><a href="#同义词是表，视图，序列，存储函数，包，快照，或者其他同义词的另一个名字。同义词有公共的和私有的之分。在本地数据库同义词还可以通过链接表示另一个数据库的对象。使用同义词可以有以下优点：引用对象无需指出对象的所有者和数据库" class="headerlink" title="同义词是表，视图，序列，存储函数，包，快照，或者其他同义词的另一个名字。同义词有公共的和私有的之分。在本地数据库同义词还可以通过链接表示另一个数据库的对象。使用同义词可以有以下优点：引用对象无需指出对象的所有者和数据库"></a>同义词是表，视图，序列，存储函数，包，快照，或者其他同义词的另一个名字。同义词有公共的和私有的之分。在本地数据库同义词还可以通过链接表示另一个数据库的对象。使用同义词可以有以下优点：引用对象无需指出对象的所有者和数据库</h3><pre><code>如果要想创建属于自己的同义词，则必须由管理员完成，而创建的语法如下：
+CREATE [PUBLIC] SYNONYM 同义词的名称 FOR 用户名.表名称；
+范例：将 scott.emp 表定义一个 myemp 的同义词（由 sys 完成）
+CONN sys/change_on_install AS SYSDBA ;
+CREATE SYNONYM myemp FOR scott.emp ;
+创建完同义词之后，下面就可以直接通过 myemp 来访问 scott.emp 数据表了。
+SELECT * FROM myemp ;
+那么现在创建的同义词 myemp 存在一个小问题。因为此时的同义词只能够在 sys 下使用，它并不是一个公共的同义词，所以要想让所有用户都访问，则必须创建公共同义词。
+范例：修改同义词的创建
+CONN sys/change_on_install AS SYSDBA ;
+DROP SYNONYM myemp ;
+/*
+删除同义词的语句是drop SYNONYM name(private的)，或者drop public SYNONYM name(public的).
+用户可以删除自己的任何私有同义词，但是要想删除其他用户的私有同义词，必须拥有drop any synonym的权限，要想删除public同义词，必须拥有drop public synonym权限。
+*/
+CREATE PUBLIC SYNONYM myemp FOR scott.emp ;
+-- 总体看来
+/* 创建公有同义词 */
+CREATE PUBLIC SYNONYM SYN_ANIMAL FOR ANIMAL;
+/* 通过同义词来查询表 */
+SELECT * FROM SYN_ANIMAL;
+/* 创建私有同义词 （当前用户可以直接引用，其它用户在引用时须带用户模式名）*/
+CREATE SYNONYM PRIVATE_ANIMAL FOR ANIMAL;
+/* 删除私有同义词 */
+DROP SYNONYM PRIVATE_ANIMAL;
+/* 删除公有同义词 */
+DROP PUBLIC SYNONYM SYN_ANIMAL;</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/15/Oracle-序列-试图-索引-同义词/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-数据库介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -491,7 +662,7 @@ WHERE score IN (SELECT TOP 3 score
         ORDER BY score DESC 
         ) 
 ORDER BY t1.C#; </code></pre><p>– 26查询每门课程的选修的学生数<br>        SELECT C#,COUNT(1)学生数 FROM SC GROUP BY C#;<br>– 27、查询出只选修了一门课程的全部学生的学号和姓名<br>        SELECT S#,SNAME,FROM SC,STUDENT WHERE SC.S# = STUDENT.S# GROUP BY STUDENT.S#,SNAME HAVING COUNT(1);<br>– 28、查询男生、女生人数<br>        SELECT COUNT(1),CASE SSEX WHERE 1 THEN ‘男’ WHERE 2 THEN ‘女’ END FROM STUDENT GROUP BY SSEX;<br>– 29、查询姓“张”的学生名单<br>        SELECT S#,SNAME FROM STUDENT WHERE SNAME LIKE (‘刘%’);<br>– 30、查询同名同性学生名单，并统计同名人数<br>        SELECT SNAME,SSEX,COUNT(1) FROM STUDENT GROUP BY SNAME,SSEX HAVING COUNT(1) &gt;1;<br>–31、1981年出生的学生名单(注：Student表中Sage列的类型是datetime)<br>        SELECT * FROM STUDENT WHERE BIRTH BETWEEN TO_DATE(‘1981-01-01 00:00:00’, ‘yyyy-mm-dd hh24:mi:ss’) AND TO_DATE(‘1981-01-01 00:00:00’, ‘yyyy-mm-dd hh24:mi:ss’);<br>– 32、查询每门课程的平均成绩，结果按平均成绩升序排列，平均成绩相同时，按课程号降序排列<br>        SELECT C#,ROUND(AVG(SCORE),2) 平均成绩 FROM SC  GROUP BY C# ORDER BY 平均成绩 ASC,C# DESC;<br>– 33、查询平均成绩大于85的所有学生的学号、姓名和平均成绩<br>        SELECT SC.S#,SNAME,AVG(SCORE) FROM SC,STUDENT WHERE SC.S# = STUDENT.S# GROUP BY SC.S#,SNAME HAVING AVG(SCORE) &gt;85;<br>– 34、查询课程名称为“数据库”，且分数低于60的学生姓名和分数<br>        SELECT SNAME,SCORE FROM SC,STUDENT,COURSE WHERE SC.S#  = STUDENT.S# AND SC.C# = COURSE.C# AND CNAME = ‘数据库’ AND SCORE &lt; 60;<br>– 35、查询所有学生的选课情况；<br>        SELECT SC.S#,SC.C#,CNAME,SNAME FROM SC,COURSE,STUDENT WHERE SC.C# = COURSE.C# AND STUDENT.S# = SC.S#;<br>– 36、查询任何一门课程成绩在70分以上的姓名、课程名称和分数；<br>        SELECT SNAME,CNAME,SCORE FROM SC,COURSE,STUDENT WHERE STUDENT.S# = SC.S# AND COURSE.C# = SC.C# AND SC.S# IN(SELECT S# FROM SC WHERE SCORE &gt; 70);<br>– 37、查询不及格的课程，并按课程号从大到小排列<br>        select cid<br>        from sc<br>        where score&lt;60<br>        ORDER BY cid;<br>– 38、查询课程编号为003且课程成绩在80分以上的学生的学号和姓名；<br>        SELECT SC.S#,SNAME FROM STUDENT,SC WHERE SC.S# = STUDENT.S# AND SCORE &gt; 80 AND C# = ‘003’;</p>
-<p>– 39、求选了课程的学生人数<br>        SELECT COUNT(1) FROM (<br>        SELECT DISTINCT S# FROM SC WHERE SCORE IS NOT NULL )a;<br>– 40、查询选修“叶平”老师所授课程的学生中，成绩最高的学生姓名及其成绩<br>        SELECT SNAME,SCORE FROM STUDENT ,SC WHERE SC.S# = STUDENT.S# AND (SCORE.C#) IN(<br>        SELECT MAX(SCORE) ,C# FROM SC WHERE C# IN(<br>        SELECT C# FROM TEACHER,COURSE WHERE TEACHER.T# = COURSE.T# AND TNAME =’叶平’)<br>        GROUP BY C#);<br>– 41、查询各个课程及相应的选修人数<br>        SELECT C#,COUNT(1) FROM SC GROUP BY C#;<br>– 42、查询不同课程成绩相同的学生的学号、课程号、学生成绩<br>SELECT a.S#,a.C#,b.C#,a.SCORE<br>        FROM SC a,SC b<br>        WHERE a.C#&gt;b.C#<br>        AND a.S# = b.S# AND a.SCORE = b.SCORE;<br>– 43、查询每门功成绩最好的前两名  </p>
+<p>– 39、求选了课程的学生人数<br>        SELECT COUNT(1) FROM (<br>        SELECT DISTINCT S# FROM SC WHERE SCORE IS NOT NULL )a;<br>– 40、查询选修“叶平”老师所授课程的学生中，成绩最高的学生姓名及其成绩<br>        SELECT SNAME,SCORE FROM STUDENT ,SC WHERE SC.S# = STUDENT.S# AND (SCORE.C#) IN(<br>        SELECT MAX(SCORE) ,C# FROM SC WHERE C# IN(<br>        SELECT C# FROM TEACHER,COURSE WHERE TEACHER.T# = COURSE.T# AND TNAME =’叶平’)<br>        GROUP BY C#);<br>– 41、查询各个课程及相应的选修人数<br>        SELECT C#,COUNT(1) FROM SC GROUP BY C#;<br>– 42、查询不同课程成绩相同的学生的学号、课程号、学生成绩<br>        SELECT a.S#,a.C#,b.C#,a.SCORE<br>        FROM SC a,SC b<br>        WHERE a.C#&gt;b.C#<br>        AND a.S# = b.S# AND a.SCORE = b.SCORE;<br>– 43、查询每门功成绩最好的前两名  </p>
 <pre><code>SELECT t1.S# as 学生ID,t1.C# as 课程ID , Score AS &quot;分数&quot; 
 FROM SC t1 
 WHERE score IN (SELECT TOP 2 score 
@@ -1735,101 +1906,6 @@ public class MD5Util {
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/02/12/spring-mvc/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-jsp-filter过滤器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/10/jsp-filter过滤器/">jsp--filter过滤器</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/10/jsp-filter过滤器/" class="archive-article-date">
-  	<time datetime="2019-12-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Filter过滤器简介"><a href="#Filter过滤器简介" class="headerlink" title="Filter过滤器简介"></a>Filter过滤器简介</h1><p>过滤器可以动态地拦截请求和响应，以变换或使用包含在请求或响应中的信息。<br>可以将一个或多个过滤器附加到一个 Servlet 或一组 Servlet。过滤器也可以附加到 JavaServer Pages (JSP) 文件和 HTML 页面。<br>过滤器是可用于 Servlet 编程的 Java 类，可以实现以下目的： </p>
-<ul>
-<li>在客户端的请求访问后端资源之前，拦截这些请求。 </li>
-<li>在服务器的响应发送回客户端之前，处理这些响应。</li>
-</ul>
-<h2 id="WEB开发人员通过Filter技术，对web服务器管理的所有web资源：例如Jsp-Servlet-静态图片文件或静态-html-文件等进行拦截，从而实现一些特殊的功能。例如实现URL级别的权限访问控制、过滤敏感词汇、压缩响应信息等一些高级功能。"><a href="#WEB开发人员通过Filter技术，对web服务器管理的所有web资源：例如Jsp-Servlet-静态图片文件或静态-html-文件等进行拦截，从而实现一些特殊的功能。例如实现URL级别的权限访问控制、过滤敏感词汇、压缩响应信息等一些高级功能。" class="headerlink" title="WEB开发人员通过Filter技术，对web服务器管理的所有web资源：例如Jsp, Servlet, 静态图片文件或静态 html 文件等进行拦截，从而实现一些特殊的功能。例如实现URL级别的权限访问控制、过滤敏感词汇、压缩响应信息等一些高级功能。"></a>WEB开发人员通过Filter技术，对web服务器管理的所有web资源：例如Jsp, Servlet, 静态图片文件或静态 html 文件等进行拦截，从而实现一些特殊的功能。例如实现URL级别的权限访问控制、过滤敏感词汇、压缩响应信息等一些高级功能。</h2><h1 id="Filter如何实现拦截？"><a href="#Filter如何实现拦截？" class="headerlink" title="Filter如何实现拦截？"></a>Filter如何实现拦截？</h1><p>　Filter接口中有一个doFilter方法，当我们编写好Filter，并配置对哪个web资源进行拦截后，WEB服务器每次在调用web资源的service方法之前，都会先调用一下filter的 doFilter方法，因此，在该方法内编写代码可达到如下目的：</p>
-<ul>
-<li>调用目标资源之前，让doFilter方法内的代码先执行。</li>
-<li>是否调用目标资源（即是否让用户访问web资源）。</li>
-<li>调用目标资源之后，让一段代码执行。即chain.doFilter(request, response);之后的代码执行。</li>
-</ul>
-<p>　　web服务器在调用doFilter方法时，会传递一个filterChain对象进来，filterChain对象是filter接口中最重要的一个对象，它也提供了一个doFilter方法，开发人员可以根据需求决定是否调用此方法，调用该方法，则web服务器就会调用web资源的service方法，即web资源就会被访问，否则web资源不会被访问。</p>
-<p>注：即chain.doFilter(request, response);相当于“放行”，只有执行了这一段代码之后，才会调用目标资源。在此之前必须先执行完doFilter方法中“放行”之前的代码<br><img src="https://user-images.githubusercontent.com/55903351/70527822-c2259800-1b87-11ea-8a7e-5fb38d219e20.png" alt="7"></p>
-<h1 id="Filter过滤器的web-xml配置各节点说明"><a href="#Filter过滤器的web-xml配置各节点说明" class="headerlink" title="Filter过滤器的web.xml配置各节点说明"></a>Filter过滤器的web.xml配置各节点说明</h1><pre><code>&lt;filter&gt;指定一个过滤器。
-
-&lt;filter-name&gt;用于为过滤器指定一个名字，该元素的内容不能为空。
-
-&lt;filter-class&gt;元素用于指定过滤器的完整的限定类名。
-
-&lt;init-param&gt;元素用于为过滤器指定初始化参数，它的子元素&lt;param-name&gt;指定参数的名字，&lt;param-value&gt;指定参数的值。在过滤器中，可以使用FilterConfig接口对象来访问初始化参数。
-
-&lt;filter-mapping&gt;元素用于设置一个 Filter 所负责拦截的资源。一个Filter拦截的资源可通过两种方式来指定：Servlet 名称和资源访问的请求路径
-
-&lt;filter-name&gt;子元素用于设置filter的注册名称。该值必须是在&lt;filter&gt;元素中声明过的过滤器的名字
-
-&lt;url-pattern&gt;设置 filter 所拦截的请求路径(过滤器关联的URL样式)
-
-&lt;servlet-name&gt;指定过滤器所拦截的Servlet名称。
-
-&lt;dispatcher&gt;指定过滤器所拦截的资源被 Servlet 容器调用的方式，可以是REQUEST,INCLUDE,FORWARD和ERROR之一，默认REQUEST。用户可以设置多个&lt;dispatcher&gt;子元素用来指定 Filter 对资源的多种调用方式进行拦截。
-
-&lt;dispatcher&gt;子元素可以设置的值及其意义</code></pre><p><img src="https://user-images.githubusercontent.com/55903351/70527029-e1bbc100-1b85-11ea-97ce-d9358f6002ac.png" alt="3"></p>
-<p><img src="https://user-images.githubusercontent.com/55903351/70527785-a8845080-1b87-11ea-93e0-3ce17a0a1b73.png" alt="12"></p>
-<h2 id="REQUEST：当用户直接访问页面时，Web容器将会调用过滤器。如果目标资源是通过RequestDispatcher的include-或forward-方法访问时，那么该过滤器就不会被调用。"><a href="#REQUEST：当用户直接访问页面时，Web容器将会调用过滤器。如果目标资源是通过RequestDispatcher的include-或forward-方法访问时，那么该过滤器就不会被调用。" class="headerlink" title="REQUEST：当用户直接访问页面时，Web容器将会调用过滤器。如果目标资源是通过RequestDispatcher的include()或forward()方法访问时，那么该过滤器就不会被调用。"></a>REQUEST：当用户直接访问页面时，Web容器将会调用过滤器。如果目标资源是通过RequestDispatcher的include()或forward()方法访问时，那么该过滤器就不会被调用。</h2><h2 id="INCLUDE：如果目标资源是通过RequestDispatcher的include-方法访问时，那么该过滤器将被调用。除此之外，该过滤器不会被调用。"><a href="#INCLUDE：如果目标资源是通过RequestDispatcher的include-方法访问时，那么该过滤器将被调用。除此之外，该过滤器不会被调用。" class="headerlink" title="INCLUDE：如果目标资源是通过RequestDispatcher的include()方法访问时，那么该过滤器将被调用。除此之外，该过滤器不会被调用。"></a>INCLUDE：如果目标资源是通过RequestDispatcher的include()方法访问时，那么该过滤器将被调用。除此之外，该过滤器不会被调用。</h2><h2 id="FORWARD：如果目标资源是通过RequestDispatcher的forward-方法访问时，那么该过滤器将被调用，除此之外，该过滤器不会被调用。"><a href="#FORWARD：如果目标资源是通过RequestDispatcher的forward-方法访问时，那么该过滤器将被调用，除此之外，该过滤器不会被调用。" class="headerlink" title="FORWARD：如果目标资源是通过RequestDispatcher的forward()方法访问时，那么该过滤器将被调用，除此之外，该过滤器不会被调用。"></a>FORWARD：如果目标资源是通过RequestDispatcher的forward()方法访问时，那么该过滤器将被调用，除此之外，该过滤器不会被调用。</h2><h2 id="ERROR：如果目标资源是通过声明式异常处理机制调用时，那么该过滤器将被调用。除此之外，过滤器不会被调用。"><a href="#ERROR：如果目标资源是通过声明式异常处理机制调用时，那么该过滤器将被调用。除此之外，过滤器不会被调用。" class="headerlink" title="ERROR：如果目标资源是通过声明式异常处理机制调用时，那么该过滤器将被调用。除此之外，过滤器不会被调用。"></a>ERROR：如果目标资源是通过声明式异常处理机制调用时，那么该过滤器将被调用。除此之外，过滤器不会被调用。</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/10/jsp-filter过滤器/">展开全文 >></a>
         </p>
       
 

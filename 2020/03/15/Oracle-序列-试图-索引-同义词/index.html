@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>Oracle 序列 试图 索引 同义词 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="序列Oracle 12C 之后，Oracle 之中提供的是一种手工的自动增长列控制，而这样的控制在 Oracle 之中使用序列（对象）完成。 序列的创建：CREATE SEQUENCE 序列名称 [INCREMENT BY 步长] [START WITH 开始值] [MAXVALUE 最大值 | NOMAXVALUE]  [MINVALUE 最小值 | NOMINVALUE] [CYCLE | N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle 序列 试图 索引 同义词">
+<meta property="og:url" content="http://yoursite.com/2020/03/15/Oracle-序列-试图-索引-同义词/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="序列Oracle 12C 之后，Oracle 之中提供的是一种手工的自动增长列控制，而这样的控制在 Oracle 之中使用序列（对象）完成。 序列的创建：CREATE SEQUENCE 序列名称 [INCREMENT BY 步长] [START WITH 开始值] [MAXVALUE 最大值 | NOMAXVALUE]  [MINVALUE 最小值 | NOMINVALUE] [CYCLE | N">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-15T04:15:24.086Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Oracle 序列 试图 索引 同义词">
+<meta name="twitter:description" content="序列Oracle 12C 之后，Oracle 之中提供的是一种手工的自动增长列控制，而这样的控制在 Oracle 之中使用序列（对象）完成。 序列的创建：CREATE SEQUENCE 序列名称 [INCREMENT BY 步长] [START WITH 开始值] [MAXVALUE 最大值 | NOMAXVALUE]  [MINVALUE 最小值 | NOMINVALUE] [CYCLE | N">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,295 +154,263 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Oracle-序列-试图-索引-同义词" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Oracle 序列 试图 索引 同义词
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/15/Oracle-序列-试图-索引-同义词/" class="archive-article-date">
+
+        
+        <a href="/2020/03/15/Oracle-序列-试图-索引-同义词/" class="archive-article-date">
   	<time datetime="2020-03-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/15/Oracle-序列-试图-索引-同义词/">Oracle 序列 试图 索引 同义词</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h2><p>Oracle 12C 之后，Oracle 之中提供的是一种手工的自动增长列控制，<br>而这样的控制在 Oracle 之中使用序列（对象）完成。</p>
+<h3 id="序列的创建："><a href="#序列的创建：" class="headerlink" title="序列的创建："></a>序列的创建：</h3><pre><code>CREATE SEQUENCE 序列名称
+[INCREMENT BY 步长] [START WITH 开始值]
+[MAXVALUE 最大值 | NOMAXVALUE] 
+[MINVALUE 最小值 | NOMINVALUE]
+[CYCLE | NOCYCLE]
+[CACHE 缓存大小 | NOCACHE]
 
-        <div class="article-info info-on-right">
-          
-          
+在此数据字典之中主要包含如下列的数据信息：
+SEQUENCE_NAME：表示的序列名称；
+MIN_VALUE：表示序列的最小值，默认的序列最小值是 1；
+MAX_VALUE：表示序列的最大值，默认序列是没有最大值，1028已经很大了。
+INCREMENT_BY：步长，每次增长的数据，默认的是 1；
+CYCLE：是否为循环序列，如果是 N 表示非循环，如果是 Y 表示循环；
+ORDER：表示序列是否排序；
+CACHE_SIZE：序列的缓存数据；
+LAST_NUMBER：序列最后一次的增长值（缓存中最大的值）。
+复制代码</code></pre><p>当一个序列对象已经创建完成之后，可以采用如下的两个伪列来进行序列的控制：</p>
+<ul>
+<li>取得序列下一个增长数据（每次调用序列值都增长指定的步长）：序列.nextval；</li>
+<li>取得序列的当前数据（每次调用序列都不增长）：序列.currval；</li>
+<li>在使用 currval 之前一定要首先使用 nextval，否则会出现“ORA-08002: 尚未在此会话中定义”。<br>可是该如何实现行的自动编号呢？<br>DROP TABLE mytab PURGE ;<br>CREATE TABLE mytab(<br>mid NUMBER ,<br>title VARCHAR2(50) ,<br>CONSTRAINT pk_mid PRIMARY KEY(mid)<br>) ;<br>INSERT INTO mytab(mid,title) VALUES (myseq.nextval,’JAVA’) ;</li>
+</ul>
+<p>循环序列：</p>
+<p>1、3、5、7、9 五个数据之间循环显示</p>
+<p>序列的最大值是 9；<br>序列的最小值是 1；<br>步长应该为2；</p>
+<pre><code>DROP SEQUENCE myseq ;
+CREATE SEQUENCE myseq
+INCREMENT BY 2 
+START WITH 1
+MAXVALUE 9 MINVALUE 1
+CYCLE NOCACHE;
 
+oracle 12c新特性
+
+CREATE TABLE test1 (
+　　id int GENERATED ALWAYS AS IDENTITY
+);</code></pre><p>自增列会自动加上 not null 约束。</p>
+<p>新增时不能向自增列插入值。</p>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>视图就是包装了一条复杂的 SQL 语句。</p>
+<pre><code>/* 创建视图 （OR REPLACE 表示如果视图存在，就替代已有的）*/
+CREATE [OR REPLACE] VIEW 视图名称 AS 子查询
+[WITH CHECK OPTIONI] [WITH READ ONLY] ;
+注意：从 Oracle 10g R2 版本之后出现了一个创建视图的权限问题，在这之前，scott 用户本身是具备有创建视图权限的，但是之后就没有了，那么下面首先执行如下的语句，
+来实现权限的分配：GRANT CREATE VIEW TO scott ;
+
+CREATE OR REPLACE NOFORCE VIEW /* NOFORCE 表示只有引用的基表存在才创建视图，另一参数为 FORCE,表示不考虑基表是否存在，强制创建视图*/
+ANIMAL_VIEW (ANIMAL_NAME, ANIMAL_GENDER)
+AS
+SELECT ANIMAL_NAME, ANIMAL_GENDER FROM ANIMAL WHERE ANIMAL_GENDER=&apos;男&apos;
+
+/* 查看视图 */
+SELECT * FROM ANIMAL_VIEW
+
+/* 修改视图 */
+CREATE OR REPLACE VIEW ANIMAL_VIEW (ANIMAL_ID, ANIMAL_NAME, ANIMAL_ADDRESS)
+AS
+SELECT ANIMAL_ID, ANIMAL_NAME, ANIMAL_ADDRESS FROM ANIMAL;
+
+/* 删除视图 */
+DROP VIEW ANIMAL_VIEW</code></pre><p>实际工作之中，一定要本着一个原则：“视图只能够用于查询，而不要用于任何更新”。</p>
+<p>1、 避免视图创建条件更新：WITH CHECK OPTION</p>
+<p>2、 设置只读视图：WITH READ ONLY</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><ol>
+<li>简介</li>
+</ol>
+<ul>
+<li><p>查询性的表，要多建索引; 修改型的表，要少建索引</p>
+</li>
+<li><p>索引有唯一索引的和非唯一索引两种</p>
+</li>
+<li><p>oracle提供了B树，散列，位图等索引类型，主要使用B树索引和位图索引。</p>
+</li>
+<li><p>B树索引是默认条件下创建的，可以是唯一的也可以是非唯一的，可以是基于一列的，也可以是多列的。B树索引在检索高基数数据列时有很好的性能，对于取出较小的数据，B树索引也更有效。但是当检查范围超过表的10%时，就不行了。</p>
+</li>
+<li><p>位图索引主要用于决策支持系统或者静态数据，不支持行级锁定。位图索引可以是单列的，也可以是多列的。最好用于小型或者中型群集列。位图以一种压缩格式存放，占用的空间小。</p>
+<pre><code>/* 创建索引 */
+CREATE INDEX ANIMAL_INDEX ON ANIMAL(ANIMAL_ID ASC, ANIMAL_NAME DESC);
+/* 创建唯一索引 */
+CREATE UNIQUE INDEX ANIMAL_UNIQUE_INDEX ON ANIMAL(ANIMAL_REGDATE)
+/* 删除索引 */
+DROP INDEX ANIMAL_INDEX;</code></pre></li>
+</ul>
+<h2 id="同义词"><a href="#同义词" class="headerlink" title="同义词"></a>同义词</h2><h3 id="同义词是表，视图，序列，存储函数，包，快照，或者其他同义词的另一个名字。同义词有公共的和私有的之分。在本地数据库同义词还可以通过链接表示另一个数据库的对象。使用同义词可以有以下优点：引用对象无需指出对象的所有者和数据库"><a href="#同义词是表，视图，序列，存储函数，包，快照，或者其他同义词的另一个名字。同义词有公共的和私有的之分。在本地数据库同义词还可以通过链接表示另一个数据库的对象。使用同义词可以有以下优点：引用对象无需指出对象的所有者和数据库" class="headerlink" title="同义词是表，视图，序列，存储函数，包，快照，或者其他同义词的另一个名字。同义词有公共的和私有的之分。在本地数据库同义词还可以通过链接表示另一个数据库的对象。使用同义词可以有以下优点：引用对象无需指出对象的所有者和数据库"></a>同义词是表，视图，序列，存储函数，包，快照，或者其他同义词的另一个名字。同义词有公共的和私有的之分。在本地数据库同义词还可以通过链接表示另一个数据库的对象。使用同义词可以有以下优点：引用对象无需指出对象的所有者和数据库</h3><pre><code>如果要想创建属于自己的同义词，则必须由管理员完成，而创建的语法如下：
+CREATE [PUBLIC] SYNONYM 同义词的名称 FOR 用户名.表名称；
+范例：将 scott.emp 表定义一个 myemp 的同义词（由 sys 完成）
+CONN sys/change_on_install AS SYSDBA ;
+CREATE SYNONYM myemp FOR scott.emp ;
+创建完同义词之后，下面就可以直接通过 myemp 来访问 scott.emp 数据表了。
+SELECT * FROM myemp ;
+那么现在创建的同义词 myemp 存在一个小问题。因为此时的同义词只能够在 sys 下使用，它并不是一个公共的同义词，所以要想让所有用户都访问，则必须创建公共同义词。
+范例：修改同义词的创建
+CONN sys/change_on_install AS SYSDBA ;
+DROP SYNONYM myemp ;
+/*
+删除同义词的语句是drop SYNONYM name(private的)，或者drop public SYNONYM name(public的).
+用户可以删除自己的任何私有同义词，但是要想删除其他用户的私有同义词，必须拥有drop any synonym的权限，要想删除public同义词，必须拥有drop public synonym权限。
+*/
+CREATE PUBLIC SYNONYM myemp FOR scott.emp ;
+-- 总体看来
+/* 创建公有同义词 */
+CREATE PUBLIC SYNONYM SYN_ANIMAL FOR ANIMAL;
+/* 通过同义词来查询表 */
+SELECT * FROM SYN_ANIMAL;
+/* 创建私有同义词 （当前用户可以直接引用，其它用户在引用时须带用户模式名）*/
+CREATE SYNONYM PRIVATE_ANIMAL FOR ANIMAL;
+/* 删除私有同义词 */
+DROP SYNONYM PRIVATE_ANIMAL;
+/* 删除公有同义词 */
+DROP PUBLIC SYNONYM SYN_ANIMAL;</code></pre>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/15/Oracle-序列-试图-索引-同义词/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/12/数据库介绍/" class="archive-article-date">
-  	<time datetime="2020-03-12T06:48:15.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-12</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/12/数据库介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库介绍</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/12/数据库介绍/">数据库介绍</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/11/sql面试题/" class="archive-article-date">
-  	<time datetime="2020-03-11T11:39:51.206Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/11/sql面试题/">sql面试题2</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/09/MYSQL面试题/" class="archive-article-date">
-  	<time datetime="2020-03-09T02:27:34.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/09/MYSQL面试题/">MYSQL面试题</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/03/centos安装oracle/" class="archive-article-date">
-  	<time datetime="2020-03-03T06:13:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/03/centos安装oracle/">centos安装oracle</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/26/Java面试题2/" class="archive-article-date">
-  	<time datetime="2020-02-26T11:48:38.926Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/26/Java面试题2/">Java面试题2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/26/Java面试题/" class="archive-article-date">
-  	<time datetime="2020-02-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/26/Java面试题/">Java面试题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/13/0213回顾jsp九大内置对象/" class="archive-article-date">
-  	<time datetime="2020-02-13T07:59:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/13/0213回顾jsp九大内置对象/">0213回顾jsp九大内置对象</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/13/0213util/" class="archive-article-date">
-  	<time datetime="2020-02-13T07:28:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/13/0213util/">0213util</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/12/spring-mvc/" class="archive-article-date">
-  	<time datetime="2020-02-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/12/spring-mvc/">spring mvc</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +434,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
