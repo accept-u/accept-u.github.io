@@ -152,6 +152,190 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2019-11-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/01/2019-11-1/">2019-11-1</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/01/2019-11-1/" class="archive-article-date">
+  	<time datetime="2019-11-01T02:42:48.419Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JSP实现用户登录"><a href="#JSP实现用户登录" class="headerlink" title="JSP实现用户登录"></a>JSP实现用户登录</h1><h2 id="登录成功使用服务器内部转发到login-success-jsp页面"><a href="#登录成功使用服务器内部转发到login-success-jsp页面" class="headerlink" title="登录成功使用服务器内部转发到login_success.jsp页面"></a>登录成功使用服务器内部转发到login_success.jsp页面</h2><h2 id="登录失败则请求重定向到login-failure-jsp页面"><a href="#登录失败则请求重定向到login-failure-jsp页面" class="headerlink" title="登录失败则请求重定向到login_failure.jsp页面"></a>登录失败则请求重定向到login_failure.jsp页面</h2><p>login.jsp代码如下：</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;  pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;登录页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form action=&quot;dologin.jsp&quot; method=&quot;post&quot;&gt;
+        &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td colspan=&quot;2&quot;&gt;登录窗口&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;用户名：&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;密码：&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan=&quot;2&quot;&gt;
+                &lt;input type=&quot;submit&quot; value=&quot;登录&quot; /&gt; 
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>dologin.jsp代码如下：</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
+    pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;%
+    String username =&quot;&quot;;//账号默认为空
+    String password =&quot;&quot;;//密码默认为空
+    request.setCharacterEncoding(&quot;utf-8&quot;);//防止中文乱码
+    username = request.getParameter(&quot;username&quot;);//获取对象
+    password = request.getParameter(&quot;password&quot;);//获取密码
+    if(&quot;sam&quot;.equals(username)&amp;&amp;&quot;123&quot;.equals(password)){
+        session.setAttribute(&quot;loginUser&quot;, username);
+        request.getRequestDispatcher(&quot;login_success.jsp&quot;).forward(request, response);
+    }else{
+        response.sendRedirect(&quot;login_failure.jsp&quot;);
+    }
+
+%&gt;</code></pre><p>login_success.jsp代码如下：</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;登录页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+    String loginUser = &quot;&quot;;
+    if(session.getAttribute(&quot;loginUser&quot;)!=null){
+        loginUser = session.getAttribute(&quot;loginUser&quot;).toString();
+    }
+%&gt;
+欢迎您&lt;font color=&quot;red&quot;&gt;&lt;%=loginUser %&gt;&lt;/font&gt;,登录成功！
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>login_failure.jsp代码如下：</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;登录页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+登录失败！请检查用户或者密码！&lt;br&gt;
+&lt;a href=&quot;login.jsp&quot;&gt;返回登录&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><h2 id="连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）"><a href="#连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）" class="headerlink" title="连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）"></a>连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）</h2><p>代码如下：</p>
+<pre><code>protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+response.getWriter().append(&quot;Served at: &quot;).append(request.getContextPath());
+    boolean flag = false;
+    String username =&quot;&quot;;
+    String password =&quot;&quot;;
+    request.setCharacterEncoding(&quot;utf-8&quot;);//防止中文乱码
+
+    username = request.getParameter(&quot;username&quot;);
+    password = request.getParameter(&quot;password&quot;);
+
+    try {
+    Class.forName(&quot;com.mysql.jdbc.Driver&quot;);//发射机制来获取&quot;数据库驱动(一个名称为XXX的类)&quot;
+      Connection connect = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/stu&quot;,&quot;root&quot;,&quot;root&quot;);
+
+      //连接URL为 jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
+
+      System.out.println(&quot;成功链接 Mysql服务器!&quot;);
+      Statement stmt = connect.createStatement();
+      ResultSet rs = stmt.executeQuery(&quot;select * from stu&quot;);
+
+      //stu 为你表的名称
+while (rs.next()) {
+
+    if (rs.getString(&quot;id&quot;).equals(username)&amp;&amp;rs.getString(&quot;pwd&quot;).equals(password)) {
+        flag = true;
+        break;
+    }else {
+        flag =false;
+    }
+}
+
+if (flag) {
+    request.getRequestDispatcher(&quot;welcome.jsp&quot;).forward(request, response);
+}else {
+response.sendRedirect(&quot;login.jsp&quot;);
+}
+
+}
+ catch (Exception e) {
+      System.out.print(&quot;get data error!&quot;);
+      e.printStackTrace();
+    }
+}</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/01/2019-11-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019-10-29" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

@@ -152,6 +152,243 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-0213回顾jsp九大内置对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/13/0213回顾jsp九大内置对象/">0213回顾jsp九大内置对象</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/13/0213回顾jsp九大内置对象/" class="archive-article-date">
+  	<time datetime="2020-02-13T07:59:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JSP的9大内置对象"><a href="#JSP的9大内置对象" class="headerlink" title="JSP的9大内置对象"></a>JSP的9大内置对象</h2><ul>
+<li><p>request：<strong>请求对象</strong>，类型 javax.servlet.ServletRequest，作用域   Request</p>
+</li>
+<li><p>response：<strong>响应对象</strong>，类型 javax.servlet.SrvletResponse ，作用域   Page</p>
+</li>
+<li><p>pageContext：<strong>页面上下文对象</strong>，类型 javax.servlet.jsp.PageContext，作用域  Page</p>
+</li>
+<li><p>session：<strong>会话对象</strong>，类型 javax.servlet.http.HttpSession，作用域  Session</p>
+</li>
+<li><p>application：<strong>应用程序对象</strong>，类型 javax.servlet.ServletContext，作用域  Application </p>
+</li>
+<li><p>out：<strong>输出对象</strong>，类型 javax.servlet.jsp.JspWriter，作用域  Page</p>
+</li>
+<li><p>config：<strong>配置对象</strong>，类型 javax.servlet.ServletConfig，作用域  Page</p>
+</li>
+<li><p>page：<strong>页面对象</strong>，类型 javax.lang.Object，作用域  Page</p>
+</li>
+<li><p>exception：<strong>例外对象</strong>，类型 javax.lang.Throwable，作用域  page</p>
+</li>
+</ul>
+<h2 id="四大域对象，作用于从小到大"><a href="#四大域对象，作用于从小到大" class="headerlink" title="四大域对象，作用于从小到大"></a>四大域对象，作用于从小到大</h2><h3 id="pageContext–-gt-request–-gt-session–-gt-application"><a href="#pageContext–-gt-request–-gt-session–-gt-application" class="headerlink" title="pageContext–&gt;request–&gt;session–&gt;application"></a>pageContext–&gt;request–&gt;session–&gt;application</h3><ul>
+<li><p>pageContext：作用域为当前页面，保存的属性只在当前页面生效</p>
+</li>
+<li><p>request：作用域为一次请求，保存的属性在本次请求中生效</p>
+</li>
+<li><p>session：作用域为一次会话，保存的属性在当前会话中生效</p>
+</li>
+<li><p>application：作用域为项目启动整个阶段，保存的属性在项目运行的整个阶段生效</p>
+</li>
+</ul>
+<p>1   Out<br>向客户端输出数据<br>print() println() flush() clear() isAutoFlush() getBufferSize() close() …………</p>
+<p>2    request（在使用request和session中，优先选择request）<br>向客户端请求数据<br>getAttributeNames() getCookies() getParameter() getParameterValues() setAttribute() getServletPath()</p>
+<p>其中 getServletPath()得到的是当前这个jsp页面所在的目录下的全名称<br>（不要与项目的绝对目录搞混）<br>得到项目的某个绝对目录–一般用来定位该项目中的某个具体的文件路径：<br>            request.getServletContext().getRealPath(“/load1”);<br>            直接定位到该项目下的load1 文件夹<br><strong>eg:</strong><br>    <strong>String realPath=request.getServletContext().getRealPath(“/upload1/“+myFile.getOriginalFilename());</strong><br>      <strong>直接定位到myFile文件的具体路径</strong></p>
+<p>3    response<br>封装了jsp产生的响应,然后被发送到客户端以响应客户的请求<br>addCookie() sendRedirect() setContentType()<br>flushBuffer() getBufferSize() getOutputStream()<br>sendError() containsHeader()……………</p>
+<p>4    application<br>javax.servlet.ServletContext的实例，该实例代表JSP所属的WEB应用本身，可用于JSP页面，或者Servlet之间交换信息。<br>getAttribute(), setAttribute() getInitParameter()<br>存在于服务器中，关闭服务器之前，都可以从这个application中取值。</p>
+<p>5    config<br>表示Servlet的配置,当一个Servlet初始化时,容器把某些信息通过此对象传递给这个Servlet<br>getServletContext() getServletName() getInitParameter() getInitParameterNames()……………</p>
+<p>6    page<br>Jsp实现类的实例,它是jsp本身,通过这个可以对它进行访问</p>
+<p>7    pagecontext<br>为JSP页面包装页面的上下文。管理对属于JSP中特殊可见部分中己经命名对象的该问<br>forward() getAttribute() getException() getRequest() getResponse() getServletConfig() getSession() getServletContext() setAttribute()<br>removeAttribute() findAttribute() ……………</p>
+<p><strong>page和pagecontext的区别：</strong><br>pageContext是在jsp当前页面上下文中有用，可以调用和存取其他隐含的对象；<br>page代表处理当前请求的时候，这个页面的实现类的实例；代表的是jsp网页本身，page对象是当前页面转化后的Servet类的实例。Object page=this;(很少使用page)</p>
+<p>8    session<br>用来保存每个用户的信息,以便跟踪每个用户的操作状态<br>getAttribute() getId() getAttributeNames() getCreateTime() getMaxInactiveInterval()<br>invalidate() isNew()</p>
+<p>9    exception<br>反映运行的异常（在jsp的page指令中添加isErrorpage=“false”才会显示）<br>getMessage()</p>
+<h2 id="el表达式"><a href="#el表达式" class="headerlink" title="el表达式"></a>el表达式</h2><p>EL表达式支持的算术运算符和逻辑运算符</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>操作符</strong></th>
+<th align="left"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">.</td>
+<td align="left">访问一个Bean属性或者一个映射条目</td>
+</tr>
+<tr>
+<td align="left">[]</td>
+<td align="left">访问一个数组或者链表的元素</td>
+</tr>
+<tr>
+<td align="left">( )</td>
+<td align="left">组织一个子表达式以改变优先级</td>
+</tr>
+<tr>
+<td align="left">+</td>
+<td align="left">加</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">减或负</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">乘</td>
+</tr>
+<tr>
+<td align="left">/ or div</td>
+<td align="left">除</td>
+</tr>
+<tr>
+<td align="left">% or mod</td>
+<td align="left">取模</td>
+</tr>
+<tr>
+<td align="left">== or eq</td>
+<td align="left">测试是否相等</td>
+</tr>
+<tr>
+<td align="left">!= or ne</td>
+<td align="left">测试是否不等</td>
+</tr>
+<tr>
+<td align="left">&lt; or lt</td>
+<td align="left">测试是否小于</td>
+</tr>
+<tr>
+<td align="left">&gt; or gt</td>
+<td align="left">测试是否大于</td>
+</tr>
+<tr>
+<td align="left">&lt;= or le</td>
+<td align="left">测试是否小于等于</td>
+</tr>
+<tr>
+<td align="left">&gt;= or ge</td>
+<td align="left">测试是否大于等于</td>
+</tr>
+<tr>
+<td align="left">&amp;&amp; or and</td>
+<td align="left">测试逻辑与</td>
+</tr>
+<tr>
+<td align="left">|| or or</td>
+<td align="left">测试逻辑或</td>
+</tr>
+<tr>
+<td align="left">! or not</td>
+<td align="left">测试取反</td>
+</tr>
+<tr>
+<td align="left">empty</td>
+<td align="left">测试是否空值</td>
+</tr>
+</tbody></table>
+<p>EL表达式的隐含对象</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>隐含对象</strong></th>
+<th align="left"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">pageScope</td>
+<td align="left">page 作用域</td>
+</tr>
+<tr>
+<td align="left">requestScope</td>
+<td align="left">request 作用域</td>
+</tr>
+<tr>
+<td align="left">sessionScope</td>
+<td align="left">session 作用域</td>
+</tr>
+<tr>
+<td align="left">applicationScope</td>
+<td align="left">application 作用域</td>
+</tr>
+<tr>
+<td align="left">param</td>
+<td align="left">Request 对象的参数，字符串</td>
+</tr>
+<tr>
+<td align="left">paramValues</td>
+<td align="left">Request对象的参数，字符串集合</td>
+</tr>
+<tr>
+<td align="left">header</td>
+<td align="left">HTTP 信息头，字符串</td>
+</tr>
+<tr>
+<td align="left">headerValues</td>
+<td align="left">HTTP 信息头，字符串集合</td>
+</tr>
+<tr>
+<td align="left">initParam</td>
+<td align="left">上下文初始化参数</td>
+</tr>
+<tr>
+<td align="left">cookie</td>
+<td align="left">Cookie值</td>
+</tr>
+<tr>
+<td align="left">pageContext</td>
+<td align="left">当前页面的pageContext</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/13/0213回顾jsp九大内置对象/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-0213util" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1112,190 +1349,6 @@ ex：每页显示3条数据
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/11/06/2019-11-6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-11-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/01/2019-11-1/">2019-11-1</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/01/2019-11-1/" class="archive-article-date">
-  	<time datetime="2019-11-01T02:42:48.419Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JSP实现用户登录"><a href="#JSP实现用户登录" class="headerlink" title="JSP实现用户登录"></a>JSP实现用户登录</h1><h2 id="登录成功使用服务器内部转发到login-success-jsp页面"><a href="#登录成功使用服务器内部转发到login-success-jsp页面" class="headerlink" title="登录成功使用服务器内部转发到login_success.jsp页面"></a>登录成功使用服务器内部转发到login_success.jsp页面</h2><h2 id="登录失败则请求重定向到login-failure-jsp页面"><a href="#登录失败则请求重定向到login-failure-jsp页面" class="headerlink" title="登录失败则请求重定向到login_failure.jsp页面"></a>登录失败则请求重定向到login_failure.jsp页面</h2><p>login.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;  pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;form action=&quot;dologin.jsp&quot; method=&quot;post&quot;&gt;
-        &lt;table&gt;
-        &lt;tr&gt;
-            &lt;td colspan=&quot;2&quot;&gt;登录窗口&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;用户名：&lt;/td&gt;
-            &lt;td&gt;
-                &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;密码：&lt;/td&gt;
-            &lt;td&gt;
-                &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td colspan=&quot;2&quot;&gt;
-                &lt;input type=&quot;submit&quot; value=&quot;登录&quot; /&gt; 
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;/table&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>dologin.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
-    pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;%
-    String username =&quot;&quot;;//账号默认为空
-    String password =&quot;&quot;;//密码默认为空
-    request.setCharacterEncoding(&quot;utf-8&quot;);//防止中文乱码
-    username = request.getParameter(&quot;username&quot;);//获取对象
-    password = request.getParameter(&quot;password&quot;);//获取密码
-    if(&quot;sam&quot;.equals(username)&amp;&amp;&quot;123&quot;.equals(password)){
-        session.setAttribute(&quot;loginUser&quot;, username);
-        request.getRequestDispatcher(&quot;login_success.jsp&quot;).forward(request, response);
-    }else{
-        response.sendRedirect(&quot;login_failure.jsp&quot;);
-    }
-
-%&gt;</code></pre><p>login_success.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;%
-    String loginUser = &quot;&quot;;
-    if(session.getAttribute(&quot;loginUser&quot;)!=null){
-        loginUser = session.getAttribute(&quot;loginUser&quot;).toString();
-    }
-%&gt;
-欢迎您&lt;font color=&quot;red&quot;&gt;&lt;%=loginUser %&gt;&lt;/font&gt;,登录成功！
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>login_failure.jsp代码如下：</p>
-<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;登录页面&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-登录失败！请检查用户或者密码！&lt;br&gt;
-&lt;a href=&quot;login.jsp&quot;&gt;返回登录&lt;/a&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><h2 id="连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）"><a href="#连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）" class="headerlink" title="连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）"></a>连上数据库只需要在创建一个servlet文件写一下doGet方法（方法有很多这只是一种）</h2><p>代码如下：</p>
-<pre><code>protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-response.getWriter().append(&quot;Served at: &quot;).append(request.getContextPath());
-    boolean flag = false;
-    String username =&quot;&quot;;
-    String password =&quot;&quot;;
-    request.setCharacterEncoding(&quot;utf-8&quot;);//防止中文乱码
-
-    username = request.getParameter(&quot;username&quot;);
-    password = request.getParameter(&quot;password&quot;);
-
-    try {
-    Class.forName(&quot;com.mysql.jdbc.Driver&quot;);//发射机制来获取&quot;数据库驱动(一个名称为XXX的类)&quot;
-      Connection connect = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/stu&quot;,&quot;root&quot;,&quot;root&quot;);
-
-      //连接URL为 jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
-
-      System.out.println(&quot;成功链接 Mysql服务器!&quot;);
-      Statement stmt = connect.createStatement();
-      ResultSet rs = stmt.executeQuery(&quot;select * from stu&quot;);
-
-      //stu 为你表的名称
-while (rs.next()) {
-
-    if (rs.getString(&quot;id&quot;).equals(username)&amp;&amp;rs.getString(&quot;pwd&quot;).equals(password)) {
-        flag = true;
-        break;
-    }else {
-        flag =false;
-    }
-}
-
-if (flag) {
-    request.getRequestDispatcher(&quot;welcome.jsp&quot;).forward(request, response);
-}else {
-response.sendRedirect(&quot;login.jsp&quot;);
-}
-
-}
- catch (Exception e) {
-      System.out.print(&quot;get data error!&quot;);
-      e.printStackTrace();
-    }
-}</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/01/2019-11-1/">展开全文 >></a>
         </p>
       
 

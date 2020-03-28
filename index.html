@@ -152,6 +152,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SSM框架整合后的配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/03/SSM框架整合后的配置文件/">SSM框架整合后的配置文件</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/03/SSM框架整合后的配置文件/" class="archive-article-date">
+  	<time datetime="2020-04-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><pre><code>tomcat8.5
+mysql5.6
+jdk1.8</code></pre><h3 id="Spring的配置文件applicationContext-xml"><a href="#Spring的配置文件applicationContext-xml" class="headerlink" title="Spring的配置文件applicationContext.xml"></a>Spring的配置文件applicationContext.xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd</span><br><span class="line">         http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line">    &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://127.0.0.1:3306/Carject?useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;useSSL=false&amp;amp;useSSL=false&amp;amp;serverTimezone=Asia/Shanghai&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;password&quot; value=&quot;*******&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;</span><br><span class="line">        &lt;!--数据源注入给mybatis--&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</span><br><span class="line">        &lt;!--加载mybatis的配置文件--&gt;</span><br><span class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:Mybatis.xml&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;!--使用此方法，不用创建接口的实现类，自动扫描接口--&gt;</span><br><span class="line">    &lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;basePackage&quot; value=&quot;com.dzqc.mapper&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;!-- 配置事务管理器 --&gt;</span><br><span class="line">    &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    &lt;!--切面类中添加@Service自动扫描包下的注解--&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;com.dzqc.service.impl&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/context:component-scan&gt;</span><br><span class="line">    &lt;!-- 配置事务增强 --&gt;</span><br><span class="line">    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SpringMVC的配置文件springmvc-xml"><a href="#SpringMVC的配置文件springmvc-xml" class="headerlink" title="SpringMVC的配置文件springmvc.xml"></a>SpringMVC的配置文件springmvc.xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd</span><br><span class="line">        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 包扫描 --&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;com.dzqc.Contorller&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 启用注解 --&gt;</span><br><span class="line">    &lt;mvc:annotation-driven /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置视图分发器 --&gt;</span><br><span class="line">    &lt;bean id=&quot;viewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;!-- 前缀 --&gt;</span><br><span class="line">        &lt;property name=&quot;prefix&quot; value=&quot;/&quot; /&gt;</span><br><span class="line">        &lt;!-- 后缀 --&gt;</span><br><span class="line">        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Mybatis的配置文件mybatis-xml"><a href="#Mybatis的配置文件mybatis-xml" class="headerlink" title="Mybatis的配置文件mybatis.xml"></a>Mybatis的配置文件mybatis.xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"></span><br><span class="line">    &lt;typeAliases&gt;</span><br><span class="line">        &lt;package name=&quot;com.dzqc.entity&quot;/&gt;</span><br><span class="line">    &lt;/typeAliases&gt;</span><br><span class="line"></span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;package name=&quot;com.dzqc.mapper&quot;/&gt;</span><br><span class="line">    &lt;/mappers&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="log4j-properties配置文件"><a href="#log4j-properties配置文件" class="headerlink" title="log4j.properties配置文件"></a>log4j.properties配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 全局日志配置</span><br><span class="line">log4j.rootLogger=DEBUG, stdout</span><br><span class="line"># MyBatis日志配置</span><br><span class="line">log4j.logger.org.mybatis.example.BlogMapper=TRACE</span><br><span class="line"># 控制台输出</span><br><span class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n</span><br></pre></td></tr></table></figure>
+
+<h3 id="web-xml配置文件"><a href="#web-xml配置文件" class="headerlink" title="web.xml配置文件"></a>web.xml配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot; id=&quot;WebApp_ID&quot; version=&quot;2.5&quot;&gt;</span><br><span class="line">  &lt;display-name&gt;CarProgram&lt;/display-name&gt;</span><br><span class="line">  &lt;welcome-file-list&gt;</span><br><span class="line">    &lt;welcome-file&gt;login.jsp&lt;/welcome-file&gt;</span><br><span class="line">  &lt;/welcome-file-list&gt;</span><br><span class="line">  &lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;CarProgram&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;</span><br><span class="line">      org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">    &lt;/servlet-class&gt;</span><br><span class="line">    &lt;!-- DispatcherServlet在初始化方法里面会读取该初始化参数的值来获得</span><br><span class="line">             spring配置文件的位置 ，然后启动spring容器。 --&gt;</span><br><span class="line">    &lt;init-param&gt;</span><br><span class="line">      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">      &lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;</span><br><span class="line">    &lt;/init-param&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">  &lt;/servlet&gt;</span><br><span class="line">  &lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;CarProgram&lt;/servlet-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;*.action&lt;/url-pattern&gt;</span><br><span class="line">  &lt;/servlet-mapping&gt;</span><br><span class="line">    &lt;!--解决中文乱码--&gt;</span><br><span class="line">    &lt;filter&gt;</span><br><span class="line">        &lt;filter-name&gt;encodingFilter&lt;/filter-name&gt;</span><br><span class="line">        &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;encoding&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;UTF-8&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;forceEncoding&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">    &lt;/filter&gt;</span><br><span class="line">    &lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;encodingFilter&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/filter-mapping&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--配置监听器 读取applicationContext.xml文件--&gt;</span><br><span class="line">    &lt;context-param&gt;</span><br><span class="line">        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">        &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;</span><br><span class="line">    &lt;/context-param&gt;</span><br><span class="line">    &lt;listener&gt;</span><br><span class="line">        &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;</span><br><span class="line">    &lt;/listener&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Usermapper-xml配置文件"><a href="#Usermapper-xml配置文件" class="headerlink" title="Usermapper.xml配置文件"></a>Usermapper.xml配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;com.dzqc.mybatis.mapper.UserMapper&quot;&gt;</span><br><span class="line">    &lt;select id=&quot;getUserById&quot; resultType=&quot;user&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        select * from user where id = #&#123;id&#125; &lt;include refid=&quot;page&quot;&gt;&lt;/include&gt;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;!--自定义条件查询用户列表--&gt;</span><br><span class="line">    &lt;select id=&quot;findUserByUsername&quot; resultType=&quot;user&quot; parameterType=&quot;string&quot;&gt;</span><br><span class="line">        select * from user where username like &apos;%$&#123;value&#125;%&apos;</span><br><span class="line">            &lt;if test=&quot;sex!=null&quot;&gt;</span><br><span class="line">                and sex=#&#123;sex&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;!--添加用户--&gt;</span><br><span class="line">    &lt;insert id=&quot;insertUser&quot; parameterType=&quot;user&quot;&gt;</span><br><span class="line">        &lt;!--selectkey将主键返回，需要再返回--&gt;</span><br><span class="line">      &lt;selectKey keyProperty=&quot;id&quot; order=&quot;AFTER&quot; resultType=&quot;int&quot;&gt;</span><br><span class="line">          select LAST_INSERT_ID()</span><br><span class="line">      &lt;/selectKey&gt;</span><br><span class="line">        insert into user(username,birthday,sex,address)</span><br><span class="line">        values (#&#123;username&#125;,#&#123;birthday&#125;,#&#123;sex&#125;,#&#123;address&#125;)</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--删除用户--&gt;</span><br><span class="line">    &lt;delete id=&quot;deleteUserById&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        delete from user where id=#&#123;id&#125;</span><br><span class="line">    &lt;/delete&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--更新用户--&gt;</span><br><span class="line">    &lt;update id=&quot;updateUser&quot; parameterType=&quot;user&quot;&gt;</span><br><span class="line">        update user</span><br><span class="line">        &lt;set&gt;</span><br><span class="line">            &lt;if test=&quot;username!=null&quot;&gt;</span><br><span class="line">                username=#&#123;username&#125;,</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;birthday!=null&quot;&gt;</span><br><span class="line">                birthday=#&#123;birthday&#125;,</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;sex!=null&quot;&gt;</span><br><span class="line">                sex=#&#123;sex&#125;,</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;username!=null&quot;&gt;</span><br><span class="line">                username=#&#123;username&#125;,</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;address!=null&quot;&gt;</span><br><span class="line">                address=#&#123;address&#125;,</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/set&gt;</span><br><span class="line">        where id=#&#123;id&#125;</span><br><span class="line">    &lt;/update&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;getUserByChoose&quot; resultType=&quot;user&quot;&gt;</span><br><span class="line">      select * from user</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;choose&gt;</span><br><span class="line">                &lt;when test=&quot;sex!=null&quot;&gt;</span><br><span class="line">                    sex = #&#123;sex&#125;</span><br><span class="line">                &lt;/when&gt;</span><br><span class="line">                &lt;when test=&quot;username!=null&quot;&gt;</span><br><span class="line">                    username = #&#123;username&#125;</span><br><span class="line">                &lt;/when&gt;</span><br><span class="line">                &lt;otherwise&gt;</span><br><span class="line">                    birthday &lt;![CDATA[&lt;=]]&gt; #&#123;birthday&#125;</span><br><span class="line">                &lt;/otherwise&gt;</span><br><span class="line">            &lt;/choose&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;select id=&quot;getUserByIds&quot; resultType=&quot;user&quot;&gt;</span><br><span class="line">        select * from user where id in</span><br><span class="line">        &lt;foreach collection=&quot;ids&quot; item=&quot;id&quot; open=&quot;(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;</span><br><span class="line">            #&#123;id&#125;</span><br><span class="line">        &lt;/foreach&gt;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sql id=&quot;getSexByUsername&quot;&gt;</span><br><span class="line">        select sex from user where username = #&#123;username&#125;</span><br><span class="line">    &lt;/sql&gt;</span><br><span class="line">    &lt;select id=&quot;getUsernameBySex&quot; resultType=&quot;user&quot;&gt;</span><br><span class="line">        select * from user where sex =</span><br><span class="line">        (&lt;include refid=&quot;getSexByUsername&quot;&gt;&lt;/include&gt;)</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sql id=&quot;page&quot;&gt;</span><br><span class="line">        limit 0,10</span><br><span class="line">    &lt;/sql&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--多表(1-1)查询1 弊端 会查询多次--&gt;</span><br><span class="line">    &lt;select id=&quot;getUserLover&quot; resultMap=&quot;userLover&quot;&gt;</span><br><span class="line">        select * from user</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;resultMap id=&quot;userLover&quot; type=&quot;user&quot;&gt;</span><br><span class="line">        &lt;id column=&quot;id&quot; property=&quot;id&quot;&gt;&lt;/id&gt;</span><br><span class="line">        &lt;result column=&quot;username&quot; property=&quot;username&quot;&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=&quot;sex&quot; property=&quot;sex&quot;&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=&quot;birthday&quot; property=&quot;birthday&quot;&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=&quot;address&quot; property=&quot;address&quot;&gt;&lt;/result&gt;</span><br><span class="line">        &lt;association property=&quot;lover&quot; column=&quot;id&quot; select=&quot;getLoverById&quot;&gt;&lt;/association&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line">        &lt;select id=&quot;getLoverById&quot; resultType=&quot;lover&quot;&gt;</span><br><span class="line">            select * from lover where id = #&#123;lover_id&#125;;</span><br><span class="line">        &lt;/select&gt;</span><br><span class="line">    &lt;!--多表查询2 修改--&gt;</span><br><span class="line">    &lt;select id=&quot;getUserLoverByVo&quot; resultMap=&quot;userLoverByVo&quot;&gt;</span><br><span class="line">        select * from user,lover where user.lover_id = lover.id;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;resultMap id=&quot;userLoverByVo&quot; type=&quot;userLover&quot;&gt;</span><br><span class="line">        &lt;id column=&quot;id&quot; property=&quot;id&quot;&gt;&lt;/id&gt;</span><br><span class="line">        &lt;result column=&quot;username&quot; property=&quot;username&quot;&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=&quot;sex&quot; property=&quot;sex&quot;&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=&quot;birthday&quot; property=&quot;birthday&quot;&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=&quot;address&quot; property=&quot;address&quot;&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=&quot;name&quot; property=&quot;loverName&quot;&gt;&lt;/result&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line">    &lt;!--多表查询3推荐 修改--&gt;</span><br><span class="line">    &lt;select id=&quot;getUserLoverByVo2&quot; resultType=&quot;userLover&quot;&gt;</span><br><span class="line">        select *,lover.id loverId,lover.name loverName</span><br><span class="line">        from user,lover where user.lover_id = lover.id;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--多表查询（1-n）推荐--&gt;</span><br><span class="line">    &lt;select id=&quot;getUserCar&quot; resultMap=&quot;userCarMap&quot;&gt;</span><br><span class="line">        select * from user;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;resultMap id=&quot;userCarMap&quot; type=&quot;user&quot;&gt;</span><br><span class="line">        &lt;id column=&quot;id&quot; property=&quot;id&quot;&gt;&lt;/id&gt;</span><br><span class="line">        &lt;collection property=&quot;cars&quot; column=&quot;id&quot; select=&quot;getCarByUserId&quot;&gt;&lt;/collection&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line">    &lt;select id=&quot;getCarByUserId&quot; resultType=&quot;userCar&quot;&gt;</span><br><span class="line">        select * from car where user_id = #&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--修改多表查询（1-n）--&gt;</span><br><span class="line">    &lt;select id=&quot;getUserCar2&quot; resultType=&quot;userCar&quot;&gt;</span><br><span class="line">        select *,car.id CarId from user,car where car.user_id = user.id</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">    &lt;!--再次修改多表查询（1-n）--&gt;</span><br><span class="line">    &lt;select id=&quot;getUserCar3&quot; resultType=&quot;map&quot;&gt;</span><br><span class="line">        select * from user,car where car.user_id = user.id</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="pop-xml配置文件"><a href="#pop-xml配置文件" class="headerlink" title="pop.xml配置文件"></a>pop.xml配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;***.***&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;CarProgram&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line"></span><br><span class="line">    &lt;name&gt;CarProgram&lt;/name&gt;</span><br><span class="line">    &lt;!-- FIXME change it to the project&apos;s website --&gt;</span><br><span class="line">    &lt;url&gt;http://www.example.com&lt;/url&gt;</span><br><span class="line"></span><br><span class="line">    &lt;properties&gt;</span><br><span class="line">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;</span><br><span class="line">        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;</span><br><span class="line">    &lt;/properties&gt;</span><br><span class="line">    &lt;!--添加依赖 --&gt;</span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.11&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.5.4&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.0.4&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;8.0.19&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!-- https://mvnrepository.com/artifact/log4j/log4j --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;log4j&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;log4j&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.2.17&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.12.1&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.12.1&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;druid&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.1.21&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;compile&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;5.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;5.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;5.2.3.RELEASE&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;4.0.1&lt;/version&gt;</span><br><span class="line">        &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;jstl&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;jstl&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.2&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;taglibs&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;standard&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.1.2&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!--中文编码--&gt;</span><br><span class="line">    &lt;!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.9.8&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line"></span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/03/SSM框架整合后的配置文件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mybatis第五章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1820,243 +1898,6 @@ out   javax.servlet.jsp.JspWriter
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/02/26/Java面试题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-0213回顾jsp九大内置对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/13/0213回顾jsp九大内置对象/">0213回顾jsp九大内置对象</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/13/0213回顾jsp九大内置对象/" class="archive-article-date">
-  	<time datetime="2020-02-13T07:59:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JSP的9大内置对象"><a href="#JSP的9大内置对象" class="headerlink" title="JSP的9大内置对象"></a>JSP的9大内置对象</h2><ul>
-<li><p>request：<strong>请求对象</strong>，类型 javax.servlet.ServletRequest，作用域   Request</p>
-</li>
-<li><p>response：<strong>响应对象</strong>，类型 javax.servlet.SrvletResponse ，作用域   Page</p>
-</li>
-<li><p>pageContext：<strong>页面上下文对象</strong>，类型 javax.servlet.jsp.PageContext，作用域  Page</p>
-</li>
-<li><p>session：<strong>会话对象</strong>，类型 javax.servlet.http.HttpSession，作用域  Session</p>
-</li>
-<li><p>application：<strong>应用程序对象</strong>，类型 javax.servlet.ServletContext，作用域  Application </p>
-</li>
-<li><p>out：<strong>输出对象</strong>，类型 javax.servlet.jsp.JspWriter，作用域  Page</p>
-</li>
-<li><p>config：<strong>配置对象</strong>，类型 javax.servlet.ServletConfig，作用域  Page</p>
-</li>
-<li><p>page：<strong>页面对象</strong>，类型 javax.lang.Object，作用域  Page</p>
-</li>
-<li><p>exception：<strong>例外对象</strong>，类型 javax.lang.Throwable，作用域  page</p>
-</li>
-</ul>
-<h2 id="四大域对象，作用于从小到大"><a href="#四大域对象，作用于从小到大" class="headerlink" title="四大域对象，作用于从小到大"></a>四大域对象，作用于从小到大</h2><h3 id="pageContext–-gt-request–-gt-session–-gt-application"><a href="#pageContext–-gt-request–-gt-session–-gt-application" class="headerlink" title="pageContext–&gt;request–&gt;session–&gt;application"></a>pageContext–&gt;request–&gt;session–&gt;application</h3><ul>
-<li><p>pageContext：作用域为当前页面，保存的属性只在当前页面生效</p>
-</li>
-<li><p>request：作用域为一次请求，保存的属性在本次请求中生效</p>
-</li>
-<li><p>session：作用域为一次会话，保存的属性在当前会话中生效</p>
-</li>
-<li><p>application：作用域为项目启动整个阶段，保存的属性在项目运行的整个阶段生效</p>
-</li>
-</ul>
-<p>1   Out<br>向客户端输出数据<br>print() println() flush() clear() isAutoFlush() getBufferSize() close() …………</p>
-<p>2    request（在使用request和session中，优先选择request）<br>向客户端请求数据<br>getAttributeNames() getCookies() getParameter() getParameterValues() setAttribute() getServletPath()</p>
-<p>其中 getServletPath()得到的是当前这个jsp页面所在的目录下的全名称<br>（不要与项目的绝对目录搞混）<br>得到项目的某个绝对目录–一般用来定位该项目中的某个具体的文件路径：<br>            request.getServletContext().getRealPath(“/load1”);<br>            直接定位到该项目下的load1 文件夹<br><strong>eg:</strong><br>    <strong>String realPath=request.getServletContext().getRealPath(“/upload1/“+myFile.getOriginalFilename());</strong><br>      <strong>直接定位到myFile文件的具体路径</strong></p>
-<p>3    response<br>封装了jsp产生的响应,然后被发送到客户端以响应客户的请求<br>addCookie() sendRedirect() setContentType()<br>flushBuffer() getBufferSize() getOutputStream()<br>sendError() containsHeader()……………</p>
-<p>4    application<br>javax.servlet.ServletContext的实例，该实例代表JSP所属的WEB应用本身，可用于JSP页面，或者Servlet之间交换信息。<br>getAttribute(), setAttribute() getInitParameter()<br>存在于服务器中，关闭服务器之前，都可以从这个application中取值。</p>
-<p>5    config<br>表示Servlet的配置,当一个Servlet初始化时,容器把某些信息通过此对象传递给这个Servlet<br>getServletContext() getServletName() getInitParameter() getInitParameterNames()……………</p>
-<p>6    page<br>Jsp实现类的实例,它是jsp本身,通过这个可以对它进行访问</p>
-<p>7    pagecontext<br>为JSP页面包装页面的上下文。管理对属于JSP中特殊可见部分中己经命名对象的该问<br>forward() getAttribute() getException() getRequest() getResponse() getServletConfig() getSession() getServletContext() setAttribute()<br>removeAttribute() findAttribute() ……………</p>
-<p><strong>page和pagecontext的区别：</strong><br>pageContext是在jsp当前页面上下文中有用，可以调用和存取其他隐含的对象；<br>page代表处理当前请求的时候，这个页面的实现类的实例；代表的是jsp网页本身，page对象是当前页面转化后的Servet类的实例。Object page=this;(很少使用page)</p>
-<p>8    session<br>用来保存每个用户的信息,以便跟踪每个用户的操作状态<br>getAttribute() getId() getAttributeNames() getCreateTime() getMaxInactiveInterval()<br>invalidate() isNew()</p>
-<p>9    exception<br>反映运行的异常（在jsp的page指令中添加isErrorpage=“false”才会显示）<br>getMessage()</p>
-<h2 id="el表达式"><a href="#el表达式" class="headerlink" title="el表达式"></a>el表达式</h2><p>EL表达式支持的算术运算符和逻辑运算符</p>
-<table>
-<thead>
-<tr>
-<th align="left"><strong>操作符</strong></th>
-<th align="left"><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">.</td>
-<td align="left">访问一个Bean属性或者一个映射条目</td>
-</tr>
-<tr>
-<td align="left">[]</td>
-<td align="left">访问一个数组或者链表的元素</td>
-</tr>
-<tr>
-<td align="left">( )</td>
-<td align="left">组织一个子表达式以改变优先级</td>
-</tr>
-<tr>
-<td align="left">+</td>
-<td align="left">加</td>
-</tr>
-<tr>
-<td align="left">-</td>
-<td align="left">减或负</td>
-</tr>
-<tr>
-<td align="left">*</td>
-<td align="left">乘</td>
-</tr>
-<tr>
-<td align="left">/ or div</td>
-<td align="left">除</td>
-</tr>
-<tr>
-<td align="left">% or mod</td>
-<td align="left">取模</td>
-</tr>
-<tr>
-<td align="left">== or eq</td>
-<td align="left">测试是否相等</td>
-</tr>
-<tr>
-<td align="left">!= or ne</td>
-<td align="left">测试是否不等</td>
-</tr>
-<tr>
-<td align="left">&lt; or lt</td>
-<td align="left">测试是否小于</td>
-</tr>
-<tr>
-<td align="left">&gt; or gt</td>
-<td align="left">测试是否大于</td>
-</tr>
-<tr>
-<td align="left">&lt;= or le</td>
-<td align="left">测试是否小于等于</td>
-</tr>
-<tr>
-<td align="left">&gt;= or ge</td>
-<td align="left">测试是否大于等于</td>
-</tr>
-<tr>
-<td align="left">&amp;&amp; or and</td>
-<td align="left">测试逻辑与</td>
-</tr>
-<tr>
-<td align="left">|| or or</td>
-<td align="left">测试逻辑或</td>
-</tr>
-<tr>
-<td align="left">! or not</td>
-<td align="left">测试取反</td>
-</tr>
-<tr>
-<td align="left">empty</td>
-<td align="left">测试是否空值</td>
-</tr>
-</tbody></table>
-<p>EL表达式的隐含对象</p>
-<table>
-<thead>
-<tr>
-<th align="left"><strong>隐含对象</strong></th>
-<th align="left"><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">pageScope</td>
-<td align="left">page 作用域</td>
-</tr>
-<tr>
-<td align="left">requestScope</td>
-<td align="left">request 作用域</td>
-</tr>
-<tr>
-<td align="left">sessionScope</td>
-<td align="left">session 作用域</td>
-</tr>
-<tr>
-<td align="left">applicationScope</td>
-<td align="left">application 作用域</td>
-</tr>
-<tr>
-<td align="left">param</td>
-<td align="left">Request 对象的参数，字符串</td>
-</tr>
-<tr>
-<td align="left">paramValues</td>
-<td align="left">Request对象的参数，字符串集合</td>
-</tr>
-<tr>
-<td align="left">header</td>
-<td align="left">HTTP 信息头，字符串</td>
-</tr>
-<tr>
-<td align="left">headerValues</td>
-<td align="left">HTTP 信息头，字符串集合</td>
-</tr>
-<tr>
-<td align="left">initParam</td>
-<td align="left">上下文初始化参数</td>
-</tr>
-<tr>
-<td align="left">cookie</td>
-<td align="left">Cookie值</td>
-</tr>
-<tr>
-<td align="left">pageContext</td>
-<td align="left">当前页面的pageContext</td>
-</tr>
-</tbody></table>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/13/0213回顾jsp九大内置对象/">展开全文 >></a>
         </p>
       
 
