@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="前后端分离前后端分离就是将⼀个应⽤的前端代码和后端代码分开写，为什么要这样做？    如果不使⽤前后端分离的⽅式，会有哪些问题？ 传统的 Java Web 开发中，前端使⽤ JSP 开发，JSP 不是由后端开发者来独⽴完成的。前端—》HTML 静态⻚⾯ —〉后端 —》JSP 这种开发⽅式效率极低，可以使⽤前后端分离的⽅式进⾏开发，就可以完美地解决这⼀问题。      前端只需要独⽴编写客户端代码，">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/05/06/前后端分离/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前后端分离前后端分离就是将⼀个应⽤的前端代码和后端代码分开写，为什么要这样做？    如果不使⽤前后端分离的⽅式，会有哪些问题？ 传统的 Java Web 开发中，前端使⽤ JSP 开发，JSP 不是由后端开发者来独⽴完成的。前端—》HTML 静态⻚⾯ —〉后端 —》JSP 这种开发⽅式效率极低，可以使⽤前后端分离的⽅式进⾏开发，就可以完美地解决这⼀问题。      前端只需要独⽴编写客户端代码，">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps1.jpg">
+<meta property="og:image" content="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps2.jpg">
+<meta property="og:updated_time" content="2020-05-06T12:17:47.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="前后端分离前后端分离就是将⼀个应⽤的前端代码和后端代码分开写，为什么要这样做？    如果不使⽤前后端分离的⽅式，会有哪些问题？ 传统的 Java Web 开发中，前端使⽤ JSP 开发，JSP 不是由后端开发者来独⽴完成的。前端—》HTML 静态⻚⾯ —〉后端 —》JSP 这种开发⽅式效率极低，可以使⽤前后端分离的⽅式进⾏开发，就可以完美地解决这⼀问题。      前端只需要独⽴编写客户端代码，">
+<meta name="twitter:image" content="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,241 +157,183 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-前后端分离" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a><strong>前后端分离</strong></h1><p>前后端分离就是将⼀个应⽤的前端代码和后端代码分开写，为什么要这样做？    如果不使⽤前后端分离的⽅式，会有哪些问题？</p>
+<p>传统的 Java Web 开发中，前端使⽤ JSP 开发，JSP 不是由后端开发者来独⽴完成的。前端—》HTML 静态⻚⾯ —〉后端 —》JSP</p>
+<p>这种开发⽅式效率极低，可以使⽤前后端分离的⽅式进⾏开发，就可以完美地解决这⼀问题。      前端只需要独⽴编写客户端代码，后端也只需要独⽴编写服务端代码提供数据接⼝即可。</p>
+<p>前端通过 Ajax 请求来访问后端的数据接⼝，将 Model 展示到 View 中即可。</p>
+<p>前后端开发者只需要提前约定好接⼝⽂档（URL、参数、数据类型…），然后分别独⽴开发即可，前端     可以造假数据进⾏测试，完全不需要依赖于后端，最后完成前后端集成即可，真正实现了前后端应⽤的       解耦合，极⼤地提升了开发效率。</p>
+<p>单体—》前端应⽤ + 后端应⽤</p>
+<p>前端应⽤：负责数据展示和⽤户交互。后端应⽤：负责提供数据处理接⼝。</p>
+<p>前端 HTML —》Ajax —》RESTful 后端数据接⼝。传统的单体应⽤</p>
+<p><img src="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps1.jpg" alt="img"> </p>
+<p>前后端分离的结构</p>
+<p><img src="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps2.jpg" alt="img"> </p>
+<p>前后端分离就是将⼀个单体应⽤拆分成两个独⽴的应⽤，前端应⽤和后端应⽤以  JSON   格式进⾏数据交互。</p>
+<h1 id="实现技术"><a href="#实现技术" class="headerlink" title="实现技术"></a><strong>实现技术</strong></h1><p>Spring Boot + Vue</p>
+<p>使⽤ Spring Boot 进⾏后端应⽤开发，使⽤ Vue 进⾏前端应⽤开发。</p>
+<p><strong>Vue + Element</strong> <strong>UI</strong></p>
+<p>Vue 集成 Element UI</p>
+<p>Element UI 后台管理系统主要的标签： </p>
+<p>el-container：构建整个⻚⾯框架。</p>
+<p>el-aside：构建左侧菜单。</p>
+<p>el-menu：左侧菜单内容，常⽤属性：</p>
+<p>:default-openeds：默认展开的菜单，通过菜单的 index 值来关联。</p>
+<p>:default-active：默认选中的菜单，通过菜单的 index 值来关联。</p>
+<p>el-submenu： 可 展 开 的 菜 单 ， 常 ⽤ 属 性 ：            </p>
+<p> index： 菜 单 的 下 标 ， ⽂ 本 类 型 ， 不 能 是 数 值 类 型 。 </p>
+<p>template： 对 应                   el-submenu         的 菜 单 名 。</p>
+<p>i：设置菜单图标，通过 class 属性实则。</p>
+<p>el-icon-messae el-icon-menu el-icon-setting</p>
+<p>el-menu-item：菜单的⼦节点，不可再展开，常⽤属性：</p>
+<p>index：菜单的下标，⽂本类型，不能是数值类型。</p>
+<p><strong>Vue router</strong> <strong>来动态构建左侧菜单</strong></p>
+<p><strong>menu</strong> <strong>与</strong> <strong>router</strong> <strong>的绑定</strong></p>
+<p>1、 标签添加 router 属性。</p>
+<p>2、在⻚⾯中添加 标签，它是⼀个容器，动态渲染你选择的 router。3、 标签的 index 值就是要跳转的 router。</p>
+<p><strong>Element UI</strong> <strong>表单数据校验</strong></p>
+<p>定义 rules 对象，在 rules 对象中设置表单各个选项的校验规则</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rules: &#123; </span><br><span class="line">		name: [</span><br><span class="line">            &#123; required: <span class="keyword">true</span>, message: <span class="string">'error'</span>, trigger: <span class="string">'blur'</span> &#125;,</span><br><span class="line">            &#123; min: <span class="number">3</span>, max: <span class="number">5</span>, message: <span class="string">'⻓度在 3 到 5 个字符'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">			]</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>required: true, 是否为必填项message: ‘error’, 提示信息trigger: ‘blur’，触发事件</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/06/前后端分离/" class="archive-article-date">
-  	<time datetime="2020-05-06T12:17:47.859Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/06/前后端分离/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/23/Ajax研究/" class="archive-article-date">
-  	<time datetime="2020-04-23T01:06:59.201Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/23/Json交互处理/" class="archive-article-date">
-  	<time datetime="2020-04-23T01:06:59.141Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/23/Ajax研究/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/08/使用springMVC进行全局数据类型转换/" class="archive-article-date">
-  	<time datetime="2020-04-08T09:02:18.689Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/08/使用springMVC进行全局异常处理/" class="archive-article-date">
-  	<time datetime="2020-04-08T09:02:18.675Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/08/SpringMVC拦截器/" class="archive-article-date">
-  	<time datetime="2020-04-08T09:02:18.663Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/08/ssm整合/" class="archive-article-date">
-  	<time datetime="2020-04-08T09:02:18.630Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/08/使用springMVC进行文件的上传和下载/" class="archive-article-date">
-  	<time datetime="2020-04-08T09:02:18.576Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/08/SpringMVC的URL映射规则/" class="archive-article-date">
-  	<time datetime="2020-04-08T09:02:18.536Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/03/SSM框架整合后的配置文件/" class="archive-article-date">
-  	<time datetime="2020-04-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/03/SSM框架整合后的配置文件/">SSM框架整合后的配置文件</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/page/2/">Next &raquo;</a>
-    </nav>
+  
+
   
 
 
@@ -408,8 +357,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

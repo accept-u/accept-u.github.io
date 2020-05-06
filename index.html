@@ -152,6 +152,97 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-前后端分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a><strong>前后端分离</strong></h1><p>前后端分离就是将⼀个应⽤的前端代码和后端代码分开写，为什么要这样做？    如果不使⽤前后端分离的⽅式，会有哪些问题？</p>
+<p>传统的 Java Web 开发中，前端使⽤ JSP 开发，JSP 不是由后端开发者来独⽴完成的。前端—》HTML 静态⻚⾯ —〉后端 —》JSP</p>
+<p>这种开发⽅式效率极低，可以使⽤前后端分离的⽅式进⾏开发，就可以完美地解决这⼀问题。      前端只需要独⽴编写客户端代码，后端也只需要独⽴编写服务端代码提供数据接⼝即可。</p>
+<p>前端通过 Ajax 请求来访问后端的数据接⼝，将 Model 展示到 View 中即可。</p>
+<p>前后端开发者只需要提前约定好接⼝⽂档（URL、参数、数据类型…），然后分别独⽴开发即可，前端     可以造假数据进⾏测试，完全不需要依赖于后端，最后完成前后端集成即可，真正实现了前后端应⽤的       解耦合，极⼤地提升了开发效率。</p>
+<p>单体—》前端应⽤ + 后端应⽤</p>
+<p>前端应⽤：负责数据展示和⽤户交互。后端应⽤：负责提供数据处理接⼝。</p>
+<p>前端 HTML —》Ajax —》RESTful 后端数据接⼝。传统的单体应⽤</p>
+<p><img src="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps1.jpg" alt="img"> </p>
+<p>前后端分离的结构</p>
+<p><img src="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps2.jpg" alt="img"> </p>
+<p>前后端分离就是将⼀个单体应⽤拆分成两个独⽴的应⽤，前端应⽤和后端应⽤以  JSON   格式进⾏数据交互。</p>
+<h1 id="实现技术"><a href="#实现技术" class="headerlink" title="实现技术"></a><strong>实现技术</strong></h1><p>Spring Boot + Vue</p>
+<p>使⽤ Spring Boot 进⾏后端应⽤开发，使⽤ Vue 进⾏前端应⽤开发。</p>
+<p><strong>Vue + Element</strong> <strong>UI</strong></p>
+<p>Vue 集成 Element UI</p>
+<p>Element UI 后台管理系统主要的标签： </p>
+<p>el-container：构建整个⻚⾯框架。</p>
+<p>el-aside：构建左侧菜单。</p>
+<p>el-menu：左侧菜单内容，常⽤属性：</p>
+<p>:default-openeds：默认展开的菜单，通过菜单的 index 值来关联。</p>
+<p>:default-active：默认选中的菜单，通过菜单的 index 值来关联。</p>
+<p>el-submenu： 可 展 开 的 菜 单 ， 常 ⽤ 属 性 ：            </p>
+<p> index： 菜 单 的 下 标 ， ⽂ 本 类 型 ， 不 能 是 数 值 类 型 。 </p>
+<p>template： 对 应                   el-submenu         的 菜 单 名 。</p>
+<p>i：设置菜单图标，通过 class 属性实则。</p>
+<p>el-icon-messae el-icon-menu el-icon-setting</p>
+<p>el-menu-item：菜单的⼦节点，不可再展开，常⽤属性：</p>
+<p>index：菜单的下标，⽂本类型，不能是数值类型。</p>
+<p><strong>Vue router</strong> <strong>来动态构建左侧菜单</strong></p>
+<p><strong>menu</strong> <strong>与</strong> <strong>router</strong> <strong>的绑定</strong></p>
+<p>1、 标签添加 router 属性。</p>
+<p>2、在⻚⾯中添加 标签，它是⼀个容器，动态渲染你选择的 router。3、 标签的 index 值就是要跳转的 router。</p>
+<p><strong>Element UI</strong> <strong>表单数据校验</strong></p>
+<p>定义 rules 对象，在 rules 对象中设置表单各个选项的校验规则</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rules: &#123; </span><br><span class="line">		name: [</span><br><span class="line">            &#123; required: <span class="keyword">true</span>, message: <span class="string">'error'</span>, trigger: <span class="string">'blur'</span> &#125;,</span><br><span class="line">            &#123; min: <span class="number">3</span>, max: <span class="number">5</span>, message: <span class="string">'⻓度在 3 到 5 个字符'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">			]</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>required: true, 是否为必填项message: ‘error’, 提示信息trigger: ‘blur’，触发事件</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/06/前后端分离/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Ajax研究" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1005,312 +1096,6 @@ jdk1.8</code></pre><h3 id="Spring的配置文件applicationContext-xml"><a href=
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/04/03/SSM框架整合后的配置文件/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mybatis第五章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/28/mybatis第五章/">mybatis第五章</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/28/mybatis第五章/" class="archive-article-date">
-  	<time datetime="2020-03-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="MyBatis的框架核心"><a href="#MyBatis的框架核心" class="headerlink" title="MyBatis的框架核心"></a>MyBatis的框架核心</h2><ul>
-<li>mybatis配置文件，包括Mybatis全局配置文件和Mybatis映射文件，其中全局配置文件配置了数据源、事务等信息；映射文件配置了SQL执行相关的 信息。</li>
-<li>mybatis通过读取配置文件信息（全局配置文件和映射文件），构造出SqlSessionFactory，即会话工厂。</li>
-<li>通过SqlSessionFactory，可以创建SqlSession即会话。Mybatis是通过SqlSession来操作数据库的。</li>
-<li>SqlSession本身不能直接操作数据库，它是通过底层的Executor执行器接口来操作数据库的。Executor接口有两个实现类，一个是普通执行器，一个是缓存执行器（默认）。</li>
-<li>Executor执行器要处理的SQL信息是封装到一个底层对象MappedStatement中。该对象包括：SQL语句、输入参数映射信息、输出结果集映射信息。其中输入参数和输出结果的映射类型包括HashMap集合对象、POJO对象类型。</li>
-</ul>
-<ol>
-<li>添加log4j.properties<br>Mybatis使用的日志包是log4j的，所以需要添加log4j.properties。<br>在classpath下创建log4j.properties如下：<pre><code># Global logging configuration
-log4j.rootLogger=DEBUG, stdout
-# Console output...
-log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n</code></pre></li>
-</ol>
-<p>日志级别在开发阶段设置成DEBUG，在生产阶段设置成INFO或者ERROR。<br>2. 编写配置文件<br>主配置文件(SqlMapConfig.xml)<br>在classpath(src)下，创建SqlMapConfig.xml文件</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;!DOCTYPE configuration
-        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
-        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
-&lt;configuration&gt;
-
-    &lt;properties resource=&quot;db.properties&quot; /&gt;
-
-
-    &lt;!--配置别名 --&gt;
-    &lt;typeAliases&gt;
-        &lt;!--&lt;typeAlias type=&quot;com.wuzy.model.User&quot; alias=&quot;user&quot;&gt;&lt;/typeAlias&gt; --&gt;
-
-        &lt;!--指定包名，别名就是类名，第一个小写 User 别名就是user --&gt;
-        &lt;package name=&quot;com.wuzy.bean&quot;&gt;&lt;/package&gt;
-        &lt;package name=&quot;com.wuzy.vo&quot;&gt;&lt;/package&gt;
-    &lt;/typeAliases&gt;
-
-    &lt;!-- 配置mybatis的环境信息 --&gt;
-    &lt;environments default=&quot;development&quot;&gt;
-        &lt;environment id=&quot;development&quot;&gt;
-            &lt;!-- 配置JDBC事务控制，由mybatis进行管理 --&gt;
-            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
-            &lt;!-- 配置数据源，采用dbcp连接池 --&gt;
-            &lt;dataSource type=&quot;POOLED&quot;&gt;
-                &lt;property name=&quot;driver&quot; value=&quot;${driverClass}&quot; /&gt;
-                &lt;property name=&quot;url&quot; value=&quot;${url}&quot; /&gt;
-                &lt;property name=&quot;username&quot; value=&quot;${name}&quot; /&gt;
-                &lt;property name=&quot;password&quot; value=&quot;${password}&quot; /&gt;
-            &lt;/dataSource&gt;
-        &lt;/environment&gt;
-    &lt;/environments&gt;
-
-    &lt;!--告诉mybatis加载映射文件 --&gt;
-    &lt;mappers&gt;
-        &lt;mapper resource=&quot;com/wuzy/sqlmap/user.xml&quot;&gt;&lt;/mapper&gt;
-        &lt;!--第一种:写映射文件的名字 --&gt;
-        &lt;!-- &lt;mapper resource=&quot;com/wuzy/mapper/UserMapper.xml&quot;&gt;&lt;/mapper&gt; --&gt;
-
-        &lt;!--第二种:写类名,一定要有个映射文件与之对应 如果没有，那么在UserMapper要声明注解  --&gt;
-        &lt;!-- &lt;mapper class=&quot;com.wuzy.mapper.UserMapper&quot;&gt;&lt;/mapper&gt; --&gt;
-
-        &lt;!--第三种：可以写包名  xml文件名需要和接口名一样  --&gt;
-        &lt;!-- &lt;package name=&quot;com.wuzy.mapper&quot;&gt;&lt;/package&gt; --&gt;
-
-    &lt;/mappers&gt;
-&lt;/configuration&gt;</code></pre><p>映射文件</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;!DOCTYPE mapper
-        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
-        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-&lt;mapper namespace=&quot;user&quot;&gt;
-    &lt;!--根据id查询 --&gt;
-    &lt;!-- [id]：statement的id，要求在命名空间内唯一 [parameterType]：入参的java类型 [resultType]：查询出的单条结果集对应的java类型 
-        [#{}]： 表示一个占位符? [#{id}]：表示该占位符待接收参数的名称为id。 注意：如果参数为简单类型时，#{}里面的参数名称可以是任意定义 --&gt;
-    &lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot;
-        resultType=&quot;com.wuzy.bean.User&quot;&gt;
-        SELECT * FROM user WHERE id = #{a}
-    &lt;/select&gt;
-
-    &lt;!-- [${}]：表示拼接SQL字符串 [${value}]：表示要拼接的是简单类型参数。 注意： 简单类型:int,byte,... string 
-        1、如果参数为简单类型时，${}里面的参数名称必须为value 2、${}会引起SQL注入，一般情况下不推荐使用。但是有些场景必须使用${}，比如order 
-        by ${colname} --&gt;
-    &lt;select id=&quot;findUserByName&quot; parameterType=&quot;String&quot;
-        resultType=&quot;com.wuzy.bean.User&quot;&gt;
-        SELECT * FROM user WHERE username LIKE &apos;%${value}%&apos;
-    &lt;/select&gt;
-
-    &lt;!--插入数据 这里的占位是写模型的属性 --&gt;
-    &lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.wuzy.bean.User&quot;&gt;
-        INSERT INTO user (username,sex,birthday,address)
-        VALUE (#{username},#{sex},#{birthday},#{address});
-    &lt;/insert&gt;
-
-    &lt;!--删除 --&gt;
-    &lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;
-        DELETE FROM user where id = #{id};
-    &lt;/delete&gt;
-
-
-    &lt;!--更新 --&gt;
-    &lt;update id=&quot;updateUser&quot; parameterType=&quot;com.wuzy.bean.User&quot;&gt;
-        UPDATE user SET address = #{address},sex = #{sex}
-        WHERE id = #{id}
-    &lt;/update&gt;
-
-
-    &lt;!--插入时自动返回主键id --&gt;
-    &lt;insert id=&quot;insertUser2&quot; parameterType=&quot;com.wuzy.bean.User&quot;&gt;
-        &lt;!-- [selectKey标签]：通过select查询来生成主键 [keyProperty]：指定存放生成主键的属性 [resultType]：生成主键所对应的Java类型 
-            [order]：指定该查询主键SQL语句的执行顺序，相对于insert语句 [last_insert_id]：MySQL的函数，要配合insert语句一起使用 --&gt;
-        &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;
-            SELECT LAST_INSERT_ID()
-        &lt;/selectKey&gt;
-        INSERT INTO user (username,sex,birthday,address)
-        VALUE (#{username},#{sex},#{birthday},#{address});
-    &lt;/insert&gt;
-&lt;/mapper&gt;</code></pre><p>测试代码</p>
-<pre><code>package com.wuzy.test;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.Test;
-
-import com.wuzy.bean.User;
-
-public class Test1 {
-
-    @Test
-    public void test1() throws IOException {
-//        a)读取配置文件；
-        InputStream is = Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);
-
-        // b)通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
-        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
-
-        // c)通过SqlSessionFactory创建SqlSession。
-        SqlSession session = sessionFactory.openSession();
-
-//        d)调用SqlSession的操作数据库方法。
-        // 查询一条结果
-        User user = session.selectOne(&quot;findUserById&quot;, 10);
-        System.out.println(user);
-
-        // 查询多条结果
-        List&lt;User&gt; users = session.selectList(&quot;findUserByName&quot;, &quot;张&quot;);
-        System.out.println(users);
-//        关闭SqlSession。
-        session.commit();
-    }
-}</code></pre><ol start="3">
-<li><p>Mybatis增删改查<br>插入数据</p>
-<pre><code>&lt;!--插入时自动返回主键id --&gt;
-&lt;insert id=&quot;insertUser2&quot; parameterType=&quot;com.wuzy.bean.User&quot;&gt;
-    &lt;!-- [selectKey标签]：通过select查询来生成主键 [keyProperty]：指定存放生成主键的属性 [resultType]：生成主键所对应的Java类型 
-        [order]：指定该查询主键SQL语句的执行顺序，相对于insert语句 [last_insert_id]：MySQL的函数，要配合insert语句一起使用 --&gt;
-    &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;
-        SELECT LAST_INSERT_ID()
-    &lt;/selectKey&gt;
-    INSERT INTO user (username,sex,birthday,address)
-    VALUE (#{username},#{sex},#{birthday},#{address});
-&lt;/insert&gt;
-
-session.insert(&quot;insertUser&quot;, new User(&quot;小强&quot;, &quot;男&quot;, new Date(), &quot;广州&quot;));
-session.commit();</code></pre><p>删除数据</p>
-<pre><code>&lt;!--删除 --&gt;
-&lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;
-    DELETE FROM user where id = #{id};
-&lt;/delete&gt;
-
-session.delete(&quot;deleteUser&quot;, 20);
-session.commit();</code></pre><p>修改数据</p>
-<pre><code>&lt;!--更新 --&gt;
-&lt;update id=&quot;updateUser&quot; parameterType=&quot;com.wuzy.bean.User&quot;&gt;
-    UPDATE user SET username = #{username},sex = #{sex}
-    WHERE id = #{id}
-&lt;/update&gt;
-
-User user = new User();
-user.setId(20);
-user.setSex(&quot;女&quot;);
-user.setUsername(&quot;刘亦菲&quot;);
-
-session.update(&quot;updateUser&quot;, user);
-session.commit();</code></pre></li>
-</ol>
-<p>查询数据<br>查询单条selectOne</p>
-<pre><code>&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot;
-    resultType=&quot;com.wuzy.bean.User&quot;&gt;
-    SELECT * FROM user WHERE id = #{a}
-&lt;/select&gt;
-
-session.selectOne(&quot;findUserById&quot;, 20);
-session.commit();</code></pre><p>查询多条selectList</p>
-<pre><code>&lt;select id=&quot;findUserByName&quot; parameterType=&quot;String&quot;
-    resultType=&quot;com.wuzy.bean.User&quot;&gt;
-    SELECT * FROM user WHERE username LIKE &apos;%${value}%&apos;
-&lt;/select&gt;
-
-session.selectList(&quot;findUserByName&quot;, &quot;张&quot;);
-session.commit();</code></pre><ol start="4">
-<li><p>主键返回之MySQL自增主键<br>MySQL自增主键，是指在insert之前MySQL会自动生成一个自增的主键。<br>我们可以通过MySQL的函数获取到刚插入的自增主键:<br>LAST_INSERT_ID()<br>这个函数是在insert语句之后去调用。</p>
-<pre><code>&lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.wuzy.bean.User&quot;&gt;
-&lt;!-- 
-    [selectKey标签]：通过select查询来生成主键
-    [keyProperty]：指定存放生成主键的属性
-    [resultType]：生成主键所对应的Java类型
-    [order]：指定该查询主键SQL语句的执行顺序，相对于insert语句
-    [last_insert_id]：MySQL的函数，要配合insert语句一起使用 --&gt;
-&lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;
-    SELECT LAST_INSERT_ID()
-&lt;/selectKey&gt;
-&lt;!-- 如果主键的值是通过MySQL自增机制生成的，那么我们此处不需要再显示的给ID赋值 --&gt;
-INSERT INTO USER (username,sex,birthday,address) 
-VALUES(#{username},#{sex},#{birthday},#{address})
-&lt;/insert&gt;</code></pre></li>
-<li><p>主键返回之MySQL自增UUID</p>
-<pre><code>&lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.gyf.domain.User&quot;&gt;
-    &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;String&quot; order=&quot;BEFORE&quot;&gt;
-        SELECT UUID()
-    &lt;/selectKey&gt;
-    INSERT INTO USER (username,sex,birthday,address) 
-    VALUES(#{username},#{sex},#{birthday},#{address})
-&lt;/insert&gt;</code></pre></li>
-<li><p>总结</p>
-<pre><code>parameterType和resultType
-parameterType指定输入参数的java类型，可以填写别名或Java类的全限定名。
-resultType指定输出结果的java类型，可以填写别名或Java类的全限定名。
-#{}和${}
-#{}：相当于预处理中的占位符？。
-#{}里面的参数表示接收java输入参数的名称。
-#{}可以接受HashMap、POJO类型的参数。
-当接受简单类型的参数时，#{}里面可以是value，也可以是其他。
-#{}可以防止SQL注入。
-${}：相当于拼接SQL串，对传入的值不做任何解释的原样输出。
-${}会引起SQL注入，所以要谨慎使用。
-${}可以接受HashMap、POJO类型的参数。
-当接受简单类型的参数时，${}里面只能是value。
-selectOne和selectList
-selectOne：只能查询0或1条记录，大于1条记录的话，会报错：
-selectList：可以查询0或N条记录</code></pre></li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/28/mybatis第五章/">展开全文 >></a>
         </p>
       
 
