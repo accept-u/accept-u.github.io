@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前后端分离前后端分离就是将⼀个应⽤的前端代码和后端代码分开写，为什么要这样做？    如果不使⽤前后端分离的⽅式，会有哪些问题？ 传统的 Java Web 开发中，前端使⽤ JSP 开发，JSP 不是由后端开发者来独⽴完成的。前端—》HTML 静态⻚⾯ —〉后端 —》JSP 这种开发⽅式效率极低，可以使⽤前后端分离的⽅式进⾏开发，就可以完美地解决这⼀问题。      前端只需要独⽴编写客户端代码，">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps1.jpg">
-<meta property="og:image" content="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps2.jpg">
-<meta property="og:updated_time" content="2020-05-06T12:17:47.886Z">
+<meta property="og:image" content="c:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1588831774287.png">
+<meta property="og:image" content="c:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1588831795381.png">
+<meta property="og:updated_time" content="2020-05-07T06:10:16.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
 <meta name="twitter:description" content="前后端分离前后端分离就是将⼀个应⽤的前端代码和后端代码分开写，为什么要这样做？    如果不使⽤前后端分离的⽅式，会有哪些问题？ 传统的 Java Web 开发中，前端使⽤ JSP 开发，JSP 不是由后端开发者来独⽴完成的。前端—》HTML 静态⻚⾯ —〉后端 —》JSP 这种开发⽅式效率极低，可以使⽤前后端分离的⽅式进⾏开发，就可以完美地解决这⼀问题。      前端只需要独⽴编写客户端代码，">
-<meta name="twitter:image" content="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps1.jpg">
+<meta name="twitter:image" content="c:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1588831774287.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -169,10 +169,10 @@
 <p>前后端开发者只需要提前约定好接⼝⽂档（URL、参数、数据类型…），然后分别独⽴开发即可，前端     可以造假数据进⾏测试，完全不需要依赖于后端，最后完成前后端集成即可，真正实现了前后端应⽤的       解耦合，极⼤地提升了开发效率。</p>
 <p>单体—》前端应⽤ + 后端应⽤</p>
 <p>前端应⽤：负责数据展示和⽤户交互。后端应⽤：负责提供数据处理接⼝。</p>
-<p>前端 HTML —》Ajax —》RESTful 后端数据接⼝。传统的单体应⽤</p>
-<p><img src="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps1.jpg" alt="img"> </p>
+<p>前端 HTML —》Ajax —》RESTful 后端数据接⼝。传统的单体应⽤ </p>
+<p><img src="C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1588831774287.png" alt="1588831731382"></p>
 <p>前后端分离的结构</p>
-<p><img src="file:///C:%5CUsers%5Cdell%5CAppData%5CLocal%5CTemp%5Cksohtml6028%5Cwps2.jpg" alt="img"> </p>
+<p> <img src="C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1588831795381.png" alt="1588831795381"></p>
 <p>前后端分离就是将⼀个单体应⽤拆分成两个独⽴的应⽤，前端应⽤和后端应⽤以  JSON   格式进⾏数据交互。</p>
 <h1 id="实现技术"><a href="#实现技术" class="headerlink" title="实现技术"></a><strong>实现技术</strong></h1><p>Spring Boot + Vue</p>
 <p>使⽤ Spring Boot 进⾏后端应⽤开发，使⽤ Vue 进⾏前端应⽤开发。</p>
@@ -194,7 +194,8 @@
 <p><strong>Vue router</strong> <strong>来动态构建左侧菜单</strong></p>
 <p><strong>menu</strong> <strong>与</strong> <strong>router</strong> <strong>的绑定</strong></p>
 <p>1、 标签添加 router 属性。</p>
-<p>2、在⻚⾯中添加 标签，它是⼀个容器，动态渲染你选择的 router。3、 标签的 index 值就是要跳转的 router。</p>
+<p>2、在⻚⾯中添加 标签，它是⼀个容器，动态渲染你选择的 router。</p>
+<p>3、 标签的 index 值就是要跳转的 router。</p>
 <p><strong>Element UI</strong> <strong>表单数据校验</strong></p>
 <p>定义 rules 对象，在 rules 对象中设置表单各个选项的校验规则</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rules: &#123; </span><br><span class="line">		name: [</span><br><span class="line">            &#123; required: <span class="keyword">true</span>, message: <span class="string">'error'</span>, trigger: <span class="string">'blur'</span> &#125;,</span><br><span class="line">            &#123; min: <span class="number">3</span>, max: <span class="number">5</span>, message: <span class="string">'⻓度在 3 到 5 个字符'</span>, trigger: <span class="string">'blur'</span> &#125;</span><br><span class="line">			]</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
