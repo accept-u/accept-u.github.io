@@ -77,13 +77,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="http://github.com/accept-u" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="qq" target="_blank" href="/1215910549" title="qq"><i class="icon-qq"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="gitee" target="_blank" href="http://gitee.com/accept-u" title="gitee"><i class="icon-gitee"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="mail" target="_blank" href="/1215910549@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -118,13 +118,13 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="http://github.com/accept-u" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="qq" target="_blank" href="/1215910549" title="qq"><i class="icon-qq"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="gitee" target="_blank" href="http://gitee.com/accept-u" title="gitee"><i class="icon-gitee"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="mail" target="_blank" href="/1215910549@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -151,70 +151,6 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-    <article id="post-了解swagger" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/15/了解swagger/">了解swagger</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/15/了解swagger/" class="archive-article-date">
-  	<time datetime="2020-05-15T05:11:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 创建一个Swagger的配置文件类</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//配置到配置里面</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2<span class="comment">//开启Swagger需要写这个注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">docket1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2).groupName(<span class="string">"A"</span>);<span class="comment">//设置额外的分组A</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">docket</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//设置Swagger环境</span></span><br><span class="line">        Profiles profiles = Profiles.of(<span class="string">"dev"</span>,<span class="string">"pro"</span>);</span><br><span class="line">        <span class="comment">//获取生产环境</span></span><br><span class="line">        <span class="comment">//获得一个激活的文件()</span></span><br><span class="line">        <span class="keyword">boolean</span> b = environment.acceptsProfiles(profiles);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)<span class="comment">//创建一个Docket需要一个DocumentType类的</span></span><br><span class="line">              .apiInfo(apiInfo())<span class="comment">//Api文档的信息</span></span><br><span class="line">              .enable(b)<span class="comment">//是否自动开启</span></span><br><span class="line">              .groupName(<span class="string">"程序作家"</span>)<span class="comment">//组的名字</span></span><br><span class="line">              .select()<span class="comment">//选择需要显示的接口，需要用apis()方法来指定扫描的包</span></span><br><span class="line">              .apis(RequestHandlerSelectors.basePackage(<span class="string">"com.swaggerdemo.Controller"</span>))<span class="comment">//指定扫面的Controller的完全限定名字</span></span><br><span class="line">              .build();<span class="comment">//使用bild来创建一个Docket</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//配置Swagger 配置类</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">apiInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">       Contact contact = <span class="keyword">new</span> Contact(<span class="string">"程序员作家"</span>,<span class="string">"https://blog.csdn.net/SSHH_ZHU"</span>,<span class="string">"605345115@qq.com"</span>);<span class="comment">//创建</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ApiInfo(</span><br><span class="line">                <span class="string">"程序员作家的Swagger"</span>,</span><br><span class="line">                <span class="string">"我的SwaggerAPI文档"</span>,</span><br><span class="line">                <span class="string">"1.0"</span>,</span><br><span class="line">                <span class="string">"https://blog.csdn.net/SSHH_ZHU"</span>,</span><br><span class="line">                contact,</span><br><span class="line">                <span class="string">"Apache 2.0"</span>,</span><br><span class="line">                <span class="string">"http://www.apache.org/licenses/LICENSE-2.0"</span>,</span><br><span class="line">                <span class="keyword">new</span> ArrayList());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">————————————————</span><br><span class="line"></span><br><span class="line">原文链接：https:<span class="comment">//blog.csdn.net/SSHH_ZHU/article/details/104286169</span></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/15/了解swagger/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
     <article id="post-security框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1028,9 +964,92 @@
 
 
   
+    <article id="post-SpringMVC拦截器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="通过SpringMVC拦截器实现权限验证"><a href="#通过SpringMVC拦截器实现权限验证" class="headerlink" title="通过SpringMVC拦截器实现权限验证"></a>通过SpringMVC拦截器实现权限验证</h1><p>[TOC]</p>
+<p>依赖于web框架，在SpringMVC中就是依赖于SpringMVC框架。在实现上基于Java的反射机制，属于面向切面编程（AOP）的一种运用。由于拦截器是基于web框架的调用，因此可以使用Spring的依赖注入（DI）进行一些业务操作，同时一个拦截器实例在一个controller生命周期之内可以多次调用。但是缺点是只能对controller请求进行拦截，对其他的一些比如直接访问静态资源的请求则没办法进行拦截处理</p>
+<p>对大部分系统来说都需要权限管理来决定不同用户可以看到哪些内容，那么如何在Spring MVC中实现权限验证呢？当然我们可以继续使用Servlet中的过滤器Filter来实现。但借助于Spring MVC中的拦截器我们可以实现注解式的权限验证。 </p>
+<h4 id="一-首先介绍一下拦截器："><a href="#一-首先介绍一下拦截器：" class="headerlink" title="一.首先介绍一下拦截器："></a>一.首先介绍一下拦截器：</h4><p>HandlerInterceptor是Spring MVC为我们提供的拦截器接口，来让我们实现自己的处理逻辑，HandlerInterceptor 的内容如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerInterceptor</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletRequest request, HttpServletResponse response,   </span></span></span><br><span class="line"><span class="function"><span class="params">            Object handler)</span>   </span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletRequest request, HttpServletResponse response,   </span></span></span><br><span class="line"><span class="function"><span class="params">            Object handler, ModelAndView modelAndView)</span>   </span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletRequest request, HttpServletResponse response,   </span></span></span><br><span class="line"><span class="function"><span class="params">            Object handler, Exception ex)</span>  </span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到接口有3个方法，其含义如下：</p>
+<ul>
+<li><strong>preHandle：</strong> 在执行Controller里面的处理逻辑之前执行，它返回的是boolean，这里如果我们返回true在接着执行postHandle和afterCompletion，如果我们返回false则中断执行。</li>
+<li><strong>postHandle：</strong> 在执行action里面的逻辑后返回视图之前执行。</li>
+<li><strong>afterCompletion：</strong> 在action返回视图后执行。</li>
+</ul>
+<p>HandlerInterceptorAdapter适配器是Spring MVC为了方便我们使用HandlerInterceptor而对HandlerInterceptor 的默认实现，里面的3个方法没有做任何处理，在preHandle方法直接返回true，这样我们继承HandlerInterceptorAdapter后只需要实现3个方法中我们需要的方法即可，而不像继承HandlerInterceptor一样不管是否需要3个方法都要实现。<br>当然借助于HandlerInterceptor我们可以实现很多其它功能，比如日志记录、请求处理时间分析等，权限验证只是其中之一。</p>
+<h4 id="二-一步一步来完成注解式权限验证的功能"><a href="#二-一步一步来完成注解式权限验证的功能" class="headerlink" title="二.一步一步来完成注解式权限验证的功能"></a>二.一步一步来完成注解式权限验证的功能</h4><p>首先添加一个账户的Controller和登录的方法及视图来模拟在没有权限时跳转到登陆页面，内容分别如下：</p>
+<p><strong>AccountController.java：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/account"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/login"</span>, method = &#123;RequestMethod.GET&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>login.jsp：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8"</span></span><br><span class="line">    pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    这里是登录界面</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加自己的拦截器实现AuthInterceptor继承于HandlerInterceptorAdapter，内容如下：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo.web.auth;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.HandlerMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthInterceptor</span> <span class="keyword">extends</span> <span class="title">HandlerInterceptorAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(handler.getClass().isAssignableFrom(HandlerMethod.class))&#123;</span><br><span class="line">            AuthPassport authPassport = ((HandlerMethod) handler).getMethodAnnotation(AuthPassport.class);</span><br><span class="line">            <span class="comment">//没有声明需要权限,或者声明不验证权限</span></span><br><span class="line">                <span class="keyword">if</span>(authPassport == <span class="keyword">null</span> || authPassport.validate() == <span class="keyword">false</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;                </span><br><span class="line">                <span class="comment">//在这里实现自己的权限验证逻辑</span></span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">false</span>)<span class="comment">//如果验证成功返回true（这里直接写false来模拟验证失败的处理）</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">//如果验证失败返回到登录界面</span></span><br><span class="line">                    response.sendRedirect(<span class="string">"account/login"</span>);</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;       </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;   </span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>配置项目的spring-mvc.xml添加如下内容：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:interceptors</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:interceptor</span>&gt;</span></span><br><span class="line">		  <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/dept/*"</span>/&gt;</span></span><br><span class="line">		  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.chinasofti.zzeec.demo.mvc.auth.AuthInterceptor"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">mvc:interceptor</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:interceptors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样在执行每个action方法是都会调用AuthInterceptor处理，当判断action上有我们定义AuthPassport注解时就会执行里面的权限验证逻辑。<br>在DemoController的index方法上加上自定义注解AuthPassport：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AuthPassport</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=&#123;<span class="string">"/index"</span>,<span class="string">"/hello"</span>&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();  </span><br><span class="line">    modelAndView.addObject(<span class="string">"message"</span>, <span class="string">"Hello World!"</span>);  </span><br><span class="line">    modelAndView.setViewName(<span class="string">"index"</span>);  </span><br><span class="line">    <span class="keyword">return</span> modelAndView;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在需要权限验证的action上加上这个注解就可以实现权限控制功能了。</p>
+<h3 id="Spring-的拦截器和-Servlet的过滤器有什么区别"><a href="#Spring-的拦截器和-Servlet的过滤器有什么区别" class="headerlink" title="Spring 的拦截器和 Servlet的过滤器有什么区别"></a>Spring 的拦截器和 Servlet的过滤器有什么区别</h3><ol>
+<li>使用的范围不同： Filter 是Servlet 规范规定的，只能应用在 Web程序中。 拦截器除了web程序，也可以应用在 Swing 程序中。</li>
+<li>规范不同： Filter 是 Servlet 容器支持。拦截器是 Spring 容器支持。</li>
+<li>使用的资源不同：拦截器是Spring的组件，归Spring管理。因此可以使用Spring中的各种资源和对象，比如数据源，事务管理等等。Filter不能这么做。</li>
+<li>深度不同：Filter只在Servlet前后起作用。拦截器可以深入到方法前后，异常抛出前后，所以拦截器有这更大的弹性。在应用了Spring框架的程序中，建议优先使用拦截器。</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/08/SpringMVC拦截器/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 

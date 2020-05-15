@@ -77,13 +77,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="http://github.com/accept-u" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="qq" target="_blank" href="/1215910549" title="qq"><i class="icon-qq"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="gitee" target="_blank" href="http://gitee.com/accept-u" title="gitee"><i class="icon-gitee"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="mail" target="_blank" href="/1215910549@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -118,13 +118,13 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="http://github.com/accept-u" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="qq" target="_blank" href="/1215910549" title="qq"><i class="icon-qq"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="gitee" target="_blank" href="http://gitee.com/accept-u" title="gitee"><i class="icon-gitee"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="mail" target="_blank" href="/1215910549@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -151,200 +151,6 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-    <article id="post-MySQL数据库练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/12/MySQL数据库练习/">MySQL数据库练习</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/12/MySQL数据库练习/" class="archive-article-date">
-  	<time datetime="2019-11-12T13:07:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="创建customers表"><a href="#创建customers表" class="headerlink" title="创建customers表"></a>创建customers表</h1><pre><code>CREATE TABLE customers(
-cust_id INT AUTO_INCREMENT PRIMARY KEY,
-cust_name VARCHAR(20) NOT NULL,
-cust_address VARCHAR(30),
-cust_city VARCHAR(20),
-cust_state VARCHAR(20),
-cust_zip VARCHAR(20),
-cust_country VARCHAR(20),
-cust_contact VARCHAR(20),
-cust_email VARCHAR(20)
-);
-
-# 插入语句
-INSERT INTO customers VALUES(10000005,&apos;sam&apos;,&apos;郑上路81号&apos;,&apos;郑州&apos;,&apos;河南&apos;,&apos;461670&apos;,&apos;中国&apos;,&apos;15736815602&apos;,&apos;860769371@qq.com&apos;);
-UPDATE customers SET cust_name = &quot;晋文帅&quot;,cust_email = &quot;1215910549@qq.com&quot; WHERE cust_id = 10000003;
-SELECT * FROM customers;</code></pre><h1 id="创建orders表"><a href="#创建orders表" class="headerlink" title="创建orders表"></a>创建orders表</h1><pre><code>CREATE TABLE orders(
-order_num INT AUTO_INCREMENT PRIMARY KEY,
-order_date TIMESTAMP,
-cust_id INT
-);
-#插入语句
-INSERT INTO orders(order_num,cust_id) VALUES(20005,10000001);
-SELECT * FROM orders;
-#删除orders表
-DROP TABLE orders; </code></pre><h1 id="创建orderitems表"><a href="#创建orderitems表" class="headerlink" title="创建orderitems表"></a>创建orderitems表</h1><pre><code>CREATE TABLE orderitems(
-order_num INT AUTO_INCREMENT PRIMARY KEY,
-order_item INT,
-prod_id VARCHAR(20),
-quentity int,
-item_price DOUBLE
-);
-#插入语句
-INSERT INTO orderitems VALUES(200005,1,&apos;BR01&apos;,100,54.9);
-SELECT * FROM orderitems;</code></pre><h1 id="创建Products表"><a href="#创建Products表" class="headerlink" title="创建Products表"></a>创建Products表</h1><pre><code>CREATE TABLE Products(
-prod_id VARCHAR(20) PRIMARY KEY,
-vend_id VARCHAR(20),
-prod_name VARCHAR(20),
-prod_price DOUBLE,
-prod_desc VARCHAR(255)
-);
-#插入语句
-INSERT INTO Products VALUES(&apos;BR01&apos;,&apos;BRS01&apos;,&apos;King Doll&apos;,54.9,&apos;18 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR02&apos;,&apos;BRS02&apos;,&apos;King Doll&apos;,5.9,&apos;16 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR03&apos;,&apos;BRS03&apos;,&apos;King Doll&apos;,4.9,&apos;17 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR04&apos;,&apos;BRS04&apos;,&apos;King Doll&apos;,5.6,&apos;13 inch teddy&apos;);
-INSERT INTO Products VALUES(&apos;BR05&apos;,&apos;BRS05&apos;,&apos;King Doll&apos;,5.9,&apos;12 inch teddy&apos;);
-SELECT * FROM Products;</code></pre><h1 id="新建表Vendors"><a href="#新建表Vendors" class="headerlink" title="新建表Vendors"></a>新建表Vendors</h1><pre><code>CREATE TABLE Vendors(
-vend_id VARCHAR(20) PRIMARY KEY,
-vend_name VARCHAR(20),
-vend_address VARCHAR(30),
-vend_city VARCHAR(20),
-vend_state VARCHAR(20),
-vend_zip VARCHAR(20),
-vend_country VARCHAR(20)
-);
-#插入语句
-INSERT INTO Vendors VALUES(&apos;BRS01&apos;,&apos;Bears R Us&apos;,&apos;123 Main Street&apos;,&apos;Bear Town&apos;,&apos;MI&apos;,&apos;444&apos;,&apos;USA&apos;);
-SELECT * FROM Vendors;</code></pre><h1 id="一、检索数据-select语句"><a href="#一、检索数据-select语句" class="headerlink" title="一、检索数据-select语句"></a>一、检索数据-select语句</h1><pre><code>select prod_name from products;                        //检索单个列
-select prod_id,prod_name,prod_price from products;         //检索多个列
-select * from products;     //检索所有列
-select distinct vend_id from products;                 //选择不同的值，注意distinct作用于所有列而不仅是紧跟在其后的一列
-select prod_name from products
-limit 5;                   // 返回5行
-select prod_name from products
-limit 3 offset 2;                                          //返回从第2行起的3行数据：limit 行数   offset 偏移量</code></pre><h1 id="二、注释"><a href="#二、注释" class="headerlink" title="二、注释"></a>二、注释</h1><p>行内注释：#注释<br>多行注释：/<em>注释</em>/</p>
-<h1 id="三、排序检索数据"><a href="#三、排序检索数据" class="headerlink" title="三、排序检索数据"></a>三、排序检索数据</h1><pre><code>select prod_name from products
-order by prod_name;                                             //按单列排序
-select prod_id,prod_price,prod_name from products
-order by prod_price,prod_name;              //按多个列排序，首先对price排，再对name排，注意仅在多行具有相同的price时才会对name进行排序
-select prod_id,prod_price,prod_name from products
-order by prod_price desc,prod_name;                   //对price降序，name升序，注意desc只应用到直接位于其前面的列名</code></pre><h1 id="四、过滤数据-where子句"><a href="#四、过滤数据-where子句" class="headerlink" title="四、过滤数据-where子句"></a>四、过滤数据-where子句</h1><pre><code>select prod_name,prod_price from products
-where prod_price&lt;10;                                            //检查单个值
-where vend_id &lt;&gt;&apos;DLL01&apos;;                                     //不匹配检查
-where vend_id !=&apos;DLL01&apos;;
-select prod_name,prod_price from products
-where prod_price between 5 and 10;                     //范围性检查
-select prod_name from products
-where prod_price is null;                                         //检查空值
-select prod_id,prod_price,prod_name from products
-where vend_id=&apos;DLL01&apos; and prod_price&lt;=4;          //and操作符
-where vend_id=&apos;DLL01&apos; or vend_id=&apos;BRS01&apos;;        //or操作符
-where vend_id in(&apos;DLL01&apos;,&apos;BRS01&apos;);                      //in操作符，与or等价
-where not vend_id=&apos;DLL01&apos;;                                  //not操作符，否定跟在其后的条件，等价于：where vend_id &lt;&gt;&apos;DLL01&apos;
-where prod_name like &apos;Fish%&apos;;                             //like操作符+%通配符，返回所有以Fish起头的产品
-where prod_name like&apos;%bean bag%&apos;;                  //检索包含文本bean bag的值，不管在之前还是之后。
-where prod_name like&apos;F%y&apos;;                                //检索以F起头，以y结尾的所有产品</code></pre><h1 id="五、汇总数据"><a href="#五、汇总数据" class="headerlink" title="五、汇总数据"></a>五、汇总数据</h1><pre><code>select avg(prod_price) as avg_price                     //avg()用于求均值，只用于单列，忽略列值为null的行
-from products;
-select count(*) as num_cust from customers;      //计算表中行的数目，不忽略空值
-select count(cust_email) as num_cust                 //计算指定列中具有值的行数，掠过空值
-from customers;
-select max(prod_price） as max_price                //返回最大价格，忽略空值
-from products;
-select min(prod_price） as min_price                  //返回最低价格，忽略空值
-from products;
-select sum(quantity) as items_ordered                //求和，忽略空值
-from orderitems;</code></pre><h1 id="六、分组数据"><a href="#六、分组数据" class="headerlink" title="六、分组数据"></a>六、分组数据</h1><pre><code>select vend_id,count(*) as num_prods
-from products
-group by vend_id;                                                //按id进行分组，count对每个id都做一次计数，group by子句必须出现在where子句之后，order by之前
-group by cust_id
-having count(*)&gt;=2;//过滤分组</code></pre><h1 id="七、子查询"><a href="#七、子查询" class="headerlink" title="七、子查询"></a>七、子查询</h1><pre><code>select cust_id from orders
-where order_num in(select order_num from orderitems
-                   where prod_id=&apos;RGAN01&apos;);               //由内向外执行
-等价于：
-select order_num from orderitems
-where prod_id=&apos;RGAN01&apos;;
-输出：
-order_num
--------------
-20007
-20008
-select cust_id from orders
-where order_num in(20007,20008);</code></pre><h1 id="八、联结表"><a href="#八、联结表" class="headerlink" title="八、联结表"></a>八、联结表</h1><h2 id="内连接（等值连接）"><a href="#内连接（等值连接）" class="headerlink" title="内连接（等值连接）"></a>内连接（等值连接）</h2><pre><code>select vend_name,prod_name,prod_price
-from vendors inner join products
-on vendors.vend_id=products.vend_id;            //连接条件为vendors.vend_id=products.vend_id
-等价于：
-select vend_name,prod_name,prod_price
-from vendors,products
-where vendors.vend_id=products.vend_id;</code></pre><h2 id="多表连接"><a href="#多表连接" class="headerlink" title="多表连接"></a>多表连接</h2><pre><code>select prod_name,vend_name,prod_price,quantity
-from oederitems,products,vendors
-where products.vend_id=vendors.vend_id
-and orderitems.prod_id=products.prod_id
-and order_num=20007;</code></pre><h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><pre><code>select c1.cust_id,c1.cust_name,c1.cust_contact
-from customers as c1,customers as c2              //使用表别名
-where c1.cust_name=c2.cust_name
-and c2.cust_contact=&apos;jim jones&apos;;
-等价于：
-select cust_id,cust_name,cust_contact
-from customers
-where cust_name=(select cust_name 
-                 from customers
-                 where cust_contact=&apos;jim jones&apos;);</code></pre><h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><pre><code>select customers.cust_id,orders.order_num
-from customers left outer join orders
-on customers.cust_id=orders.cust_id;                 //左外连接，left指定from子句左边的表（customers)选择所有行</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/12/MySQL数据库练习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
     <article id="post-MySQL数据库增删改查" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1587,9 +1393,89 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
 
   
+    <article id="post-2019-10-21" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h1><h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>前端开发<br>HTML<br>CSS<br>JS（JavaScript）<br>前端框架师：前端框架（BootStrap、easyUI、VUE、Angular）</p>
+<p>后端开发<br>Java<br>JavaWeb：稳定性、 健壮性优于其他语言。企业级应用<br>JSP<br>后端工程师：后端框架（SpringMVC/Struts2、Spring、myBatis）–MVC</p>
+<p>C语言：工业控制。嵌入式设备（电磁炉、吸尘器…）</p>
+<h2 id="jsp"><a href="#jsp" class="headerlink" title="jsp"></a>jsp</h2><p>JSP项目是在后台开发框架成熟前使用较多的一种JavaWeb技术，后期会逐渐过度到后台框架。 jvm只能处理 java编译的class文件。 JSP和后台框架 核心技术均为Servlet Servlet在jdk中的包为：javax.servlet.http.HttpServlet。</p>
+<h1 id="jsp和servlet的区别和联系："><a href="#jsp和servlet的区别和联系：" class="headerlink" title="jsp和servlet的区别和联系："></a>jsp和servlet的区别和联系：</h1><h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><ul>
+<li>.jsp经编译后就变成了Servlet.<br>(JSP的本质就是Servlet，JVM只能识别java的类，不能识别JSP的代码,Web容器将JSP的代码编译成JVM能够识别的java类)</li>
+<li>.jsp更擅长表现于页面显示,servlet更擅长于逻辑控制.</li>
+<li>.Servlet中没有内置对象，Jsp中的内置对象都是必须通过HttpServletRequest对象，HttpServletResponse对象以及HttpServlet对象得到.</li>
+<li>Jsp是Servlet的一种简化，使用Jsp只需要完成程序员需要输出到客户端的内容，Jsp中的Java脚本如何镶嵌到一个类中，由Jsp容器完成。<br>而Servlet则是个完整的Java类，这个类的Service方法用于生成对客户端的响应。</li>
+</ul>
+<h2 id="联系："><a href="#联系：" class="headerlink" title="联系："></a>联系：</h2><ul>
+<li>JSP是Servlet技术的扩展，本质上就是Servlet的简易方式。JSP编译后是“类servlet”。</li>
+<li>Servlet和JSP最主要的不同点在于：</li>
+<li>Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。</li>
+<li>而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。</li>
+<li>JSP侧重于视图，Servlet主要用于控制逻辑</li>
+<li>Servlet更多的是类似于一个Controller，用来做控制。</li>
+</ul>
+<h1 id="servlet类中的方法"><a href="#servlet类中的方法" class="headerlink" title="servlet类中的方法"></a>servlet类中的方法</h1><h2 id="servlet中的方法"><a href="#servlet中的方法" class="headerlink" title="servlet中的方法"></a>servlet中的方法</h2><p>doGet()方法：用get方式传输网络数据 get方式：明文传参(地址栏显示)、传输数据较小、<br>doPost()方法：用post方式传输网络数据 post方式：暗文传参(地址栏不显示)、传输数据较大、<br>页面跳转方式<br>页面跳转的方式分类： </p>
+<ol>
+<li><p>转发：foward(地址栏URL不变)</p>
+<pre><code>request.getRequestDispatcher(&quot;hello.jsp&quot;).forward(request，response);//页面转发</code></pre></li>
+<li><p>重定向：redirect(地址栏URL变化)</p>
+<pre><code>response.sendRedirect(&quot;资源的URL&quot;); </code></pre></li>
+<li><p>两种跳转方式异同： 转发使用的是getRequestDispatcher()方法;重定向使用的是sendRedirect(); 转发：浏览器URL的地址栏不变。重定向：浏览器URL的地址栏改变；<br>转发是服务器行为，重定向是客户端行为；<br>转发是浏览器只做了一次访问请求。重定向是浏览器做了至少两次的访问请求； 转发2次跳转之间传输的信息不会丢失，重定向2次跳转之间传输的信息会丢失（request范围）</p>
+</li>
+</ol>
+<h1 id="理解以下三点即可："><a href="#理解以下三点即可：" class="headerlink" title="理解以下三点即可："></a>理解以下三点即可：</h1><h2 id="1、不同之处在哪？"><a href="#1、不同之处在哪？" class="headerlink" title="1、不同之处在哪？"></a>1、不同之处在哪？</h2><p>Servlet在Java代码中通过HttpServletResponse对象动态输出HTML内容<br>JSP在静态HTML内容中嵌入Java代码，Java代码被动态执行后生成HTML内容</p>
+<h2 id="2、各自的特点"><a href="#2、各自的特点" class="headerlink" title="2、各自的特点"></a>2、各自的特点</h2><p>Servlet能够很好地组织业务逻辑代码，但是在Java源文件中通过字符串拼接的方式生成动态HTML内容会导致代码维护困难、可读性差<br>JSP虽然规避了Servlet在生成HTML内容方面的劣势，但是在HTML中混入大量、复杂的业务逻辑同样也是不可取的</p>
+<h2 id="3、通过MVC双剑合璧"><a href="#3、通过MVC双剑合璧" class="headerlink" title="3、通过MVC双剑合璧"></a>3、通过MVC双剑合璧</h2><p>既然JSP和Servlet都有自身的适用环境，那么能否扬长避短，让它们发挥各自的优势呢？答案是肯定的——MVC(Model-View-Controller)模式非常适合解决这一问题。</p>
+<p>MVC模式（Model-View-Controller）是软件工程中的一种软件架构模式，把软件系统分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）：</p>
+<p>Controller——负责转发请求，对请求进行处理<br>View——负责界面显示<br>Model——业务功能编写（例如算法实现）、数据库设计以及数据存取操作实现<br>在JSP/Servlet开发的软件系统中，这三个部分的描述如下所示：</p>
+<p>Web浏览器发送HTTP请求到服务端，被Controller(Servlet)获取并进行处理（例如参数解析、请求转发）<br>Controller(Servlet)调用核心业务逻辑——Model部分，获得结果<br>Controller(Servlet)将逻辑处理结果交给View（JSP），动态输出HTML内容<br>动态生成的HTML内容返回到浏览器显示<br>MVC模式在Web开发中的好处是非常明显，它规避了JSP与Servlet各自的短板，Servlet只负责业务逻辑而不会通过out.append()动态生成HTML代码；JSP中也不会充斥着大量的业务代码。这大大提高了代码的可读性和可维护性。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/21/2019-10-21/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
     </nav>
   
 
