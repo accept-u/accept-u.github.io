@@ -152,6 +152,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SpringMVC拦截器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="通过SpringMVC拦截器实现权限验证"><a href="#通过SpringMVC拦截器实现权限验证" class="headerlink" title="通过SpringMVC拦截器实现权限验证"></a>通过SpringMVC拦截器实现权限验证</h1><p>[TOC]</p>
+<p>依赖于web框架，在SpringMVC中就是依赖于SpringMVC框架。在实现上基于Java的反射机制，属于面向切面编程（AOP）的一种运用。由于拦截器是基于web框架的调用，因此可以使用Spring的依赖注入（DI）进行一些业务操作，同时一个拦截器实例在一个controller生命周期之内可以多次调用。但是缺点是只能对controller请求进行拦截，对其他的一些比如直接访问静态资源的请求则没办法进行拦截处理</p>
+<p>对大部分系统来说都需要权限管理来决定不同用户可以看到哪些内容，那么如何在Spring MVC中实现权限验证呢？当然我们可以继续使用Servlet中的过滤器Filter来实现。但借助于Spring MVC中的拦截器我们可以实现注解式的权限验证。 </p>
+<h4 id="一-首先介绍一下拦截器："><a href="#一-首先介绍一下拦截器：" class="headerlink" title="一.首先介绍一下拦截器："></a>一.首先介绍一下拦截器：</h4><p>HandlerInterceptor是Spring MVC为我们提供的拦截器接口，来让我们实现自己的处理逻辑，HandlerInterceptor 的内容如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerInterceptor</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletRequest request, HttpServletResponse response,   </span></span></span><br><span class="line"><span class="function"><span class="params">            Object handler)</span>   </span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletRequest request, HttpServletResponse response,   </span></span></span><br><span class="line"><span class="function"><span class="params">            Object handler, ModelAndView modelAndView)</span>   </span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(  </span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletRequest request, HttpServletResponse response,   </span></span></span><br><span class="line"><span class="function"><span class="params">            Object handler, Exception ex)</span>  </span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到接口有3个方法，其含义如下：</p>
+<ul>
+<li><strong>preHandle：</strong> 在执行Controller里面的处理逻辑之前执行，它返回的是boolean，这里如果我们返回true在接着执行postHandle和afterCompletion，如果我们返回false则中断执行。</li>
+<li><strong>postHandle：</strong> 在执行action里面的逻辑后返回视图之前执行。</li>
+<li><strong>afterCompletion：</strong> 在action返回视图后执行。</li>
+</ul>
+<p>HandlerInterceptorAdapter适配器是Spring MVC为了方便我们使用HandlerInterceptor而对HandlerInterceptor 的默认实现，里面的3个方法没有做任何处理，在preHandle方法直接返回true，这样我们继承HandlerInterceptorAdapter后只需要实现3个方法中我们需要的方法即可，而不像继承HandlerInterceptor一样不管是否需要3个方法都要实现。<br>当然借助于HandlerInterceptor我们可以实现很多其它功能，比如日志记录、请求处理时间分析等，权限验证只是其中之一。</p>
+<h4 id="二-一步一步来完成注解式权限验证的功能"><a href="#二-一步一步来完成注解式权限验证的功能" class="headerlink" title="二.一步一步来完成注解式权限验证的功能"></a>二.一步一步来完成注解式权限验证的功能</h4><p>首先添加一个账户的Controller和登录的方法及视图来模拟在没有权限时跳转到登陆页面，内容分别如下：</p>
+<p><strong>AccountController.java：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/account"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/login"</span>, method = &#123;RequestMethod.GET&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>login.jsp：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8"</span></span><br><span class="line">    pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    这里是登录界面</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加自己的拦截器实现AuthInterceptor继承于HandlerInterceptorAdapter，内容如下：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo.web.auth;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.HandlerMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthInterceptor</span> <span class="keyword">extends</span> <span class="title">HandlerInterceptorAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(handler.getClass().isAssignableFrom(HandlerMethod.class))&#123;</span><br><span class="line">            AuthPassport authPassport = ((HandlerMethod) handler).getMethodAnnotation(AuthPassport.class);</span><br><span class="line">            <span class="comment">//没有声明需要权限,或者声明不验证权限</span></span><br><span class="line">                <span class="keyword">if</span>(authPassport == <span class="keyword">null</span> || authPassport.validate() == <span class="keyword">false</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;                </span><br><span class="line">                <span class="comment">//在这里实现自己的权限验证逻辑</span></span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">false</span>)<span class="comment">//如果验证成功返回true（这里直接写false来模拟验证失败的处理）</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">//如果验证失败返回到登录界面</span></span><br><span class="line">                    response.sendRedirect(<span class="string">"account/login"</span>);</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;       </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;   </span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>配置项目的spring-mvc.xml添加如下内容：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:interceptors</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:interceptor</span>&gt;</span></span><br><span class="line">		  <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/dept/*"</span>/&gt;</span></span><br><span class="line">		  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.chinasofti.zzeec.demo.mvc.auth.AuthInterceptor"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">mvc:interceptor</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:interceptors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样在执行每个action方法是都会调用AuthInterceptor处理，当判断action上有我们定义AuthPassport注解时就会执行里面的权限验证逻辑。<br>在DemoController的index方法上加上自定义注解AuthPassport：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AuthPassport</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=&#123;<span class="string">"/index"</span>,<span class="string">"/hello"</span>&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();  </span><br><span class="line">    modelAndView.addObject(<span class="string">"message"</span>, <span class="string">"Hello World!"</span>);  </span><br><span class="line">    modelAndView.setViewName(<span class="string">"index"</span>);  </span><br><span class="line">    <span class="keyword">return</span> modelAndView;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在需要权限验证的action上加上这个注解就可以实现权限控制功能了。</p>
+<h3 id="Spring-的拦截器和-Servlet的过滤器有什么区别"><a href="#Spring-的拦截器和-Servlet的过滤器有什么区别" class="headerlink" title="Spring 的拦截器和 Servlet的过滤器有什么区别"></a>Spring 的拦截器和 Servlet的过滤器有什么区别</h3><ol>
+<li>使用的范围不同： Filter 是Servlet 规范规定的，只能应用在 Web程序中。 拦截器除了web程序，也可以应用在 Swing 程序中。</li>
+<li>规范不同： Filter 是 Servlet 容器支持。拦截器是 Spring 容器支持。</li>
+<li>使用的资源不同：拦截器是Spring的组件，归Spring管理。因此可以使用Spring中的各种资源和对象，比如数据源，事务管理等等。Filter不能这么做。</li>
+<li>深度不同：Filter只在Servlet前后起作用。拦截器可以深入到方法前后，异常抛出前后，所以拦截器有这更大的弹性。在应用了Spring框架的程序中，建议优先使用拦截器。</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/08/SpringMVC拦截器/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ssm整合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1462,172 +1545,9 @@ WHERE score IN (SELECT TOP 2 score
 
 
   
-    <article id="post-MYSQL面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/09/MYSQL面试题/">MYSQL面试题</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/09/MYSQL面试题/" class="archive-article-date">
-  	<time datetime="2020-03-09T02:27:34.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="MYSQL面试题1"><a href="#MYSQL面试题1" class="headerlink" title="MYSQL面试题1"></a>MYSQL面试题1</h2><h3 id="数据表介绍"><a href="#数据表介绍" class="headerlink" title="数据表介绍"></a>数据表介绍</h3><p>1.学生表<br>Student(SId,Sname,Sage,Ssex)<br>SId 学生编号,Sname 学生姓名,Sage 出生年月,Ssex 学生性别</p>
-<p>2.课程表<br>Course(CId,Cname,TId)<br>CId 课程编号,Cname 课程名称,TId 教师编号</p>
-<p>3.教师表<br>Teacher(TId,Tname)<br>TId 教师编号,Tname 教师姓名</p>
-<p>4.成绩表<br>SC(SId,CId,score)<br>SId 学生编号,CId 课程编号,score 分数</p>
-<h2 id="建立数据表并插入数据"><a href="#建立数据表并插入数据" class="headerlink" title="建立数据表并插入数据"></a>建立数据表并插入数据</h2><h3 id="学生表-Student"><a href="#学生表-Student" class="headerlink" title="学生表 Student"></a>学生表 Student</h3><p>create table Student(SId varchar(10),Sname varchar(10),Sage datetime,Ssex varchar(10));<br>insert into Student values(‘01’ , ‘小米’ , ‘1990-01-01’ , ‘男’);<br>insert into Student values(‘02’ , ‘香茗’ , ‘1990-12-21’ , ‘男’);<br>insert into Student values(‘03’ , ‘孙风’ , ‘1990-12-20’ , ‘男’);<br>insert into Student values(‘04’ , ‘李云’ , ‘1990-12-06’ , ‘男’);<br>insert into Student values(‘05’ , ‘周梅’ , ‘1991-12-01’ , ‘女’);<br>insert into Student values(‘06’ , ‘吴兰’ , ‘1992-01-01’ , ‘女’);<br>insert into Student values(‘07’ , ‘郑竹’ , ‘1989-01-01’ , ‘女’);<br>insert into Student values(‘09’ , ‘张三’ , ‘2017-12-20’ , ‘男’);<br>insert into Student values(‘10’ , ‘李四’ , ‘2017-12-25’ , ‘男’);<br>insert into Student values(‘11’ , ‘李四’ , ‘2012-06-06’ , ‘男’);<br>insert into Student values(‘12’ , ‘赵六’ , ‘2013-06-13’ , ‘女’);<br>insert into Student values(‘13’ , ‘孙七’ , ‘2014-06-01’ , ‘女’);</p>
-<h3 id="科目表-Course"><a href="#科目表-Course" class="headerlink" title="科目表 Course"></a>科目表 Course</h3><p>create table Course(CId varchar(10),Cname nvarchar(10),TId varchar(10));<br>insert into Course values(‘01’ , ‘语文’ , ‘02’);<br>insert into Course values(‘02’ , ‘数学’ , ‘01’);<br>insert into Course values(‘03’ , ‘英语’ , ‘03’);</p>
-<h3 id="教师表-Teacher"><a href="#教师表-Teacher" class="headerlink" title="教师表 Teacher"></a>教师表 Teacher</h3><pre><code>create table Teacher(TId varchar(10),Tname varchar(10));
-insert into Teacher values(&apos;01&apos; , &apos;张三&apos;);
-insert into Teacher values(&apos;02&apos; , &apos;李四&apos;);
-insert into Teacher values(&apos;03&apos; , &apos;王五&apos;);</code></pre><h3 id="成绩表-SC"><a href="#成绩表-SC" class="headerlink" title="成绩表 SC"></a>成绩表 SC</h3><pre><code>create table SC(SId varchar(10),CId varchar(10),score decimal(16,1));
-insert into SC values(&apos;01&apos; , &apos;01&apos; , 80);
-insert into SC values(&apos;01&apos; , &apos;02&apos; , 90);
-insert into SC values(&apos;02&apos; , &apos;01&apos; , 70);
-insert into SC values(&apos;02&apos; , &apos;02&apos; , 60);
-insert into SC values(&apos;02&apos; , &apos;03&apos; , 80);
-insert into SC values(&apos;03&apos; , &apos;01&apos; , 80);
-insert into SC values(&apos;03&apos; , &apos;02&apos; , 80);
-insert into SC values(&apos;03&apos; , &apos;03&apos; , 80);
-insert into SC values(&apos;04&apos; , &apos;01&apos; , 50);
-insert into SC values(&apos;04&apos; , &apos;03&apos; , 20);
-insert into SC values(&apos;05&apos; , &apos;01&apos; , 76);
-insert into SC values(&apos;05&apos; , &apos;02&apos; , 87);
-insert into SC values(&apos;06&apos; , &apos;01&apos; , 31);
-insert into SC values(&apos;06&apos; , &apos;03&apos; , 34);
-insert into SC values(&apos;07&apos; , &apos;02&apos; , 89);
-insert into SC values(&apos;07&apos; , &apos;03&apos; , 98);</code></pre><p>##　练习题目<br>查询” 01 “课程比” 02 “课程成绩高的学生的信息及课程分数<br>        SELECT * FROM student RIGHT JOIN<br>        (SELECT t1.sid,cldone_score,cldtwo_score FROM<br>        (SELECT sid,score as cldone_score FROM sc WHERE CId=’01’) as t1,<br>        (SELECT sid,score as cldtwo_score FROM sc WHERE CId=’02’) as t2<br>        WHERE t1.cldone_score&gt;t2.cldtwo_score AND t1.SId=t2.SId)r<br>        ON student.SId=r.SId;</p>
-<p>查询同时存在” 01 “课程和” 02 “课程的情况</p>
-<pre><code>SELECT * FROM(
-(SELECT * FROM sc WHERE CId=&apos;01&apos;) AS t1,
-(SELECT * FROM sc WHERE CId=&apos;02&apos;) AS t2
-) WHERE t1.SId=t2.SId;</code></pre><p>查询存在” 01 “课程但可能不存在” 02 “课程的情况(不存在时显示为 null )</p>
-<pre><code>SELECT * FROM
-(SELECT * FROM sc WHERE CId=&apos;01&apos;) AS t2
-RIGHT JOIN
-(SELECT * FROM sc WHERE CId=&apos;02&apos;) AS t1
-on t1.SId=t2.SId;</code></pre><p>查询不存在” 01 “课程但存在” 02 “课程的情况</p>
-<pre><code>SELECT * FROM sc
-WHERE sc.SId NOT in (SELECT SId FROM sc
-WHERE sc.CId = &apos;01&apos;) 
-AND sc.CId = &apos;02&apos;;</code></pre><p>查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩<br>        SELECT student.SId,Sname,ss FROM student,<br>        (SELECT SId,AVG(score) as ss FROM sc<br>        GROUP BY SId<br>        HAVING AVG(score)&gt;60<br>        ) r<br>        WHERE student.SId=r.SId;</p>
-<p>查询在 SC 表存在成绩的学生信息<br>        SELECT student.* ,sc.score FROM<br>        student,sc<br>        WHERE student.SId=sc.SId;</p>
-<p>查询所有同学的学生编号、学生姓名、选课总数、所有课程的总成绩(没成绩的显示为 null )<br>        SELECT student.SId,Sname,r.sum,r.count FROM (<br>        SELECT SID,SUM(score) as sum,COUNT(SId) as count<br>        FROM sc<br>        GROUP BY SId)r<br>        RIGHT JOIN student<br>        on student.SId = r.SID;</p>
-<p>查有成绩的学生信息</p>
-<pre><code>SELECT * FROM student
-WHERE EXISTS(
-select sc.sid from sc
-WHERE student.sid = sc.sid)
-或
-select * from student
-where student.sid in (select sc.sid from sc);</code></pre><p>查询「李」姓老师的数量<br>        SELECT COUNT(TId) FROM<br>        (SELECT * FROM teacher WHERE Tname LIKE ‘李%’)r<br>        GROUP BY r.Tid;<br>        或<br>        select count(*)<br>        from teacher<br>        where tname like ‘李%’;</p>
-<p>查询学过「张三」老师授课的同学的信息<br>        SELECT student.* FROM sc,course,student,teacher<br>        WHERE<br>        student.SId=sc.SId<br>        and course.TId=teacher.TId<br>        and sc.CId=course.CId<br>        AND Tname=’张三’;</p>
-<p>查询没有学全所有课程的同学的信息<br>        SELECT student.* FROM student<br>        WHERE SId NOT in (<br>        SELECT SId FROM sc<br>        GROUP BY SId<br>        HAVING COUNT(SId) =<br>        (SELECT COUNT(CId) FROM course));</p>
-<p>查询至少有一门课与学号为” 01 “的同学所学相同的同学的信息<br>        SELECT student.* FROM student<br>        WHERE SId in(<br>        SELECT SId FROM sc<br>        WHERE CId in(<br>        SELECT CId FROM sc WHERE SId=’01’));</p>
-<p>查询和” 01 “号的同学学习的课程 完全相同的其他同学的信息<br>        select sid<br>        from student<br>        where not exists (select 1 from (select cid from sc where sid=’01’) b<br>        where not exists(select 1 from sc<br>        where sc.sid=student.sid and sc.cid=b.cid));</p>
-<p>查询没学过”张三”老师讲授的任一门课程的学生姓名<br>        SELECT student.* FROM student<br>        WHERE SId not in(<br>        SELECT SId FROM sc WHERE CId in(<br>        SELECT course.CId FROM teacher,course<br>        WHERE Tname=’张三’ AND course.TId=teacher.TId));</p>
-<p>查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩<br>        select student.SId,student.Sname,avg<br>        from student RIGHT JOIN<br>        (select sid,AVG(score) as avg from sc<br>        where sid in<br>        (select sid from sc where score&lt;60 GROUP BY sid HAVING count(score)&gt;1)<br>        GROUP BY sid) b<br>        on student.sid=b.sid;</p>
-<p>检索” 01 “课程分数小于 60，按分数降序排列的学生信息<br>        SELECT student.* FROM student,(<br>        SELECT SId FROM(SELECT * FROM sc<br>        WHERE CId=’01’<br>        ORDER BY score)tem<br>        WHERE tem.score&lt;60)r<br>        WHERE student.SId=r.SId;</p>
-<pre><code>或
-
-select student.*, sc.score from student,sc
-WHERE student.SId=sc.SId
-AND score&lt;60
-AND CId=&apos;01&apos;
-ORDER BY score;</code></pre><p>按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩<br>        SELECT sc.*,t1.avg FROM sc RIGHT JOIN<br>        (SELECT sid,AVG(score) as avg FROM sc<br>        GROUP BY SId) as t1<br>        on t1.SId=sc.SId<br>        ORDER BY t1.avg DESC;</p>
-<p>查询各科成绩最高分、最低分和平均分：<br>• 以如下形式显示：课程 ID，课程 name，最高分，最低分，平均分，及格率，中等率，优良率，优秀率<br>• 及格为&gt;=60，中等为：70-80，优良为：80-90，优秀为：&gt;=90<br>• 要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列<br>        SELECT cid,<br>        MAX(score) as max,<br>        MIN(score) as min,<br>        AVG(score) as avg,<br>        COUNT(CId) as Count,<br>        sum(CASE when sc.score&gt;=60 THEN 1 ELSE 0 END)/COUNT(<em>) as jige,<br>        sum(CASE WHEN sc.score&gt;=70 and sc.score&lt;80 THEN 1 ELSE 0 END)/COUNT(</em>) as zhongdeng,<br>        sum(CASE WHEN sc.score&gt;=80 AND sc.score&lt;90 THEN 1 ELSE 0 END)/COUNT(<em>) as youliang,<br>        SUM(CASE WHEN sc.score&gt;=90 THEN 1 ELSE 0 END)/COUNT(</em>) as youxiu<br>        FROM  sc<br>        GROUP BY CId<br>        ORDER BY count DESC,sc.CId asc;</p>
-<p>按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺<br>• 15.1 按各科成绩进行排序，并显示排名， Score 重复时合并名次<br>        SELECT a.cid,a.SId,a.score,COUNT(b.score)+1 as rank<br>        FROM sc as a LEFT JOIN sc b<br>        on a.score&lt;b.score AND a.CId=b.CId<br>        GROUP BY a.CId,a.SId,a.score<br>        ORDER BY a.CId,rank asc;</p>
-<p>查询学生的总成绩，并进行排名，总分重复时保留名次空缺<br>• 16.1 查询学生的总成绩，并进行排名，总分重复时不保留名次空缺<br>        set @crank=0;<br>        SELECT tmp.SId,tmp.total,@crank := @crank +1 as rank FROM<br>        (SELECT sc.SId,SUM(sc.score) as total FROM sc<br>        GROUP BY SId<br>        ORDER BY total DESC)tmp;</p>
-<p>统计各科成绩各分数段人数：课程编号，课程名称，[100-85]，[85-70]，[70-60]，[60-0] 及所占百分比<br>        select course.cname, course.cid,<br>        sum(case when sc.score&lt;=100 and sc.score&gt;85 then 1 else 0 end) as “[100-85]”,<br>        CONCAT(sum(case when sc.score&lt;=100 and sc.score&gt;85 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[100-85]百分比”,<br>        sum(case when sc.score&lt;=85 and sc.score&gt;70 then 1 else 0 end) as “[85-70]”,<br>        CONCAT(sum(case when sc.score&lt;=85 and sc.score&gt;70 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[85-70]百分比]” ,<br>        sum(case when sc.score&lt;=70 and sc.score&gt;60 then 1 else 0 end) as “[70-60]”,<br>        CONCAT(sum(case when sc.score&lt;=70 and sc.score&gt;60 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[70-60]百分比”,<br>        sum(case when sc.score&lt;=60 and sc.score&gt;0 then 1 else 0 end) as “[60-0]”,<br>        CONCAT(sum(case when sc.score&lt;=60 and sc.score&gt;0 then 1 else 0 end)/COUNT(<em>)</em>100,’%’) as “[60-0]百分比”<br>        from sc left join course<br>        on sc.cid = course.cid<br>        group by sc.cid;</p>
-<p>查询各科成绩前三名的记录<br>        select * from sc<br>        where (select count(*) from sc as a<br>        where sc.cid = a.cid and sc.score&lt;a.score )&lt; 3<br>        order by cid asc, sc.score desc;</p>
-<p>查询每门课程被选修的学生数<br>        SELECT cid,COUNT(SId) as total FROM sc<br>        GROUP BY CId;</p>
-<p>查询出只选修两门课程的学生学号和姓名<br>        SELECT  student.SId,student.Sname,temp.total FROM student,(<br>        SELECT sid,COUNT(CId) as total FROM sc<br>        GROUP BY SId)temp<br>        WHERE temp.total=2 AND student.SId=temp.Sid;</p>
-<p>或</p>
-<pre><code>select student.sid, student.sname from student
-where student.sid in
-(select sc.sid from sc
-group by sc.sid
-having count(sc.cid)=2);</code></pre><p>查询男生、女生人数<br>        select ssex, count(*) from student<br>        group by ssex;</p>
-<p>查询名字中含有「风」字的学生信息<br>        SELECT * FROM student<br>        WHERE Sname LIKE(‘%风%’);</p>
-<p>查询同名同性学生名单，并统计同名人数<br>        SELECT sname,COUNT(<em>) FROM student<br>        GROUP BY Sname<br>        HAVING count(</em>)&gt;1;</p>
-<p>查询 1990 年出生的学生名单<br>        SELECT * FROM student<br>        WHERE YEAR(Sage)=1990;</p>
-<p>查询每门课程的平均成绩，结果按平均成绩降序排列，平均成绩相同时，按课程编号升序排列<br>        SELECT * FROM<br>        (SELECT cid,AVG(score) as cidavg FROM sc<br>        GROUP BY CId) as temp ORDER BY cidavg,cid asc;</p>
-<p>查询平均成绩大于等于 85 的所有学生的学号、姓名和平均成绩<br>        select student.sid, student.sname, AVG(sc.score) as aver from student, sc<br>        where student.sid = sc.sid<br>        group by sc.sid<br>        having aver &gt; 85;</p>
-<p>查询课程名称为「数学」，且分数低于 60 的学生姓名和分数<br>        SELECT student.Sname,sc.cid,sc.score FROM course,sc,student<br>        WHERE course.Cname=’数学’<br>        AND course.CId=sc.CId<br>        AND student.SId=sc.SId<br>        AND score&lt;60;</p>
-<p>查询所有学生的课程及分数情况（存在学生没成绩，没选课的情况）<br>        SELECT student.sid,student.Sname,sc.CId,score FROM student LEFT JOIN sc<br>        on student.SId=sc.SId;</p>
-<p>查询任何一门课程成绩在 70 分以上的姓名、课程名称和分数<br>        SELECT student.Sname,course.CId,course.Cname,sc.score<br>        FROM sc,course,student<br>        WHERE sc.score&gt;70<br>        AND sc.CId=course.CId<br>        AND sc.SId=student.SId;</p>
-<p>查询不及格的课程<br>        SELECT CId,score FROM sc<br>        WHERE sc.score&lt;60<br>        GROUP BY CId;</p>
-<p>查询课程编号为 01 且课程成绩在 80 分以上的学生的学号和姓名<br>        SELECT student.SId,student.Sname FROM sc,student<br>        WHERE CId=’01’<br>        AND sc.score&gt;=80<br>        AND sc.SId=student.SId;</p>
-<p>求每门课程的学生人数<br>        SELECT cid,count(SId) as count FROM sc<br>        GROUP BY CId;</p>
-<p>成绩不重复，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>        SELECT student.*,sc.score,sc.CId FROM sc,student,teacher,course<br>        WHERE teacher.Tname=’张三’<br>        AND teacher.TId=course.TId<br>        AND course.CId=sc.CId<br>        AND student.SId=sc.SId<br>        HAVING max(sc.score);</p>
-<p>成绩有重复的情况下，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>        select student.*, sc.score, sc.cid from student, teacher, course,sc<br>        where teacher.tname = “张三”<br>        AND teacher.tid = course.tid<br>        AND sc.sid = student.sid<br>        AND sc.cid = course.cid<br>        AND sc.score=(select Max(sc.score)<br>            from sc,student, teacher, course<br>            where teacher.tid = course.tid<br>            and sc.sid = student.sid<br>            and sc.cid = course.cid<br>            and teacher.tname = “张三”);</p>
-<p>查询不同课程成绩相同的学生的学生编号、课程编号、学生成绩<br>        SELECT a.CId,a.SId,a.score FROM sc as a INNER JOIN sc as b<br>        ON a.SId=b.SId<br>        AND a.CId!=b.CId<br>        AND a.score=b.score<br>        GROUP BY CId,SId;</p>
-<p>查询每门功成绩最好的前两名<br>        select a.sid,a.cid,a.score from sc as a<br>        left join sc as b<br>        on a.cid = b.cid and a.score&lt;b.score<br>        group by a.cid, a.sid<br>        having count(b.cid)&lt;2<br>        order by a.cid;</p>
-<p>统计每门课程的学生选修人数（超过 5 人的课程才统计）<br>        SELECT cid,COUNT(SId) FROM sc<br>        GROUP BY CId<br>        HAVING COUNT(SId)&gt;5;</p>
-<p>检索至少选修两门课程的学生学号<br>        SELECT sid,COUNT(SId) as two FROM sc<br>        GROUP BY SId<br>        HAVING two&gt;=2;</p>
-<p>查询选修了全部课程的学生信息<br>        select student.* from sc ,student<br>        where sc.SId=student.SId<br>        GROUP BY sc.SId<br>        HAVING count(<em>) = (select DISTINCT count(</em>) from course );</p>
-<p>查询各学生的年龄，只按年份来算<br>        SELECT sid,YEAR(NOW())-YEAR(Sage) as age<br>        FROM student;</p>
-<p>按照出生日期来算，当前月日 &lt; 出生年月的月日则，年龄减一<br>        select student.SId as stu_id,student.Sname  as  stu_name,<br>        TIMESTAMPDIFF(YEAR,student.Sage,CURDATE()) as age #时间差函数TIMESTAMPDIFF<br>        from student;</p>
-<p>查询本周过生日的学生<br>        SELECT * FROM student<br>        WHERE WEEKOFYEAR(Sage)=WEEKOFYEAR(CURDATE());</p>
-<p>查询下周过生日的学生<br>        select *<br>        from student<br>        where WEEKOFYEAR(student.Sage)=WEEKOFYEAR(CURDATE())+1;</p>
-<p>查询本月过生日的学生<br>        SELECT * FROM student<br>        WHERE MONTH(Sage)=MONTH(CURDATE());</p>
-<p>查询下月过生日的学生<br>        SELECT * FROM student<br>        WHERE MONTH(Sage)=MONTH(CURDATE())+1;</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/09/MYSQL面试题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
