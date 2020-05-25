@@ -16,7 +16,7 @@
 <meta property="og:description" content="SpringBoot+Mysql整合 1.引入jar包 12345&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.mybatis.spring.boot&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;mybatis-spring-boot-starter&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;2.1.1&amp;l">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://user-images.githubusercontent.com/55903351/81532673-5c884280-9397-11ea-8a2c-0f745642c5fe.png">
-<meta property="og:updated_time" content="2020-05-11T06:55:46.356Z">
+<meta property="og:updated_time" content="2020-05-25T10:26:45.572Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
 <meta name="twitter:description" content="SpringBoot+Mysql整合 1.引入jar包 12345&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.mybatis.spring.boot&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;mybatis-spring-boot-starter&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;2.1.1&amp;l">
@@ -179,7 +179,7 @@
 
 <blockquote>
 <h4 id="7-在yaml文件中指定mybatis全局配置文件和接口映射文件位置"><a href="#7-在yaml文件中指定mybatis全局配置文件和接口映射文件位置" class="headerlink" title="7.在yaml文件中指定mybatis全局配置文件和接口映射文件位置"></a>7.在yaml文件中指定mybatis全局配置文件和接口映射文件位置</h4></blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  datasource:</span><br><span class="line">    username: root</span><br><span class="line">    password: root</span><br><span class="line">    url: jdbc:mysql://localhost:3306/his_v?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai</span><br><span class="line">    driver-class-name: com.mysql.jdbc.Driver</span><br><span class="line">mybatis://</span><br><span class="line">  type-aliases-package: com.jws.entity</span><br><span class="line">  mapper-locations: classpath:mybatis/mapper/*.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  datasource:</span><br><span class="line">    username: root</span><br><span class="line">    password: root</span><br><span class="line">    url: jdbc:mysql://localhost:3306/his_v?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai</span><br><span class="line">    driver-class-name: com.mysql.jdbc.Driver</span><br><span class="line">mybatis:</span><br><span class="line">  type-aliases-package: com.jws.entity</span><br><span class="line">  mapper-locations: classpath:mybatis/mapper/*.xml</span><br></pre></td></tr></table></figure>
 
 <p>目录展示</p>
 <p><img src="https://user-images.githubusercontent.com/55903351/81532673-5c884280-9397-11ea-8a2c-0f745642c5fe.png" alt="1"></p>
