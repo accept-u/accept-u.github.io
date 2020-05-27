@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | Hexo</title>
+  <title>springboot发送邮件 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Eetity.java 12345678910">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot发送邮件">
+<meta property="og:url" content="http://yoursite.com/2020/05/27/springboot发送邮件/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Eetity.java 12345678910">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-05-27T06:09:13.118Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="springboot发送邮件">
+<meta name="twitter:description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Eetity.java 12345678910">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,265 +154,172 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-springboot发送邮件" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      springboot发送邮件
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/27/springboot发送邮件/" class="archive-article-date">
+
+        
+        <a href="/2020/05/27/springboot发送邮件/" class="archive-article-date">
   	<time datetime="2020-05-27T02:56:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-27</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/27/springboot发送邮件/">springboot发送邮件</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h6 id="话不多说直接上打码"><a href="#话不多说直接上打码" class="headerlink" title="话不多说直接上打码"></a>话不多说直接上打码</h6><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-mail&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>Eetity.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Email</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String content;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String to;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.mail.host=smtp.sina.com</span><br><span class="line">spring.mail.password=1fsbzabzf0</span><br><span class="line">spring.mail.username=jwsdfadasf@sina.com</span><br><span class="line">spring.mail.port=25</span><br><span class="line">#开启加密</span><br><span class="line">spring.mail.properties.mail.stmp.ssl.enable=true</span><br></pre></td></tr></table></figure>
+
+<h3 id="EmailService-java"><a href="#EmailService-java" class="headerlink" title="EmailService.java"></a>EmailService.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(Email email)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="EmailServiceImpl-java"><a href="#EmailServiceImpl-java" class="headerlink" title="EmailServiceImpl.java"></a>EmailServiceImpl.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailImpl</span> <span class="keyword">implements</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender javaMailSender;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.mail.username&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String from;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(Email email)</span> </span>&#123;</span><br><span class="line">        MimeMessage mimeMessage = javaMailSender.createMimeMessage();<span class="comment">//创建mimeMessage</span></span><br><span class="line">        MimeMessageHelper mimeMessageHelper = <span class="keyword">new</span> MimeMessageHelper(mimeMessage);<span class="comment">//发送邮件的工具类</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            mimeMessageHelper.setSubject(email.getTitle());</span><br><span class="line">            mimeMessageHelper.setText(email.getContent(),<span class="keyword">true</span>);</span><br><span class="line">            mimeMessageHelper.setFrom(from);</span><br><span class="line">            mimeMessageHelper.setTo(email.getTo());</span><br><span class="line">            javaMailSender.send(mimeMessage);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MessagingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootTest</span><br><span class="line">class SpringbootMailApplicationTests &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private EmailImpl emailService;</span><br><span class="line">    @Test</span><br><span class="line">    void text()&#123;</span><br><span class="line">        Email email = new Email();</span><br><span class="line">        email.setContent(&quot;内容：&lt;a href=&apos;https://www.baidu.com&apos;&gt;需要领取请点击&lt;/a&gt;&quot;);</span><br><span class="line">        email.setTitle(&quot;标题&quot;);</span><br><span class="line">        email.setTo(&quot;发送人邮箱&quot;);//qq邮箱可能直接进入垃圾箱 个人建议使用新浪邮箱</span><br><span class="line">        emailService.sendEmail(email);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/27/springboot发送邮件/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/使用mybatis-plus/" class="archive-article-date">
-  	<time datetime="2020-05-25T10:29:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/25/使用mybatis-plus/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用mybatis-plus</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/使用mybatis-plus/">使用mybatis-plus</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/15/学习Swagger/" class="archive-article-date">
-  	<time datetime="2020-05-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/15/学习Swagger/">学习Swagger</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/15/security框架/" class="archive-article-date">
-  	<time datetime="2020-05-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/15/security框架/">security框架</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/12/安全框架-shiro/" class="archive-article-date">
-  	<time datetime="2020-05-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/12/安全框架-shiro/">安全框架--shiro</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/11/SpringBoot+Mysql整合/" class="archive-article-date">
-  	<time datetime="2020-05-11T05:26:54.040Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/11/解决跨域/" class="archive-article-date">
-  	<time datetime="2020-05-11T03:49:02.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/06/前后端分离/" class="archive-article-date">
-  	<time datetime="2020-05-06T12:17:47.859Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/23/Ajax研究/" class="archive-article-date">
-  	<time datetime="2020-04-23T01:06:59.201Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/23/Json交互处理/" class="archive-article-date">
-  	<time datetime="2020-04-23T01:06:59.141Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -432,8 +343,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

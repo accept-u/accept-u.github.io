@@ -152,6 +152,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-乱码及解决" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/26/乱码及解决/">乱码及解决</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/26/乱码及解决/" class="archive-article-date">
+  	<time datetime="2019-11-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL会出现中文乱码的原因不外乎下列几点："><a href="#MySQL会出现中文乱码的原因不外乎下列几点：" class="headerlink" title="MySQL会出现中文乱码的原因不外乎下列几点："></a>MySQL会出现中文乱码的原因不外乎下列几点：</h1><h2 id="1-server本身设定问题，例如还停留在latin1"><a href="#1-server本身设定问题，例如还停留在latin1" class="headerlink" title="1.server本身设定问题，例如还停留在latin1"></a>1.server本身设定问题，例如还停留在latin1</h2><h2 id="2-table的语系设定问题-包含character与collation"><a href="#2-table的语系设定问题-包含character与collation" class="headerlink" title="2.table的语系设定问题(包含character与collation)"></a>2.table的语系设定问题(包含character与collation)</h2><h2 id="3-客户端程式-例如php-的连线语系设定问题"><a href="#3-客户端程式-例如php-的连线语系设定问题" class="headerlink" title="3.客户端程式(例如php)的连线语系设定问题"></a>3.客户端程式(例如php)的连线语系设定问题</h2><p>##　解决方法</p>
+<ul>
+<li><p>第一步：找到安装mysql的目录找到 my.ini 文件；</p>
+</li>
+<li><p>第二步：使用记事本打开my.ini文件，<br>找到这个地方 看看default-character-set是不是utf8 不是的话改为utf8即可！</p>
+</li>
+<li><p>第三步：在mysql数据库cmd中输入：show variables like’%char%’;</p>
+</li>
+<li><p>第四步：改变原有数据库的编码方式最好都改为utf8：</p>
+<pre><code>set character_set_database=utf8;
+set character_set_server=utf8;
+set character_set_client=utf8;
+set character_set_connection=utf8;
+set character-set-results=utf8;
+set character-set-system=utf8;</code></pre></li>
+</ul>
+<h1 id="MySQL中涉及的几个字符集"><a href="#MySQL中涉及的几个字符集" class="headerlink" title="MySQL中涉及的几个字符集"></a>MySQL中涉及的几个字符集</h1><h2 id="character-set-server-default-character-set：服务器字符集，默认情况下所采用的。"><a href="#character-set-server-default-character-set：服务器字符集，默认情况下所采用的。" class="headerlink" title="character-set-server/default-character-set：服务器字符集，默认情况下所采用的。"></a>character-set-server/default-character-set：服务器字符集，默认情况下所采用的。</h2><h2 id="character-set-database：数据库字符集。"><a href="#character-set-database：数据库字符集。" class="headerlink" title="character-set-database：数据库字符集。"></a>character-set-database：数据库字符集。</h2><h2 id="character-set-table：数据库表字符集。"><a href="#character-set-table：数据库表字符集。" class="headerlink" title="character-set-table：数据库表字符集。"></a>character-set-table：数据库表字符集。</h2><h3 id="优先级依次增加。所以一般情况下只需要设置character-set-server，而在创建数据库和表时不特别指定字符集，这样统一采用character-set-server字符集。"><a href="#优先级依次增加。所以一般情况下只需要设置character-set-server，而在创建数据库和表时不特别指定字符集，这样统一采用character-set-server字符集。" class="headerlink" title="优先级依次增加。所以一般情况下只需要设置character-set-server，而在创建数据库和表时不特别指定字符集，这样统一采用character-set-server字符集。"></a>优先级依次增加。所以一般情况下只需要设置character-set-server，而在创建数据库和表时不特别指定字符集，这样统一采用character-set-server字符集。</h3><h2 id="character-set-client：客户端的字符集。客户端默认字符集。当客户端向服务器发送请求时，请求以该字符集进行编码。"><a href="#character-set-client：客户端的字符集。客户端默认字符集。当客户端向服务器发送请求时，请求以该字符集进行编码。" class="headerlink" title="character-set-client：客户端的字符集。客户端默认字符集。当客户端向服务器发送请求时，请求以该字符集进行编码。"></a>character-set-client：客户端的字符集。客户端默认字符集。当客户端向服务器发送请求时，请求以该字符集进行编码。</h2><h2 id="character-set-results：结果字符集。服务器向客户端返回结果或者信息时，结果以该字符集进行编码。"><a href="#character-set-results：结果字符集。服务器向客户端返回结果或者信息时，结果以该字符集进行编码。" class="headerlink" title="character-set-results：结果字符集。服务器向客户端返回结果或者信息时，结果以该字符集进行编码。"></a>character-set-results：结果字符集。服务器向客户端返回结果或者信息时，结果以该字符集进行编码。</h2><h3 id="在客户端，如果没有定义character-set-results，则采用character-set-client字符集作为默认的字符集。所以只需要设置character-set-client字符集。"><a href="#在客户端，如果没有定义character-set-results，则采用character-set-client字符集作为默认的字符集。所以只需要设置character-set-client字符集。" class="headerlink" title="在客户端，如果没有定义character-set-results，则采用character-set-client字符集作为默认的字符集。所以只需要设置character-set-client字符集。"></a>在客户端，如果没有定义character-set-results，则采用character-set-client字符集作为默认的字符集。所以只需要设置character-set-client字符集。</h3><p>要处理中文，则可以将character-set-server和character-set-client均设置为GB2312，如果要同时处理多国语言，则设置为UTF8。建议设置utf8</p>
+<h2 id="关于MySQL的中文问题"><a href="#关于MySQL的中文问题" class="headerlink" title="关于MySQL的中文问题"></a>关于MySQL的中文问题</h2><p>解决乱码的方法是，在执行SQL语句之前，将MySQL以下三个系统参数设置为与服务器字符集character-set-server相同的字符集。</p>
+<ul>
+<li>character_set_client：客户端的字符集。</li>
+<li>character_set_results：结果字符集。</li>
+<li>character_set_connection：连接字符集。<br>设置这三个系统参数通过向MySQL发送语句：set names utf8</li>
+</ul>
+<h2 id="关于Navicat的中文问题"><a href="#关于Navicat的中文问题" class="headerlink" title="关于Navicat的中文问题"></a>关于Navicat的中文问题</h2><p>Navicat一直是好好的，不知道从什么时候开始，中文显示乱码了</p>
+<p>遇到的是从网页到数据库后显示乱码，或者说是从数据库读出数据到client显示为乱码，如何避免这个问题？理论上说是要保持client、MySQL中的character_set_client、table charset这三个字符集编码一致，就可以保证乱码一定不会出现。</p>
+<p>言归正传，Navicat中的中文乱码如何解决，其实很简单，不需要修改什么my.ini，character等，只需要在Navicat中右键数据库→连接属性→高级，将编码选为自动即可！如下图：<br><img src="https://user-images.githubusercontent.com/55903351/69602176-99fb4c80-1051-11ea-8d60-95f098b390dd.png" alt="6"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/26/乱码及解决/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-课堂笔记11-20" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1326,149 +1414,6 @@ System.out.println(i);
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/10/24/JavaOOP/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-10-22" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/23/2019-10-22/">2019-10-22</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/23/2019-10-22/" class="archive-article-date">
-  	<time datetime="2019-10-23T13:21:15.219Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h1><h2 id="实现登录功能"><a href="#实现登录功能" class="headerlink" title="实现登录功能"></a>实现登录功能</h2><h2 id="第一步-创建login-jsp登录页面"><a href="#第一步-创建login-jsp登录页面" class="headerlink" title="第一步: 创建login.jsp登录页面"></a>第一步: 创建login.jsp登录页面</h2><p>在所创建的动态项目his_v1中，于WebContent文件夹下创建login.jsp。其显示效果类似于下图:<br>对应源代码如下：</p>
-<pre><code>&lt;html&gt;
-&lt;body&gt;
-&lt;!-- 需要注意的是:xml配置文件中的url-pattern这里写的是/LoginServlet，而在jsp中form表单 的action写的是LoginServlet,而不是/LoginServlet。 --&gt;
-    &lt;form action=”LoginServlet” method=”post”&gt;
-        &lt;table&gt;
-            &lt;tr&gt;
-                &lt;td colspan=”2”&gt;登录窗口&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;用户名：&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;input type=”text” name=”username” /&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;密码：&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;input type=”password” name=”password” /&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td colspan=”2”&gt;
-                    &lt;input type=”submit” value=”登录” /&gt; 
-                    &lt;a href=”register.jsp”&gt;注册&lt;/a&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/table&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><h2 id="第二步：创建处理登录判定的Servlet-LoginServlet"><a href="#第二步：创建处理登录判定的Servlet-LoginServlet" class="headerlink" title="第二步：创建处理登录判定的Servlet:LoginServlet"></a>第二步：创建处理登录判定的Servlet:LoginServlet</h2><p>在第一步中的login.jsp中，我们需要特别注意这句代码：</p>
-<pre><code>&lt;form action=”LoginServlet” method=”post”&gt;</code></pre><p>这行代码中有两个属性，说明如下：</p>
-<ul>
-<li><p>action属性：点击登录按钮后，接下来的动作，这里是转到了LoginServlet。</p>
-</li>
-<li><p>method属性：表单中数据的提交方式。</p>
-</li>
-</ul>
-<p>接下来，再src文件夹下创建LoginServlet类，其中的doPost()方法参考代码如下：</p>
-<pre><code>/**
- * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
- */
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // TODO Auto-generated method stub
-    request.setCharacterEncoding(&quot;utf-8&quot;);//设置request编码
-    response.setContentType(&quot;text/html;charset=utf-8&quot;);//设置response编码
-    String id = request.getParameter(&quot;username&quot;);//获取表单用户名
-    String pwd = request.getParameter(&quot;password&quot;);//获取表单密码
-    if(pwd==null || pwd.equals(&quot;&quot;)){//若没有密码，或为空
-        response.getWriter().print(&quot;密码不能为空！&quot;);//在当前页面(login.jsp)添加显示一句话。
-        return;//跳出doPost()方法，等待login.jsp页面再次提交表单。
-    }
-    if(id==null || id.equals(&quot;&quot;)){//若没有账号，或为空
-        response.getWriter().print(&quot;用户名不能为空！&quot;);//在当前页面(login.jsp)添加显示一句话。
-        return;//跳出doPost()方法，等待login.jsp页面再次提交表单。
-    }
-    if(id.equals(&quot;sam&quot;) &amp;&amp; pwd.equals(&quot;123&quot;)) {//用户名、密码正确
-        request.getRequestDispatcher(&quot;welcome.jsp&quot;).forward(request, response);//页面转发
-        //页面跳转的方式：(1)转发：foward(地址栏地址不变);(2)重定向：redirect(地址栏地址变化)
-    }else//用户名、密码错误
-    {
-        response.getWriter().print(&quot;用户名或密码有误，请重新输入！&quot;);//在当前页面(login.jsp)添加显示一句话。
-        return;//跳出doPost()方法，等待login.jsp页面再次提交表单。
-    }
-}</code></pre><p>}</p>
-<h2 id="第三步：LoginServlet在项目配置文件web-xml中注册："><a href="#第三步：LoginServlet在项目配置文件web-xml中注册：" class="headerlink" title="第三步：LoginServlet在项目配置文件web.xml中注册："></a>第三步：LoginServlet在项目配置文件web.xml中注册：</h2><pre><code>&lt;servlet&gt;&lt;/servlet&gt;
-&lt;servlet-name&gt;&lt;/servlet-name&gt;
-&lt;servlet-class&gt;&lt;/servlet-class&gt;
-&lt;servlet-mapping&gt;&lt;/servlet-mapping&gt;
-&lt;url-pattern&gt;&lt;/url-pattern&gt;
-这五个都是注册一个servlet组件必须的节点</code></pre><p>1.servlet是用来注册Servlet的存放地址<br>servlet-name这个是我们要注册servlet的名字<br>servlet-class这个就是指向我们要注册的servlet 的类地址, 要带包路径。<br>2.servlet-mapping是用来配置我们注册的组件的访问路径<br>3.servlet-name 要与前面写的servlet的名字一致<br>4.url-pattern 配置这个组件的访问路径<br>5.实例</p>
-<pre><code>接续第一步、第二步内容为例： 
-&lt;servlet&gt; 
-&lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt; 
-&lt;servlet-class&gt;sam.his.servlet.LoginServlet&lt;/servlet-class&gt;  &lt;!--存放路径 --&gt;  
-&lt;/servlet&gt; 
-&lt;servlet-mapping&gt; 
-&lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;                       &lt;!-- 与上面的 
-&lt;servlet-name&gt; 要一致 --&gt; 
-&lt;url-pattern&gt;/LoginServlet&lt;/url-pattern&gt;  &lt;!-- 访问路径 --&gt; 
-&lt;/servlet-mapping&gt; </code></pre><h2 id="第四步：实施登录"><a href="#第四步：实施登录" class="headerlink" title="第四步：实施登录"></a>第四步：实施登录</h2><p>注意：需要再添加一个登录成功页面welcome.jsp(参考第二步的doPost方法中代码) 项目部署在tomcat服务器上，运行后在地址栏输入地址访问项目的login.jsp页面，表单中录入用户名、密码， 尝试登录。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/23/2019-10-22/">展开全文 >></a>
         </p>
       
 
