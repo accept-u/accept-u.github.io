@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>springboot发送邮件 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Eetity.java 12345678910">
+  <meta name="description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Entity.java 12345678910">
 <meta property="og:type" content="article">
 <meta property="og:title" content="springboot发送邮件">
 <meta property="og:url" content="http://yoursite.com/2020/05/27/springboot发送邮件/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Eetity.java 12345678910">
+<meta property="og:description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Entity.java 12345678910">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-27T06:09:13.118Z">
+<meta property="og:updated_time" content="2020-05-27T06:14:49.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="springboot发送邮件">
-<meta name="twitter:description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Eetity.java 12345678910">
+<meta name="twitter:description" content="话不多说直接上打码添加依赖1234&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;spring-boot-starter-mail&amp;lt;/artifactId&amp;gt;&amp;lt;/dependency&amp;gt;  Entity.java 12345678910">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -176,7 +176,7 @@
       
         <h6 id="话不多说直接上打码"><a href="#话不多说直接上打码" class="headerlink" title="话不多说直接上打码"></a>话不多说直接上打码</h6><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-mail&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
-<p>Eetity.java</p>
+<p>Entity.java</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Email</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String content;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String to;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.mail.host=smtp.sina.com</span><br><span class="line">spring.mail.password=1fsbzabzf0</span><br><span class="line">spring.mail.username=jwsdfadasf@sina.com</span><br><span class="line">spring.mail.port=25</span><br><span class="line">#开启加密</span><br><span class="line">spring.mail.properties.mail.stmp.ssl.enable=true</span><br></pre></td></tr></table></figure>
@@ -284,6 +284,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/05/28/springboot与redis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          springboot与redis
+        
+      </div>
+    </a>
   
   
     <a href="/2020/05/25/使用mybatis-plus/" id="article-nav-older" class="article-nav-link-wrap">
