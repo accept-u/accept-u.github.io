@@ -152,6 +152,77 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习redis2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/30/学习redis2/">学习redis2</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/30/学习redis2/" class="archive-article-date">
+  	<time datetime="2020-05-30T01:10:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="连接到-redis-服务"><a href="#连接到-redis-服务" class="headerlink" title="连接到 redis 服务"></a>连接到 redis 服务</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisJava</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">//连接本地的 Redis 服务</span></span><br><span class="line">Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"localhost"</span>);</span><br><span class="line">System.out.println(<span class="string">"连接成功"</span>);</span><br><span class="line"><span class="comment">//查看服务是否运行</span></span><br><span class="line">System.out.println(<span class="string">"服务正在运行: "</span>+jedis.ping());</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis-String-字符串-实例"><a href="#Redis-String-字符串-实例" class="headerlink" title="Redis  String(字符串) 实例"></a>Redis  String(字符串) 实例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisStringJava</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//连接本地的 Redis 服务</span></span><br><span class="line">        Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"localhost"</span>);</span><br><span class="line">        System.out.println(<span class="string">"连接成功"</span>);</span><br><span class="line">        <span class="comment">//设置 redis 字符串数据</span></span><br><span class="line">        jedis.set(<span class="string">"runoobkey"</span>, <span class="string">"www.runoob.com"</span>);</span><br><span class="line">        <span class="comment">// 获取存储的数据并输出</span></span><br><span class="line">        System.out.println(<span class="string">"redis 存储的字符串为: "</span>+ jedis.get(<span class="string">"runoobkey"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis-List-列表-实例"><a href="#Redis-List-列表-实例" class="headerlink" title="Redis List(列表) 实例"></a>Redis List(列表) 实例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisListJava</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//连接本地的 Redis 服务</span></span><br><span class="line">        Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"localhost"</span>);</span><br><span class="line">        System.out.println(<span class="string">"连接成功"</span>);</span><br><span class="line">        <span class="comment">//存储数据到列表中</span></span><br><span class="line">        jedis.lpush(<span class="string">"site-list"</span>, <span class="string">"Runoob"</span>);</span><br><span class="line">        jedis.lpush(<span class="string">"site-list"</span>, <span class="string">"Google"</span>);</span><br><span class="line">        jedis.lpush(<span class="string">"site-list"</span>, <span class="string">"Taobao"</span>);</span><br><span class="line">        <span class="comment">// 获取存储的数据并输出</span></span><br><span class="line">        List&lt;String&gt; list = jedis.lrange(<span class="string">"site-list"</span>, <span class="number">0</span> ,<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;list.size(); i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"列表项为: "</span>+list.get(i));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis-Keys-实例"><a href="#Redis-Keys-实例" class="headerlink" title="Redis  Keys 实例"></a>Redis  Keys 实例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisKeyJava</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//连接本地的 Redis 服务</span></span><br><span class="line">        Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"localhost"</span>);</span><br><span class="line">        System.out.println(<span class="string">"连接成功"</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 获取数据并输出</span></span><br><span class="line">        Set&lt;String&gt; keys = jedis.keys(<span class="string">"*"</span>); </span><br><span class="line">        Iterator&lt;String&gt; it=keys.iterator() ;   </span><br><span class="line">        <span class="keyword">while</span>(it.hasNext())&#123;   </span><br><span class="line">            String key = it.next();   </span><br><span class="line">            System.out.println(key);   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>redis教程 | 菜鸟教程  <a href="https://www.runoob.com/redis/redis-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/redis/redis-tutorial.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/30/学习redis2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-springboot与redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -796,138 +867,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/06/前后端分离/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Ajax研究" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Ajax研究"><a href="#Ajax研究" class="headerlink" title="Ajax研究"></a>Ajax研究</h2><blockquote>
-<p>简介</p>
-</blockquote>
-<ul>
-<li><p><strong>AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。</strong></p>
-</li>
-<li><p>AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。</p>
-</li>
-<li><p><strong>Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。</strong></p>
-</li>
-<li><p>在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。Google Suggest能够自动帮你完成搜索单词。</p>
-</li>
-<li><p>Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。</p>
-</li>
-<li><p>就和国内百度的搜索框一样!</p>
-</li>
-<li><p>传统的网页(即不用ajax技术的网页)，想要更新内容或者提交一个表单，都需要重新加载整个网页。</p>
-</li>
-<li><p>使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新。</p>
-</li>
-<li><p>使用Ajax，用户可以创建接近本地桌面应用的直接、高可用、更丰富、更动态的Web用户界面。</p>
-</li>
-</ul>
-<blockquote>
-<p>伪造Ajax</p>
-</blockquote>
-<p>我们可以使用前端的一个标签来伪造一个ajax的样子。iframe标签</p>
-<p>1、新建一个module ：sspringmvc-06-ajax ， 导入web支持！</p>
-<p>2、编写一个 ajax-frame.html 使用 iframe 测试，感受下效果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head lang=&quot;en&quot;&gt;</span><br><span class="line">   &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">   &lt;title&gt;kuangshen&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">   window.onload = function()&#123;</span><br><span class="line">       var myDate = new Date();</span><br><span class="line">       document.getElementById(&apos;currentTime&apos;).innerText =myDate.getTime();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">   function LoadPage()&#123;</span><br><span class="line">       var targetUrl =  document.getElementById(&apos;url&apos;).value;</span><br><span class="line">       console.log(targetUrl);</span><br><span class="line">       document.getElementById(&quot;iframePosition&quot;).src = targetUrl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">   &lt;p&gt;请输入要加载的地址：&lt;span id=&quot;currentTime&quot;&gt;&lt;/span&gt;&lt;/p&gt;</span><br><span class="line">   &lt;p&gt;</span><br><span class="line">       &lt;input id=&quot;url&quot; type=&quot;text&quot; value=&quot;https://www.baidu.com/&quot;/&gt;</span><br><span class="line">       &lt;input type=&quot;button&quot; value=&quot;提交&quot; onclick=&quot;LoadPage()&quot;&gt;</span><br><span class="line">   &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">   &lt;h3&gt;加载页面位置：&lt;/h3&gt;</span><br><span class="line">   &lt;iframe id=&quot;iframePosition&quot; style=&quot;width: 100%;height: 500px;&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>3、使用IDEA开浏览器测试一下！</p>
-<p><strong>利用AJAX可以做：</strong></p>
-<ul>
-<li>注册时，输入用户名自动检测用户是否已经存在。</li>
-<li>登陆时，提示用户名密码错误</li>
-<li>删除数据行时，将行ID发送到后台，后台在数据库中删除，数据库删除成功后，在页面DOM中将数据行也删除等等</li>
-</ul>
-<blockquote>
-<p>jQuery.ajax</p>
-</blockquote>
-<p>纯JS原生实现Ajax我们不去讲解这里，直接使用jquery提供的，方便学习和使用，避免重复造轮子，有兴趣的同学可以去了解下JS原生XMLHttpRequest ！</p>
-<p>Ajax的核心是XMLHttpRequest对象(XHR)。XHR为向服务器发送请求和解析服务器响应提供了接口。能够以异步方式从服务器获取新数据。</p>
-<p>jQuery 提供多个与 AJAX 有关的方法。</p>
-<p>通过 jQuery AJAX 方法，您能够使用 HTTP Get 和 HTTP Post 从远程服务器上请求文本、HTML、XML 或 JSON – 同时您能够把这些外部数据直接载入网页的被选元素中。</p>
-<p>jQuery 不是生产者，而是大自然搬运工。</p>
-<p>jQuery Ajax本质就是 XMLHttpRequest，对他进行了封装，方便调用！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">jQuery.ajax(...)</span><br><span class="line">      部分参数：</span><br><span class="line">            url：请求地址</span><br><span class="line">            type：请求方式，GET、POST（1.9.0之后用method）</span><br><span class="line">        headers：请求头</span><br><span class="line">            data：要发送的数据</span><br><span class="line">    contentType：即将发送信息至服务器的内容编码类型(默认: &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;)</span><br><span class="line">          async：是否异步</span><br><span class="line">        timeout：设置请求超时时间（毫秒）</span><br><span class="line">      beforeSend：发送请求前执行的函数(全局)</span><br><span class="line">        complete：完成之后执行的回调函数(全局)</span><br><span class="line">        success：成功之后执行的回调函数(全局)</span><br><span class="line">          error：失败之后执行的回调函数(全局)</span><br><span class="line">        accepts：通过请求头发送给服务器，告诉服务器当前客户端可接受的数据类型</span><br><span class="line">        dataType：将服务器端返回的数据转换成指定类型</span><br><span class="line">          &quot;xml&quot;: 将服务器端返回的内容转换成xml格式</span><br><span class="line">          &quot;text&quot;: 将服务器端返回的内容转换成普通文本格式</span><br><span class="line">          &quot;html&quot;: 将服务器端返回的内容转换成普通文本格式，在插入DOM中时，如果包含JavaScript标签，则会尝试去执行。</span><br><span class="line">        &quot;script&quot;: 尝试将返回值当作JavaScript去执行，然后再将服务器端返回的内容转换成普通文本格式</span><br><span class="line">          &quot;json&quot;: 将服务器端返回的内容转换成相应的JavaScript对象</span><br><span class="line">        &quot;jsonp&quot;: JSONP 格式使用 JSONP 形式调用函数时，如 &quot;myurl?callback=?&quot; jQuery 将自动替换 ? 为正确的函数名，以执行回调函数</span><br></pre></td></tr></table></figure>
-
-<p><strong>我们来个简单的测试，使用最原始的HttpServletResponse处理 , .最简单 , 最通用</strong></p>
-<p>1、配置web.xml 和 springmvc的配置文件，复制上面案例的即可 【记得静态资源过滤和注解驱动配置上】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">      xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">      xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">      xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">       http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">       http://www.springframework.org/schema/context</span><br><span class="line">       https://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">       http://www.springframework.org/schema/mvc</span><br><span class="line">       https://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- 自动扫描指定的包，下面所有注解类交给IOC容器管理 --&gt;</span><br><span class="line">   &lt;context:component-scan base-package=&quot;com.kuang.controller&quot;/&gt;</span><br><span class="line">   &lt;mvc:default-servlet-handler /&gt;</span><br><span class="line">   &lt;mvc:annotation-driven /&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- 视图解析器 --&gt;</span><br><span class="line">   &lt;beanclass=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span><br><span class="line">         id=&quot;internalResourceViewResolver&quot;&gt;</span><br><span class="line">       &lt;!-- 前缀 --&gt;</span><br><span class="line">       &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;</span><br><span class="line">       &lt;!-- 后缀 --&gt;</span><br><span class="line">       &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-
-<p>2、编写一个AjaxController</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Controller</span><br><span class="line">public class AjaxController &#123;</span><br><span class="line"></span><br><span class="line">   @RequestMapping(&quot;/a1&quot;)</span><br><span class="line">   public void ajax1(String name , HttpServletResponse response) throwsIOException &#123;</span><br><span class="line">       if (&quot;admin&quot;.equals(name))&#123;</span><br><span class="line">           response.getWriter().print(&quot;true&quot;);</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">           response.getWriter().print(&quot;false&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3、导入jquery ， 可以使用在线的CDN ， 也可以下载导入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://code.jquery.com/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;$&#123;pageContext.request.contextPath&#125;/statics/js/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>4、编写index.jsp测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">   &lt;title&gt;$Title$&lt;/title&gt;</span><br><span class="line">  &lt;%--&lt;script src=&quot;https://code.jquery.com/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;--%&gt;</span><br><span class="line">   &lt;script src=&quot;$&#123;pageContext.request.contextPath&#125;/statics/js/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line">       function a1()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;/a1&quot;,</span><br><span class="line">               data:&#123;&apos;name&apos;:$(&quot;#txtName&quot;).val()&#125;,</span><br><span class="line">               success:function (data,status) &#123;</span><br><span class="line">                   alert(data);</span><br><span class="line">                   alert(status);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">   &lt;/script&gt;</span><br><span class="line"> &lt;/head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;%--onblur：失去焦点触发事件--%&gt;</span><br><span class="line">用户名:&lt;input type=&quot;text&quot; id=&quot;txtName&quot; onblur=&quot;a1()&quot;/&gt;</span><br><span class="line"></span><br><span class="line"> &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>5、启动tomcat测试！打开浏览器的控制台，当我们鼠标离开输入框的时候，可以看到发出了一个ajax的请求！是后台返回给我们的结果！测试成功！</p>
-<p><strong>Springmvc实现</strong></p>
-<p>实体类user</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">public class User &#123;</span><br><span class="line"></span><br><span class="line">   private String name;</span><br><span class="line">   private int age;</span><br><span class="line">   private String sex;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们来获取一个集合对象，展示到前端页面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/a2&quot;)</span><br><span class="line">public List&lt;User&gt; ajax2()&#123;</span><br><span class="line">   List&lt;User&gt; list = new ArrayList&lt;User&gt;();</span><br><span class="line">   list.add(new User(&quot;秦疆1号&quot;,3,&quot;男&quot;));</span><br><span class="line">   list.add(new User(&quot;秦疆2号&quot;,3,&quot;男&quot;));</span><br><span class="line">   list.add(new User(&quot;秦疆3号&quot;,3,&quot;男&quot;));</span><br><span class="line">   return list; //由于@RestController注解，将list转成json格式返回</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>前端页面</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"btn"</span> <span class="attr">value</span>=<span class="string">"获取数据"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">width</span>=<span class="string">"80%"</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">td</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">td</span>&gt;</span>年龄<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">td</span>&gt;</span>性别<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">tbody</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"$&#123;pageContext.request.contextPath&#125;/statics/js/jquery-3.1.1.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   $(function () &#123;</span><br><span class="line">       $("#btn").click(function () &#123;</span><br><span class="line">           $.post("$&#123;pageContext.request.contextPath&#125;/a2",function (data) &#123;</span><br><span class="line">               console.log(data)</span><br><span class="line">               var html="";</span><br><span class="line">               for (var i = 0; i &lt;data.length ; i++) &#123;</span><br><span class="line"><span class="xml">                   html+= "<span class="tag">&lt;<span class="name">tr</span>&gt;</span>" +</span></span><br><span class="line"><span class="xml">                       "<span class="tag">&lt;<span class="name">td</span>&gt;</span>" + data[i].name + "<span class="tag">&lt;/<span class="name">td</span>&gt;</span>" +</span></span><br><span class="line"><span class="xml">                       "<span class="tag">&lt;<span class="name">td</span>&gt;</span>" + data[i].age + "<span class="tag">&lt;/<span class="name">td</span>&gt;</span>" +</span></span><br><span class="line"><span class="xml">                       "<span class="tag">&lt;<span class="name">td</span>&gt;</span>" + data[i].sex + "<span class="tag">&lt;/<span class="name">td</span>&gt;</span>" +</span></span><br><span class="line"><span class="xml">                       "<span class="tag">&lt;/<span class="name">tr</span>&gt;</span>"</span></span><br><span class="line">              &#125;</span><br><span class="line">               $("#content").html(html);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>成功实现了数据回显！可以体会一下Ajax的好处！</strong></p>
-<blockquote>
-<p>注册提示效果</p>
-</blockquote>
-<p>我们再测试一个小Demo，思考一下我们平时注册时候，输入框后面的实时提示怎么做到的；如何优化</p>
-<p>我们写一个Controller</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/a3&quot;)</span><br><span class="line">public String ajax3(String name,String pwd)&#123;</span><br><span class="line">   String msg = &quot;&quot;;</span><br><span class="line">   //模拟数据库中存在数据</span><br><span class="line">   if (name!=null)&#123;</span><br><span class="line">       if (&quot;admin&quot;.equals(name))&#123;</span><br><span class="line">           msg = &quot;OK&quot;;</span><br><span class="line">      &#125;else &#123;</span><br><span class="line">           msg = &quot;用户名输入错误&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">   if (pwd!=null)&#123;</span><br><span class="line">       if (&quot;123456&quot;.equals(pwd))&#123;</span><br><span class="line">           msg = &quot;OK&quot;;</span><br><span class="line">      &#125;else &#123;</span><br><span class="line">           msg = &quot;密码输入有误&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">   return msg; //由于@RestController注解，将msg转成json格式返回</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>前端页面 login.jsp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">   &lt;title&gt;ajax&lt;/title&gt;</span><br><span class="line">   &lt;script src=&quot;$&#123;pageContext.request.contextPath&#125;/statics/js/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line"></span><br><span class="line">       function a1()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;/a3&quot;,</span><br><span class="line">               data:&#123;&apos;name&apos;:$(&quot;#name&quot;).val()&#125;,</span><br><span class="line">               success:function (data) &#123;</span><br><span class="line">                   if (data.toString()==&apos;OK&apos;)&#123;</span><br><span class="line">                       $(&quot;#userInfo&quot;).css(&quot;color&quot;,&quot;green&quot;);</span><br><span class="line">                  &#125;else &#123;</span><br><span class="line">                       $(&quot;#userInfo&quot;).css(&quot;color&quot;,&quot;red&quot;);</span><br><span class="line">                  &#125;</span><br><span class="line">                   $(&quot;#userInfo&quot;).html(data);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">       function a2()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;/a3&quot;,</span><br><span class="line">               data:&#123;&apos;pwd&apos;:$(&quot;#pwd&quot;).val()&#125;,</span><br><span class="line">               success:function (data) &#123;</span><br><span class="line">                   if (data.toString()==&apos;OK&apos;)&#123;</span><br><span class="line">                       $(&quot;#pwdInfo&quot;).css(&quot;color&quot;,&quot;green&quot;);</span><br><span class="line">                  &#125;else &#123;</span><br><span class="line">                       $(&quot;#pwdInfo&quot;).css(&quot;color&quot;,&quot;red&quot;);</span><br><span class="line">                  &#125;</span><br><span class="line">                   $(&quot;#pwdInfo&quot;).html(data);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">   &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  用户名:&lt;input type=&quot;text&quot; id=&quot;name&quot; onblur=&quot;a1()&quot;/&gt;</span><br><span class="line">   &lt;span id=&quot;userInfo&quot;&gt;&lt;/span&gt;</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  密码:&lt;input type=&quot;text&quot; id=&quot;pwd&quot; onblur=&quot;a2()&quot;/&gt;</span><br><span class="line">   &lt;span id=&quot;pwdInfo&quot;&gt;&lt;/span&gt;</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>来自狂神说的网上教程</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/23/Ajax研究/">展开全文 >></a>
         </p>
       
 
