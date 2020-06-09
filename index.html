@@ -152,6 +152,135 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/08/学习nginx/">学习nginx</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/08/学习nginx/" class="archive-article-date">
+  	<time datetime="2020-06-08T06:34:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><p>Nginx (“engine x”) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。</p>
+<p><a href="https://baike.baidu.com/item/nginx/3817705?fr=aladdin" target="_blank" rel="noopener">链接</a></p>
+<h4 id="Nginx和Apache"><a href="#Nginx和Apache" class="headerlink" title="Nginx和Apache"></a><strong>Nginx和Apache</strong></h4><p><strong>nginx：</strong></p>
+<ol>
+<li><p>轻量级，同样起web 服务，比apache 占用更少的内存及资源 </p>
+</li>
+<li><p>抗并发，nginx 处理请求是异步非阻塞的，而apache 则是阻塞型的，在高并发下nginx 能保持低资源低消耗高性能 </p>
+</li>
+<li><p>高度模块化的设计，编写模块相对简单 </p>
+</li>
+<li><p>社区活跃，各种高性能模块出品迅速啊 </p>
+</li>
+</ol>
+<p><strong>apache：</strong> </p>
+<ol>
+<li><p>rewrite ，比nginx 的rewrite 强大 </p>
+</li>
+<li><p>模块超多，基本想到的都可以找到 </p>
+</li>
+<li><p>少bug ，nginx 的bug 相对较多 </p>
+</li>
+<li><p>稳定 </p>
+</li>
+</ol>
+<p><a href="https://www.runoob.com/linux/nginx-install-setup.html" target="_blank" rel="noopener">安装nginx请参考</a></p>
+<h4 id="nginx的应用场景"><a href="#nginx的应用场景" class="headerlink" title="nginx的应用场景"></a><strong>nginx的应用场景</strong></h4><ul>
+<li><p>静态服务器</p>
+</li>
+<li><p>虚拟主机</p>
+</li>
+<li><p>反向代理</p>
+</li>
+</ul>
+<ul>
+<li>负载均衡</li>
+</ul>
+<h4 id="静态服务器"><a href="#静态服务器" class="headerlink" title="**静态服务器"></a>**静态服务器</h4><p>静态资源是指非服务器运行动态生成的文件，主要包括浏览器端渲染（html、css、js）、图片（jpeg、gif、png）、视频文件（flv、mpeg）、其他文件（TXT等任意下载文件）。</p>
+<p>配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        </span><br><span class="line">    listen       80;</span><br><span class="line"></span><br><span class="line">    server_name  www.baidu.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line"></span><br><span class="line">        root   html;</span><br><span class="line"></span><br><span class="line">        index  index.html index.htm;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样配置，当访问<a href="http://www.baidu.com的时候，就会跳跳转到/nginx/sbin/nginx/html/index.html页面，前提是配置了当前主机的host，设置当访问www.baidu.com的时候跳转到服务器的ip。" target="_blank" rel="noopener">http://www.baidu.com的时候，就会跳跳转到/nginx/sbin/nginx/html/index.html页面，前提是配置了当前主机的host，设置当访问www.baidu.com的时候跳转到服务器的ip。</a></p>
+<h4 id="虚拟主机"><a href="#虚拟主机" class="headerlink" title="** 虚拟主机"></a>** <strong>虚拟主机</strong></h4><p>虚拟主机，就是把一台物理服务器划分成多个“虚拟”的服务器，每一个虚拟主机都可以有独立的域名和独立的目录</p>
+<p>配置的时候和静态资源服务器配置方法一致，只需要多添加一个server节点，保证访问的url不一样就可以了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        </span><br><span class="line">    listen       80;</span><br><span class="line"></span><br><span class="line">    server_name  www.baidu.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line"></span><br><span class="line">        root   html;</span><br><span class="line"></span><br><span class="line">        index  index.html index.htm;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    server &#123;</span><br><span class="line"></span><br><span class="line">        listen       80;</span><br><span class="line"></span><br><span class="line">        server_name  www.qq.com;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line"></span><br><span class="line">            root   html2;</span><br><span class="line"></span><br><span class="line">            index  index.html index.htm;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="反向代理"><a href="#反向代理" class="headerlink" title="** 反向代理"></a>** <strong>反向代理</strong></h4><p>为什么使用代理服务器</p>
+<p>提高访问速度     由于目标主机返回的数据会存放在代理服务器的硬盘中，因此下一次客户再访问相同的站点数据时，会直接从代理服务器的硬盘中读取，起到了缓存的作用，尤其对于热门网站能明显提高访问速度。 防火墙作用     由于所有的客户机请求都必须通过代理服务器访问远程站点，因此可以在代理服务器上设限，过滤掉某些不安全信息。同时正向代理中上网者可以隐藏自己的IP,免受攻击。 突破访问限制     互联网上有许多开发的代理服务器，客户机在访问受限时，可通过不受限的代理服务器访问目标站点，通俗说，我们使用的翻墙浏览器就是利用了代理服务器，可以直接访问外网。</p>
+<p>正向代理</p>
+<p>正向代理（forward proxy） ，一个位于客户端和原始服务器之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并制定目标（原始服务器），然后代理向原始服务器转发请求并将获得的内容返回给客户端，客户端才能使用正向代理。我们平时说的代理就是指正向代理。     简单一点：A向C借钱，由于一些情况不能直接向C借钱，于是A想了一个办法，他让B去向C借钱，这样B就代替A向C借钱，A就得到了C的钱，C并不知道A的存在，B就充当了A的代理人的角色。</p>
+<p><img src="https://user-images.githubusercontent.com/55903351/84098223-407ccd00-aa39-11ea-81c5-0cfb8c6dbfbe.png" alt="image"></p>
+<p>反向代理</p>
+<p>反向代理（Reverse Proxy），以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求的客户端，此时代理服务器对外表现为一个反向代理服务器。     理解起来有些抽象，可以这么说：A向B借钱，B没有拿自己的钱，而是悄悄地向C借钱，拿到钱之后再交给A,A以为是B的钱，他并不知道C的存在</p>
+<p><img src="https://user-images.githubusercontent.com/55903351/84098171-22af6800-aa39-11ea-862a-9b5d989588d5.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcatserver &#123;</span><br><span class="line">        server www.baidu.com;</span><br><span class="line">	&#125;</span><br><span class="line">    server&#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name www.qq.com;</span><br><span class="line"></span><br><span class="line">    location /&#123;</span><br><span class="line">        proxy_pass http://tomcatserver;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，当访问<a href="http://www.qq.com" target="_blank" rel="noopener">www.qq.com</a>，就会跳转到<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>上，这就是一个最简单的反向代理的例子</p>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><strong>负载均衡</strong></h4><p>由于目前现有网络的各个核心部分随着业务量的提高，访问量和数据流量的快速增长，其处理能力和计算强度也相应地增大，使得单一的服务器设备根本无法承担。在此情况下，如果扔掉现有设备去做大量的硬件升级，这样将造成现有资源的浪费，而且如果再面临下一次业务量的提升时，这又将导致再一次硬件升级的高额成本投入，甚至性能再卓越的设备也不能满足当前业务量增长的需求。 针对此情况而衍生出来的一种廉价有效透明的方法以扩展现有网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性的技术就是负载均衡（Load Balance）。</p>
+<p>1）一种是通过硬件来进行解决，常见的硬件有NetScaler、F5、Radware和Array等商用的负载均衡器，但是它们是比较昂贵的</p>
+<p>2）一种是通过软件来进行解决的，常见的软件有LVS、Nginx、apache等,它们是基于Linux系统并且开源的负载均衡策略.</p>
+<p>nginx的负载均衡是通过它的反向代理能力实现的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcatserver &#123;</span><br><span class="line">        server  127.0.0.1:8080 weight=10;</span><br><span class="line">        server  127.0.0.1:8081 weight=20;</span><br><span class="line"> &#125;</span><br><span class="line">    server&#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name localhost;</span><br><span class="line"></span><br><span class="line">    location /&#123;</span><br><span class="line">        proxy_pass http://tomcatserver;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这样，当访问本地的80端口的时候，会采用轮询的方法跳转到8080端口和8081端口，其中8081端口的权重为8080端口的两倍，就是8081被访问两次，8080会被访问一次。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/08/学习nginx/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-学习redis2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -845,65 +974,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/11/SpringBoot+Mysql整合/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-解决跨域" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="解决跨域"><a href="#解决跨域" class="headerlink" title="解决跨域"></a>解决跨域</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Package</span>: com.jws.config.CrosConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: JWSHUAI</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CrosConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 设置允许跨域的路径</span></span><br><span class="line">        registry.addMapping(<span class="string">"/**"</span>)</span><br><span class="line">                <span class="comment">// 设置允许跨域请求的域名</span></span><br><span class="line">                .allowedOrigins(<span class="string">"*"</span>)</span><br><span class="line">                <span class="comment">// 是否允许证书</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>)</span><br><span class="line">                <span class="comment">// 设置允许的方法</span></span><br><span class="line">                .allowedMethods(<span class="string">"GET"</span>, <span class="string">"POST"</span>, <span class="string">"DELETE"</span>, <span class="string">"PUT"</span>)</span><br><span class="line">                <span class="comment">// 设置允许的header属性</span></span><br><span class="line">                .allowedHeaders(<span class="string">"*"</span>)</span><br><span class="line">                <span class="comment">// 跨域允许时间</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="快速生成实体类"><a href="#快速生成实体类" class="headerlink" title="快速生成实体类"></a>快速生成实体类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import lombok.Data;</span><br><span class="line"></span><br><span class="line">import javax.persistence.Entity;</span><br><span class="line">import javax.persistence.GeneratedValue;</span><br><span class="line">import javax.persistence.GenerationType;</span><br><span class="line">import javax.persistence.Id;</span><br><span class="line"></span><br><span class="line">@Entity//表示该类 (Book) 为一个实体类，它对应数据库中的表的表名是book</span><br><span class="line">@Data//使用lombok插件快速生成get set方法 个人感觉挺好用的 起码看着舒服</span><br><span class="line">public class Book &#123;</span><br><span class="line">    @Id</span><br><span class="line">    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自增</span><br><span class="line">    private Integer id;</span><br><span class="line">    private String name;</span><br><span class="line">    private String author;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="继承JpaRepository-lt-T-ID-gt"><a href="#继承JpaRepository-lt-T-ID-gt" class="headerlink" title="继承JpaRepository&lt;T, ID&gt;"></a>继承JpaRepository&lt;T, ID&gt;</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BookRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Book</span>,<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line"><span class="comment">//查看源码可知JpaRepository接口包括基本的CRUD功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="编写controller-实现CRUD"><a href="#编写controller-实现CRUD" class="headerlink" title="编写controller 实现CRUD"></a>编写controller 实现CRUD</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.jws.springboottest.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.jws.springboottest.entity.Book;</span><br><span class="line"><span class="keyword">import</span> com.jws.springboottest.repository.BookRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Page;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.PageRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/book"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BookRepository bookRepository;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/findAll/&#123;page&#125;/&#123;size&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Page&lt;Book&gt; <span class="title">findAll</span><span class="params">(@PathVariable(<span class="string">"page"</span>)</span> Integer page, @<span class="title">PathVariable</span><span class="params">(<span class="string">"size"</span>)</span> Integer size)</span>&#123;</span><br><span class="line">        PageRequest request = PageRequest.of(page,size);</span><br><span class="line">        <span class="keyword">return</span> bookRepository.findAll(request);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/save"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(@RequestBody Book book)</span></span>&#123;</span><br><span class="line">        Book result = bookRepository.save(book);</span><br><span class="line">        <span class="keyword">if</span>(result != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"error"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/findById/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Book <span class="title">findById</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> bookRepository.findById(id).get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PutMapping</span>(<span class="string">"/update"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">update</span><span class="params">(@RequestBody Book book)</span></span>&#123;</span><br><span class="line">        Book result = bookRepository.save(book);</span><br><span class="line">        <span class="keyword">if</span>(result != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"error"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/deleteById/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id)</span>&#123;</span><br><span class="line">        bookRepository.deleteById(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="application-yaml"><a href="#application-yaml" class="headerlink" title="application.yaml"></a>application.yaml</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/account?characterEncoding=UTF-8&amp;useUnicode=true&amp;serverTimezone=Asia/Shanghai</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">****</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">  jpa:</span></span><br><span class="line"><span class="attr">    show-sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    open-in-view:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    properties:</span></span><br><span class="line"><span class="attr">      hibernate:</span></span><br><span class="line"><span class="attr">        format_sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8181</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="前后端交互"><a href="#前后端交互" class="headerlink" title="前后端交互"></a>前后端交互</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">created() &#123;</span><br><span class="line">            const _this = this</span><br><span class="line">            axios.get(&apos;http://localhost:8181/user/findAll&apos;).then(function(resp)&#123;</span><br><span class="line">                // console.log(resp)</span><br><span class="line">                _this.books = resp.data</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/11/解决跨域/">展开全文 >></a>
         </p>
       
 
