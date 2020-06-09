@@ -152,6 +152,105 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-课堂笔记-学习nginx集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/09/课堂笔记-学习nginx集群/">课堂笔记--学习nginx集群</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/09/课堂笔记-学习nginx集群/" class="archive-article-date">
+  	<time datetime="2020-06-09T02:28:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="keepalived-Nginx实现主备保障Nginx的高可用。"><a href="#keepalived-Nginx实现主备保障Nginx的高可用。" class="headerlink" title="keepalived+Nginx实现主备保障Nginx的高可用。"></a>keepalived+Nginx实现主备保障Nginx的高可用。</h1><ol>
+<li>什么是keepalived?</li>
+</ol>
+<p>　　Keepalived是集群管理中保证集群高可用的一个服务软件，用来防止单点故障。</p>
+<p>　　Keepalived的作用是检测web服务器的状态，如果有一台web服务器死机，或工作出现故障，Keepalived将检测到，并将有故障的web服务器从系统中剔除，当web服务器工作正常后Keepalived自动将web服务器加入到服务器群中，这些工作全部自动完成，不需要人工干涉，需要人工做的只是修复故障的web服务器。</p>
+<ol start="2">
+<li><p>keepalived工作原理。<br>　　keepalived是以VRRP协议为实现基础的，VRRP全称Virtual Router Redundancy Protocol，即虚拟路由冗余协议。<br>　　虚拟路由冗余协议，可以认为是实现路由器高可用的协议，即将N台提供相同功能的路由器组成一个路由器组，这个组里面有一个master和多个backup，master上面有一个对外提供服务的vip（VIP = Virtual IP Address，虚拟IP地址，该路由器所在局域网内其他机器的默认路由为该vip），master会发组播，当backup收不到VRRP包时就认为master宕掉了，这时就需要根据VRRP的优先级来选举一个backup当master。这样的话就可以保证路由器的高可用了。<br>　　keepalived主要有三个模块，分别是core、check和VRRP。core模块为keepalived的核心，负责主进程的启动、维护以及全局配置文件的加载和解析。check负责健康检查，包括常见的各种检查方式。VRRP模块是来实现VRRP协议的。</p>
+</li>
+<li><p>keepalived+nginx实现主备过程。</p>
+</li>
+</ol>
+<ul>
+<li>初始状态<br><img src="https://user-images.githubusercontent.com/55903351/84099770-f39af580-aa3c-11ea-8f64-c5b0e4335655.png" alt="image"></li>
+<li>主机宕机状态<br><img src="https://user-images.githubusercontent.com/55903351/84099839-11685a80-aa3d-11ea-8b06-cfe1e009660c.png" alt="image"></li>
+<li>主机恢复状态<br><img src="https://user-images.githubusercontent.com/55903351/84099864-293fde80-aa3d-11ea-8afb-8db15ae6f7e7.png" alt="image"><br>安装步骤：</li>
+</ul>
+<p>1，安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install keepalived</span><br></pre></td></tr></table></figure>
+
+<p>2，准备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># systemctl stop firewalld         //关闭防火墙</span><br><span class="line"># sed -i &apos;s/^SELINUX=.*/SELINUX=disabled/&apos; /etc/sysconfig/selinux        //关闭selinux，重启生效</span><br><span class="line"># setenforce 0        　　　　　　　　//关闭selinux，临时生效</span><br></pre></td></tr></table></figure>
+
+<p>3，配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/nginx.conf </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;  </span><br><span class="line">    state MASTER   #指定A节点为主节点 备用节点上设置为BACKUP即可  </span><br><span class="line">    interface eth0   #绑定虚拟IP的网络接口  </span><br><span class="line">    virtual_router_id 51  #VRRP组名，两个节点的设置必须一样，以指明各个节点属于同一VRRP组  </span><br><span class="line">    priority 100   #主节点的优先级（1-254之间），备用节点必须比主节点优先级低  </span><br><span class="line">    advert_int 1   #组播信息发送间隔，两个节点设置必须一样  </span><br><span class="line">    authentication &#123;   #设置验证信息，两个节点必须一致  </span><br><span class="line">        auth_type PASS  </span><br><span class="line">        auth_pass 1111  </span><br><span class="line">    &#125;  </span><br><span class="line">    virtual_ipaddress &#123;   #指定虚拟IP, 两个节点设置必须一样  </span><br><span class="line">        192.168.1.220</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4，命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">启动：systemctl start keepalived.service</span><br><span class="line"></span><br><span class="line">关闭：systemctl stop keepalived.service</span><br><span class="line"></span><br><span class="line">重启：systemctl restart keepalived.service</span><br><span class="line"></span><br><span class="line">查看VIP绑定情况：ip a</span><br></pre></td></tr></table></figure>
+
+<p>5，测试</p>
+<p>关闭主nginx或者将主nginx上的keepalived关掉之后，VIP会直接绑定到nginx备上面，等到主服务器可以使用了，VIP就再一次自动绑定到主服务上。</p>
+<p>6，如果是主的nginx进程崩溃了，那么就不能再通过VIP访问到项目了，增加一个脚本，当nginx崩溃之后，直接讲keepalived进程也杀掉，这么就可以让请求直接抵达备份服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">A=`ps -C nginx –no-header |wc -l`</span><br><span class="line">if [ $A -eq 0 ];then</span><br><span class="line"> /usr/local/nginx/sbin/nginx</span><br><span class="line"> sleep 2</span><br><span class="line"> if [ `ps -C nginx --no-header |wc -l` -eq 0 ];then</span><br><span class="line"> pkill keepalived</span><br><span class="line"> fi</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>7，配置脚本</p>
+<p>将check_nginx.sh拷贝至/etc/keepalived下，修改主nginx的keepalived.conf，添加脚本定义检测：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vrrp_script check_nginx &#123;</span><br><span class="line"></span><br><span class="line">	script&quot;/etc/keepalived/check_nginx.sh&quot;         ##监控脚本</span><br><span class="line"></span><br><span class="line">	interval 2                                      ##时间间隔，2秒</span><br><span class="line"></span><br><span class="line">	weight 2                                        ##权重</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_1 &#123;  ##需要在这个节点下添加track_script内容</span><br><span class="line">...</span><br><span class="line">   track_script &#123;</span><br><span class="line"></span><br><span class="line">       check_nginx        #监控脚本</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">   ...</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/09/课堂笔记-学习nginx集群/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-学习nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -223,10 +322,10 @@
 <p>提高访问速度     由于目标主机返回的数据会存放在代理服务器的硬盘中，因此下一次客户再访问相同的站点数据时，会直接从代理服务器的硬盘中读取，起到了缓存的作用，尤其对于热门网站能明显提高访问速度。 防火墙作用     由于所有的客户机请求都必须通过代理服务器访问远程站点，因此可以在代理服务器上设限，过滤掉某些不安全信息。同时正向代理中上网者可以隐藏自己的IP,免受攻击。 突破访问限制     互联网上有许多开发的代理服务器，客户机在访问受限时，可通过不受限的代理服务器访问目标站点，通俗说，我们使用的翻墙浏览器就是利用了代理服务器，可以直接访问外网。</p>
 <p>正向代理</p>
 <p>正向代理（forward proxy） ，一个位于客户端和原始服务器之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并制定目标（原始服务器），然后代理向原始服务器转发请求并将获得的内容返回给客户端，客户端才能使用正向代理。我们平时说的代理就是指正向代理。     简单一点：A向C借钱，由于一些情况不能直接向C借钱，于是A想了一个办法，他让B去向C借钱，这样B就代替A向C借钱，A就得到了C的钱，C并不知道A的存在，B就充当了A的代理人的角色。</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/84098223-407ccd00-aa39-11ea-81c5-0cfb8c6dbfbe.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/55903351/84099127-7cb12d00-aa3b-11ea-99eb-36eda71057cf.png" alt="1"></p>
 <p>反向代理</p>
 <p>反向代理（Reverse Proxy），以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求的客户端，此时代理服务器对外表现为一个反向代理服务器。     理解起来有些抽象，可以这么说：A向B借钱，B没有拿自己的钱，而是悄悄地向C借钱，拿到钱之后再交给A,A以为是B的钱，他并不知道C的存在</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/84098171-22af6800-aa39-11ea-862a-9b5d989588d5.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/55903351/84099184-99e5fb80-aa3b-11ea-9cc8-965e9f268e70.png" alt="2"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcatserver &#123;</span><br><span class="line">        server www.baidu.com;</span><br><span class="line">	&#125;</span><br><span class="line">    server&#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name www.qq.com;</span><br><span class="line"></span><br><span class="line">    location /&#123;</span><br><span class="line">        proxy_pass http://tomcatserver;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样，当访问<a href="http://www.qq.com" target="_blank" rel="noopener">www.qq.com</a>，就会跳转到<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>上，这就是一个最简单的反向代理的例子</p>
@@ -905,75 +1004,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/12/安全框架-shiro/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringBoot+Mysql整合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SpringBoot-Mysql整合"><a href="#SpringBoot-Mysql整合" class="headerlink" title="SpringBoot+Mysql整合"></a>SpringBoot+Mysql整合</h1><blockquote>
-<h4 id="1-引入jar包"><a href="#1-引入jar包" class="headerlink" title="1.引入jar包"></a>1.引入jar包</h4></blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.1.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<h4 id="2-创建实体类"><a href="#2-创建实体类" class="headerlink" title="2.创建实体类"></a>2.创建实体类</h4></blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import lombok.AllArgsConstructor;</span><br><span class="line">import lombok.Data;</span><br><span class="line">import lombok.NoArgsConstructor;</span><br><span class="line"></span><br><span class="line">@Data</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">public class User &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private String password;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<h4 id="３．创建mapper接口"><a href="#３．创建mapper接口" class="headerlink" title="３．创建ｍapper接口"></a>３．创建ｍapper接口</h4></blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import com.jws.entity.User;</span><br><span class="line">import org.apache.ibatis.annotations.Mapper;</span><br><span class="line">import org.springframework.stereotype.Repository;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">@Mapper//表示这是一个mybatis的mapper类：dao</span><br><span class="line">@Repository //也可以用Component</span><br><span class="line">public interface UserMapper &#123;</span><br><span class="line"></span><br><span class="line">    List&lt;User&gt; queryUserList();//查询所有信息</span><br><span class="line"></span><br><span class="line">    User queryUserById(int id);//通过id查询信息</span><br><span class="line"></span><br><span class="line">    int addUser(User user);//增</span><br><span class="line"></span><br><span class="line">    int updateUser(User user);//改</span><br><span class="line"></span><br><span class="line">    int deledeUser(int id);//删</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<h4 id="4-配置xml文件-5-创建service层-调mapper层-6-创建controller层，调service层"><a href="#4-配置xml文件-5-创建service层-调mapper层-6-创建controller层，调service层" class="headerlink" title="4.配置xml文件 5.创建service层 调mapper层 6.创建controller层，调service层"></a>4.配置xml文件 5.创建service层 调mapper层 6.创建controller层，调service层</h4></blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;com.jws.mapper.UserMapper&quot;&gt;</span><br><span class="line">    &lt;select id=&quot;queryUserList&quot; resultType=&quot;User&quot;&gt;</span><br><span class="line">        select * from user</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;queryUserById&quot; resultType=&quot;User&quot;&gt;</span><br><span class="line">        select * from user where id = #&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">    &lt;insert id=&quot;addUser&quot; parameterType=&quot;User&quot;&gt;</span><br><span class="line">        insert into user(id,name,password) values (#&#123;id&#125;,#&#123;name&#125;,#&#123;password&#125;)</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">    &lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot;&gt;</span><br><span class="line">        update user set name=#&#123;name&#125;,password=#&#123;password&#125; where id=#&#123;id&#125;</span><br><span class="line">    &lt;/update&gt;</span><br><span class="line"></span><br><span class="line">    &lt;delete id=&quot;deledeUser&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        delete from user where id=#&#123;id&#125;</span><br><span class="line">    &lt;/delete&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<h4 id="7-在yaml文件中指定mybatis全局配置文件和接口映射文件位置"><a href="#7-在yaml文件中指定mybatis全局配置文件和接口映射文件位置" class="headerlink" title="7.在yaml文件中指定mybatis全局配置文件和接口映射文件位置"></a>7.在yaml文件中指定mybatis全局配置文件和接口映射文件位置</h4></blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  datasource:</span><br><span class="line">    username: root</span><br><span class="line">    password: root</span><br><span class="line">    url: jdbc:mysql://localhost:3306/his_v?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai</span><br><span class="line">    driver-class-name: com.mysql.jdbc.Driver</span><br><span class="line">mybatis:</span><br><span class="line">  type-aliases-package: com.jws.entity</span><br><span class="line">  mapper-locations: classpath:mybatis/mapper/*.xml</span><br></pre></td></tr></table></figure>
-
-<p>目录展示</p>
-<p><img src="https://user-images.githubusercontent.com/55903351/81532673-5c884280-9397-11ea-8a2c-0f745642c5fe.png" alt="1"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/11/SpringBoot+Mysql整合/">展开全文 >></a>
         </p>
       
 
