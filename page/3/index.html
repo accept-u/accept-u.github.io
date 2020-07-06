@@ -152,6 +152,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ssm整合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="springMVC-和-spring-的区别和关系"><a href="#springMVC-和-spring-的区别和关系" class="headerlink" title="springMVC 和 spring 的区别和关系"></a>springMVC 和 spring 的区别和关系</h4><p>1，spring和springmvc的上下文是父子关系，这两个容器是相互独立的容器，各自有各自的实例，SpringMVC容器继承自Spring容器</p>
+<p>2，配置在了spring配置文件中（通过servlet监听加载的配置文件）就会把实例缓存到spring容器中，配置在springmvc配置文件中（通过DispatcherServlet加载的配置文件）就会把实例缓存到springmvc容器中</p>
+<p>3，springmvc也可以获取到spring容器的实例，通过applicationContext.getParent().getBean()获取，但是spring获取不到springMVC的实例</p>
+<p>4，spring的入口是一个listener，springMVC的入口是一个servlet。</p>
+<h4 id="为什么需要整合"><a href="#为什么需要整合" class="headerlink" title="为什么需要整合"></a>为什么需要整合</h4><p>实际上SpringMVC就运行在Spring环境之下，还有必要整合么？SpringMVC和Spring都有IOC容器，是不是都需要保留呢？</p>
+<p>在SSM整合或者Spring+SpringMVC+JdbcTemplate中，可以全部在SpringMVC中扫描，但是，在SSH整合中，这种方式不允许。</p>
+<p>通常情况下使用如下方式进行整合</p>
+<p>spring管理的模块：数据源，事务，整合其他框架，service，Dao</p>
+<p>SpringMVC管理的模块：Controller，ControllerAdvice</p>
+<p>所以，两者的整合是十分有必要的，SpringMVC负责接受页面发送来的请求，Spring框架则负责整理中间需求逻辑，对数据库发送操作请求，对数据库的操作目前则先使用Spring框架中的JdbcTemplate进行处理。</p>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><h5 id="1，pom依赖"><a href="#1，pom依赖" class="headerlink" title="1，pom依赖"></a>1，pom依赖</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.19<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.12.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/log4j/log4j --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.12.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 数据源 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- mybatis,spring --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2，配置文件"><a href="#2，配置文件" class="headerlink" title="2，配置文件"></a>2，配置文件</h5><p>applicationComtext.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 数据源 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;useSSL=false&amp;amp;serverTimezone=Asia/Shanghai"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"*******"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- mybatis的sqlSessionFactory --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:sqlMapConfig.xml"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 扫描mapper，会通过动态代理生成他的实现类，并使用spring进行实例化 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperScannerConfigurer"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"basePackage"</span> <span class="attr">value</span>=<span class="string">"com.dzqc.mybatis.mapper"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 配置事务管理器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 配置事务增强，允许使用注解进行事务的管理 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 自动扫描以下包中类的注解，如果注解中包含@Compontent，则将该类放入到spring容器中，将除了Controller和ControllerAdvice加入到spring容器中 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.dzqc.ssm"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 扫描注解为@Controller的类 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.stereotype.Controller"</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- ControllerAdvice注解用来处理全局异常，可以标记在类上，故此处为扫描注解为@ControllerAdvice的类 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.web.bind.annotation.ControllerAdvice"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>springMVC.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/mvc</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 配置@Controller注解扫描，只扫描Controller和ControllerAdvice --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.dzqc.ssm"</span> <span class="attr">use-default-filters</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 扫描注解为@Controller的类 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.stereotype.Controller"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- ControllerAdvice注解用来处理全局异常，可以标记在类上，故此处为扫描注解为@ControllerAdvice的类 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.web.bind.annotation.ControllerAdvice"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 注解驱动:作用:替我们自动配置最新版的注解的处理器映射器和处理器适配器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:annotation-driven</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 配置视图解析器  作用:在controller中指定页面路径的时候就不用写页面的完整路径名称了,可以直接写页面去掉扩展名的名称--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>sqlMapConfig.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE configuration</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 打印日志，主要用来显示sql语句 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"logImpl"</span> <span class="attr">value</span>=<span class="string">"LOG4J"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 为实体类创建别名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.dzqc.ssm.entity"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 加载mapper资源 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.dzqc.ssm.mapper"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3，web-xml"><a href="#3，web-xml" class="headerlink" title="3，web.xml"></a>3，web.xml</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">id</span>=<span class="string">"WebApp_ID"</span> <span class="attr">version</span>=<span class="string">"2.5"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  ContextLoaderListener 加载IOC容器，Spring框架的底层是listener --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定Spring的配置文件的路径和名称 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:applicationContext.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Bootstraps the root web application context before servlet initialization --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 前端控制器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:springmvc.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.action<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 设置编码，处理post请求乱码 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/08/ssm整合/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-使用springMVC进行文件的上传和下载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1526,295 +1596,6 @@ having count(sc.cid)=2);</code></pre><p>查询男生、女生人数<br>        s
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/03/09/MYSQL面试题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-centos安装oracle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/03/centos安装oracle/">centos安装oracle</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/03/centos安装oracle/" class="archive-article-date">
-  	<time datetime="2020-03-03T06:13:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="linux安装Oracle11G"><a href="#linux安装Oracle11G" class="headerlink" title="linux安装Oracle11G"></a>linux安装Oracle11G</h2><h3 id="0、下载Orcle11G"><a href="#0、下载Orcle11G" class="headerlink" title="0、下载Orcle11G"></a>0、下载Orcle11G</h3><p><a href="http://www.cnblogs.com/mmzs/p/9030823.html" target="_blank" rel="noopener">oracle10G/11G官方下载地址合集（直接迅雷下载）</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">说明一下：</span><br><span class="line">[root@myYUn install]#中的myYUn</span><br><span class="line">等价于</span><br><span class="line">[root@iz2f570bi1k56uz install]#中的iz2f570bi1k56uz；</span><br><span class="line">这是为了界面效果调整的，但是有些没调整到，理解一哈。</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="1、上传文件到服务器或虚拟机的-install目录下"><a href="#1、上传文件到服务器或虚拟机的-install目录下" class="headerlink" title="1、上传文件到服务器或虚拟机的/install目录下"></a>1、上传文件到服务器或虚拟机的/install目录下</h3><p>[root@myYUn install]# rz –y</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513125226505-857831317.png" alt="img"></p>
-<p>如果rz –y命令不能使用，可用<a href="http://www.cnblogs.com/mmzs/p/8183935.html#_label0" target="_blank" rel="noopener">如下方法解决</a>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install lrzsz -y</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、解压文件到当前目录："><a href="#2、解压文件到当前目录：" class="headerlink" title="2、解压文件到当前目录："></a>2、解压文件到当前目录：</h3><p>[root@myYUn install]# unzip linux.x64_11gR2_database_1of2.zip</p>
-<p>[root@myYUn install]# unzip linux.x64_11gR2_database_2of2.zip</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513125353568-1719568445.png" alt="img"></p>
-<p>如果unzip命令不能使用，依次执行如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep zip/unzip</span><br><span class="line"></span><br><span class="line">yum install zip</span><br><span class="line"></span><br><span class="line">yum install unzip</span><br></pre></td></tr></table></figure>
-
-<p>将解压后的文件夹直接移动到/software目录下：</p>
-<p>[root@myYUn install]# mv database/ /software/</p>
-<p>[root@myYUn install]# cd /software</p>
-<p>[root@myYUn install]# ll</p>
-<p> <img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513125419989-1037448251.png" alt="img"></p>
-<h3 id="3、关闭selinux"><a href="#3、关闭selinux" class="headerlink" title="3、关闭selinux"></a>3、关闭selinux</h3><p>[root@myYUn software]# vim /etc/selinux/config</p>
-<p>设置SELINUX=disabled</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513125503992-512683440.png" alt="img"></p>
-<p>[root@myYUn software]# setenforce 0</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513125514365-1802770294.png" alt="img"></p>
-<h3 id="4、关闭防火墙"><a href="#4、关闭防火墙" class="headerlink" title="4、关闭防火墙"></a>4、关闭防火墙</h3><p>[查看系统版本]</p>
-<p>[root@myYUn software]# cat /etc/redhat-release</p>
-<p>CentOS Linux release 7.3.1611 (Core)</p>
-<p>[root@myYUn software]# getconf LONG_BIT</p>
-<p>64</p>
-<p><strong>如果是6及以下：</strong></p>
-<p>[root@myYUn software]# service iptables stop</p>
-<p>[root@myYUn software]# service iptables status</p>
-<p>[root@myYUn software]# chkconfig iptables off</p>
-<p><strong>如果是centenOS7：</strong></p>
-<p>[root@myYUn software]# systemctl restart firewalld.service</p>
-<p>[root@myYUn software]# systemctl list-unit-files|grep firewalld.service</p>
-<p>firewalld.service               disabled</p>
-<p>[root@myYUn software]# systemctl disable firewalld.service</p>
-<h3 id="5、安装Oracle-11g依赖包"><a href="#5、安装Oracle-11g依赖包" class="headerlink" title="5、安装Oracle 11g依赖包"></a>5、安装Oracle 11g依赖包</h3><p>[root@myYUn software]# yum install gcc make binutils gcc-c++ compat-libstdc++-33elfutils-libelf-devel elfutils-libelf-devel-static ksh libaio libaio-develnumactl-devel sysstat unixODBC unixODBC-devel pcre-devel –y</p>
-<h3 id="6、添加安装用户和用户组"><a href="#6、添加安装用户和用户组" class="headerlink" title="6、添加安装用户和用户组"></a>6、添加安装用户和用户组</h3><p>[root@myYUn software]# groupadd oinstall</p>
-<p>[root@myYUn software]# groupadd dba</p>
-<p>[root@myYUn software]# useradd -g oinstall -G dba oracle</p>
-<p>[root@myYUn software]# passwd oracle</p>
-<p>Changing password for user oracle.</p>
-<p>New password:</p>
-<p>BAD PASSWORD: The password is shorter than 8 characters</p>
-<p>Retype new password:</p>
-<p>passwd: all authentication tokens updated successfully.</p>
-<p>[root@myYUn software]# id oracle</p>
-<p>uid=1001(oracle) gid=1001(oinstall) groups=1001(oinstall),1002(dba)</p>
-<h3 id="7、修改内核参数配置文件"><a href="#7、修改内核参数配置文件" class="headerlink" title="7、修改内核参数配置文件"></a>7、修改内核参数配置文件</h3><p>[root@myYUn software]# vim /etc/sysctl.conf</p>
-<p>在末尾添加以下内容：</p>
-<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fs.aio-max-nr = 1048576</span><br><span class="line">fs.file-max = 6815744</span><br><span class="line">kernel.shmall = 2097152</span><br><span class="line">kernel.shmmax = 1073741824</span><br><span class="line">kernel.shmmni = 4096</span><br><span class="line">kernel.sem = 250 32000 100 128</span><br><span class="line">net.ipv4.ip_local_port_range = 9000 65500</span><br><span class="line">net.core.rmem_default = 262144</span><br><span class="line">net.core.rmem_max = 4194304</span><br><span class="line">net.core.wmem_default = 262144</span><br><span class="line">net.core.wmem_max = 1048576</span><br></pre></td></tr></table></figure>
-
-<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
-<p>查看是否成功写进/etc/sysctl.conf文件中：</p>
-<p>[root@myYUn software]# sysctl -p</p>
-<p>其中kernel.shmmax = 1073741824为本机物理内存（2G）的一半，单位为byte。</p>
-<h3 id="8、修改用户的限制文件"><a href="#8、修改用户的限制文件" class="headerlink" title="8、修改用户的限制文件"></a>8、修改用户的限制文件</h3><p>修改/etc/security/limits.conf文件：</p>
-<p>[root@myYUn software]# vim /etc/security/limits.conf</p>
-<p>在末尾添加以下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">oracle           soft    nproc           2047</span><br><span class="line">oracle           hard    nproc           16384</span><br><span class="line">oracle           soft    nofile          1024</span><br><span class="line">oracle           hard    nofile         65536</span><br><span class="line">oracle           soft    stack           10240</span><br></pre></td></tr></table></figure>
-
-<p>修改/etc/pam.d/login文件：</p>
-<p>[root@myYUn software]# vim /etc/pam.d/login</p>
-<p>在末尾添加以下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">session required  /lib64/security/pam_limits.so</span><br><span class="line">session required   pam_limits.so</span><br></pre></td></tr></table></figure>
-
-<p>修改/etc/profile文件：</p>
-<p>[root@ myYUn software]# vim /etc/profile</p>
-<p>在末尾添加以下内容：</p>
-<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#oracle配置</span><br><span class="line">if [ $USER = &quot;oracle&quot; ]; then</span><br><span class="line">  if [ $SHELL = &quot;/bin/ksh&quot; ]; then</span><br><span class="line">      ulimit -p 16384</span><br><span class="line">      ulimit -n 65536</span><br><span class="line">  else</span><br><span class="line">      ulimit -u 16384 -n 65536</span><br><span class="line">  fi</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
-<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
-<h3 id="9、创建安装目录和设置文件权限"><a href="#9、创建安装目录和设置文件权限" class="headerlink" title="9、创建安装目录和设置文件权限"></a>9、创建安装目录和设置文件权限</h3><p>[root@myYUn software]# mkdir -p /data/oracle/product/11.2.0</p>
-<p>[root@myYUn software]# mkdir /data/oracle/oradata</p>
-<p>[root@myYUn software]# mkdir /data/oracle/inventory</p>
-<p>[root@myYUn software]# mkdir /data/oracle/fast_recovery_area</p>
-<p>[root@myYUn software]# chown -R oracle:oinstall /data/oracle</p>
-<p>[root@myYUn software]# chmod -R 775 /data/oracle</p>
-<h3 id="10、设置oracle用户环境变量"><a href="#10、设置oracle用户环境变量" class="headerlink" title="10、设置oracle用户环境变量"></a>10、设置oracle用户环境变量</h3><p>首先切换到oracle用户下：</p>
-<p>[root@myYUn software]# su -l oracle</p>
-<p>[oracle@myYUn ~]$ vim .bash_profile</p>
-<p>在末尾添加如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ORACLE_BASE=/data/oracle</span><br><span class="line"></span><br><span class="line">ORACLE_HOME=$ORACLE_BASE/product/11.2.0</span><br><span class="line"></span><br><span class="line">ORACLE_SID=orcl</span><br><span class="line"></span><br><span class="line">PATH=$PATH:$ORACLE_HOME/bin</span><br><span class="line"></span><br><span class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH</span><br></pre></td></tr></table></figure>
-
-<p>注意，标红处必须与创建的数据库实例名称一致，否则数据库启动后无法访问。第一次配置完记得source一下。</p>
-<p>[oracle@myYUn ~]$ source .bash_profile</p>
-<h3 id="11、编辑静默安装响应文件"><a href="#11、编辑静默安装响应文件" class="headerlink" title="11、编辑静默安装响应文件"></a>11、编辑静默安装响应文件</h3><p>复制安装文件夹response到当前oracle用户的家目录下：</p>
-<p>[oracle@myYUn ~]$ cp -R /software/database/response/ .</p>
-<p>[oracle@myYUn ~]$ cd response/</p>
-<p>[oracle@myYUn response]$ vim db_install.rsp</p>
-<p>需要设置的选项如下：</p>
-<p>oracle.install.option=INSTALL_DB_SWONLY</p>
-<p>ORACLE_HOSTNAME=CentOS</p>
-<p>UNIX_GROUP_NAME=oinstall</p>
-<p>INVENTORY_LOCATION=/data/oracle/inventory</p>
-<p>SELECTED_LANGUAGES=en,zh_CN</p>
-<p>ORACLE_HOME=/data/oracle/product/11.2.0</p>
-<p>ORACLE_BASE=/data/oracle</p>
-<p>oracle.install.db.InstallEdition=EE</p>
-<p>oracle.install.db.DBA_GROUP=dba</p>
-<p>oracle.install.db.OPER_GROUP=dba</p>
-<p>DECLINE_SECURITY_UPDATES=true</p>
-<h3 id="12、根据响应文件静默安装Oracle11g"><a href="#12、根据响应文件静默安装Oracle11g" class="headerlink" title="12、根据响应文件静默安装Oracle11g"></a>12、根据响应文件静默安装Oracle11g</h3><p>[oracle@myYUn response]$ cd /software/database/</p>
-<p>[oracle@myYUn database]$ ./runInstaller -silent -responseFile /home/oracle/response/db_install.rsp -ignorePrereq</p>
-<p>如果执行以上命令出错，会提示有参数格式，按照提示参数格式修改修改即可，一般是由于word中的字体、符号格式复制到客户端命令行后不一致引起，修改即可。</p>
-<p>楼主遇到了交换空间不足的问题：</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513125756668-612153407.png" alt="img"></p>
-<p>解决方案如下（在root用户下执行）：</p>
-<p>[root@myYUn /]# free</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513125808399-1584933411.png" alt="img"></p>
-<p>[root@myYUn /]# dd if=/dev/zero of=swapfile bs=1024 count=500000</p>
-<p>500000+0 records in</p>
-<p>500000+0 records out</p>
-<p>512000000 bytes (512 MB) copied, 1.67013 s, 307 MB/s</p>
-<p>[root@myYUn /]# mkswap swapfile</p>
-<p>Setting up swapspace version 1, size = 499996 KiB</p>
-<p>no label, UUID=c5e355eb-e73e-4aa0-b882-cb6d1f88e6bc</p>
-<p>[root@myYUn /]# swapon swapfile</p>
-<p>swapon: /swapfile: insecure permissions 0644, 0600 suggested.</p>
-<p>[root@myYUn /]# free</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513125816910-585169189.png" alt="img"></p>
-<p>开始Oracle在后台静默安装。安装过程中，如果提示[WARNING]不必理会，此时安装程序仍在后台进行，如果出现Successfully Setup Software，则安装程序已经停止了。</p>
-<p>可以在以下位置找到本次安装会话的日志:/data/oracle/inventory/logs/installActions2018-05-13_02-14-55PM.log</p>
-<p>可以切换终端执行top命令查看后台进程一直是在安装的，/data目录也在不断增大，</p>
-<p>当出现以下提示时，代表安装成功：</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513142625998-1782403312.png" alt="img"></p>
-<p>按照要求执行脚本。</p>
-<p>打开终端，退出到root身份登录，执行脚本：</p>
-<p>[oracle@iZ2f570bi1k56uZ database]$ exit</p>
-<p>logout</p>
-<p>[root@iZ2f570bi1k56uZ software]# sh /data/oracle/inventory/orainstRoot.sh</p>
-<p>Changing permissions of /data/oracle/inventory.</p>
-<p>Adding read,write permissions for group.</p>
-<p>Removing read,write,execute permissions for world.</p>
-<p>Changing groupname of /data/oracle/inventory to oinstall.</p>
-<p>The execution of the script is complete.</p>
-<p>[root@iZ2f570bi1k56uZ software]# sh /data/oracle/product/11.2.0/root.sh</p>
-<p>Check /data/oracle/product/11.2.0/install/root_iZ2f570bi1k56uZ_2018-05-13_14-25-04.log for the output of root script</p>
-<h3 id="13、以静默方式配置监听"><a href="#13、以静默方式配置监听" class="headerlink" title="13、以静默方式配置监听"></a>13、以静默方式配置监听</h3><p>重新使用oracle用户登录：</p>
-<p>[root@myYUn software]# su -l oracle</p>
-<p>Last login: Sun May 13 14:09:10 CST 2018 on pts/3</p>
-<p>[oracle@myYUn ~]$ netca /silent /responseFile /home/oracle/response/netca.rsp </p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513145755041-1177063024.png" alt="img"></p>
-<p>注意此处，必须使用/silent /responseFile格式，而不是-silent -responseFile，因为是静默安装。</p>
-<p>成功运行后，在/data/oracle/product/11.2.0/network/admin中生成listener.ora和sqlnet.ora</p>
-<p>通过netstat命令可以查看1521端口正在监听。</p>
-<p>Yum安装netstat软件，软件包是在net-tools中。</p>
-<p>[root@myYUn /]# yum install net-tools</p>
-<p>[root@myYUn /]# yum install net-tools</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513145828670-343525754.png" alt="img"></p>
-<h3 id="14、以静默方式建立新库，同时也建立一个对应的实例"><a href="#14、以静默方式建立新库，同时也建立一个对应的实例" class="headerlink" title="14、以静默方式建立新库，同时也建立一个对应的实例"></a>14、以静默方式建立新库，同时也建立一个对应的实例</h3><p>[oracle@myYUn ~]$ vim /home/oracle/response/dbca.rsp</p>
-<p>修改文件中以下参数：</p>
-<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[GENERAL]</span><br><span class="line"></span><br><span class="line"># oracle版本，不能更改</span><br><span class="line">RESPONSEFILE_VERSION = &quot;11.2.0&quot;</span><br><span class="line"></span><br><span class="line"># Description   : Type of operation</span><br><span class="line">OPERATION_TYPE = &quot;createDatabase&quot;</span><br><span class="line"></span><br><span class="line">[CREATEDATABASE]</span><br><span class="line"></span><br><span class="line"># Description   : Global database name of the database</span><br><span class="line"># 全局数据库的名字=SID+主机域名</span><br><span class="line"># 第三方工具链接数据库的时候使用的service名称</span><br><span class="line">GDBNAME = &quot;orcl.test&quot;</span><br><span class="line"></span><br><span class="line"># Description   : System identifier (SID) of the database</span><br><span class="line"># 对应的实例名字</span><br><span class="line">SID = &quot;orcl&quot;</span><br><span class="line"></span><br><span class="line"># Description   : Name of the template</span><br><span class="line"># 建库用的模板文件</span><br><span class="line">TEMPLATENAME = &quot;General_Purpose.dbc&quot;</span><br><span class="line"></span><br><span class="line"># Description   : Password for SYS user</span><br><span class="line"># SYS管理员密码</span><br><span class="line">SYSPASSWORD = &quot;123456&quot;</span><br><span class="line"></span><br><span class="line"># Description   : Password for SYSTEM user</span><br><span class="line"># SYSTEM管理员密码</span><br><span class="line">SYSTEMPASSWORD = &quot;123456&quot;</span><br><span class="line"></span><br><span class="line"># Description   : Password for SYSMAN user</span><br><span class="line"># SYSMAN管理员密码</span><br><span class="line">SYSMANPASSWORD = &quot;123456&quot;</span><br><span class="line"></span><br><span class="line"># Description   : Password for DBSNMP user</span><br><span class="line"># DBSNMP管理员密码</span><br><span class="line">DBSNMPPASSWORD = &quot;123456&quot;</span><br><span class="line"></span><br><span class="line"># Description   : Location of the data file&apos;s</span><br><span class="line"># 数据文件存放目录</span><br><span class="line">DATAFILEDESTINATION =/data/oracle/oradata</span><br><span class="line"></span><br><span class="line"># Description   : Location of the data file&apos;s</span><br><span class="line"># 恢复数据存放目录</span><br><span class="line">RECOVERYAREADESTINATION=/data/oracle/fast_recovery_area</span><br><span class="line"></span><br><span class="line"># Description   : Character set of the database</span><br><span class="line"># 字符集，重要!!! 建库后一般不能更改，所以建库前要确定清楚。</span><br><span class="line"># (CHARACTERSET = &quot;AL32UTF8&quot; NATIONALCHARACTERSET= &quot;UTF8&quot;)</span><br><span class="line">CHARACTERSET = &quot;AL32UTF8&quot;</span><br><span class="line"></span><br><span class="line"># Description   : total memory in MB to allocate to Oracle</span><br><span class="line"># oracle内存1638MB,物理内存2G*80%</span><br><span class="line">TOTALMEMORY = &quot;1638&quot;</span><br></pre></td></tr></table></figure>
-
-<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
-<p>进行静默配置：</p>
-<p>[oracle@myYUn ~]$ dbca -silent -responseFile /home/oracle/response/dbca.rsp</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513185444857-1893532511.png" alt="img"></p>
-<p>建库后进行实例进程检查：</p>
-<p>[oracle@myYUn ~]$ ps -ef | grep ora_ | grep -v grep</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513185517202-159926943.png" alt="img"></p>
-<p>查看监听状态：</p>
-<p>[oracle@myYUn ~]$ lsnrctl status</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513185543187-265712379.png" alt="img"></p>
-<p>数据库创建完成。</p>
-<p>有关详细信息, 请查看以下位置的日志文件: /data/oracle/cfgtoollogs/dbca/orcl/orcl.log。</p>
-<p>数据库信息:</p>
-<p>全局数据库名:orcl.test</p>
-<p>系统标识符 (SID):orcl</p>
-<p>登录查看实例状态：</p>
-<p>[oracle@myYUn ~]$ sqlplus / as sysdba</p>
-<p>SQL&gt; select status from v$instance;</p>
-<p><img src="https://images2018.cnblogs.com/blog/1196304/201805/1196304-20180513194253332-144886941.png" alt="img"></p>
-<p>【<a href="https://www.cnblogs.com/mmzs/p/11163265.html" target="_blank" rel="noopener">linux 成功安装oracle后，为其创建一个登录账户</a>】</p>
-<p>如果报错：【ORA-12162: TNS:net service name is incorrectly specified】</p>
-<p>错误原因：【这个错误是因为ORACLE_SID变量没有传进去造成的。】</p>
-<p>解决方法：</p>
-<p>1．查看当前ORACLE_SID</p>
-<p>[oracle@iZ2f570bi1k56uZ ~]$ echo $ORACLE_SID</p>
-<p>orcl         </p>
-<p>2．修改ORACLE_SID和/home/oracle/response/dbca.rsp中的一样                                                                                  </p>
-<p>[oracle@iZ2f570bi1k56uZ ~]$ export ORACLE_SID=orcl</p>
-<p>3．如果遇到ORA-12162: TNS:net service name is incorrectly specified.错误</p>
-<p>参考文章：【<a href="https://www.cnblogs.com/mmzs/p/11162231.html" target="_blank" rel="noopener">ORA-12162: TNS:net service name is incorrectly specified.</a>】</p>
-<p>4．如果依然不能登陆，尝试修改orcle文件夹的权限</p>
-<p>【如果本地连接时，出现监听错误，参考<a href="http://www.cnblogs.com/mmzs/p/9043767.html" target="_blank" rel="noopener">Linux中安装Oracle11g后出现监听的问题及解决办法</a>】</p>
-<h3 id="15、命令行模式静默删除"><a href="#15、命令行模式静默删除" class="headerlink" title="15、命令行模式静默删除"></a>15、命令行模式静默删除</h3><p>1、首先查看dbca的帮助信息</p>
-<p>dbca -help</p>
-<p>修改/home/oracle/response/dbca.rsp文件里以下几个参数，下面三个参数根据建库实际情况进行修改：</p>
-<p>OPERATION_TYPE = “deleteDatabase”</p>
-<p>SOURCEDB = “orcl”</p>
-<p>SYSDBAUSERNAME = “sys”</p>
-<p>SYSDBAPASSWORD = “123456”</p>
-<p>然后运行：</p>
-<p>dbca -silent -responseFile /home/oracle/response/dbca.rsp</p>
-<p>各参数含义如下:</p>
-<p>-silent 表示以静默方式删除</p>
-<p>-responseFile 表示使用哪个响应文件,必需使用绝对路径</p>
-<p>RESPONSEFILE_VERSION 响应文件模板的版本,该参数不要更改</p>
-<p>OPERATION_TYPE 安装类型,该参数不要更改</p>
-<p>SOURCEDB 数据库名,不是全局数据库名,即不包含db_domain</p>
-<p>很简单数据库卸载完成了，请注意，只是数据库卸载完了，数据库软件还是在的。</p>
-<p>2、使用DBCA卸载数据库</p>
-<p>dbca -silent -delete Database -responseFile dbca.rsp</p>
-<p>a.选项-silent表示静默安装，免安装交互，大部分安装信息也不输出</p>
-<p>b.选项-responseFile指定应答文件，要求用绝对路径</p>
-<h3 id="16，一些常用命令"><a href="#16，一些常用命令" class="headerlink" title="16，一些常用命令"></a>16，一些常用命令</h3><p>进入到数据库后执行，查询数据库服务的名称</p>
-<p>select global_name from global_name;</p>
-<p>启动监听</p>
-<p>lsnrctl start</p>
-<p>关闭监听</p>
-<p>lsnrctl stop</p>
-<p>查看监听状态</p>
-<p>Lsnrctl status</p>
-<p>进入到数据库执行，关闭数据库</p>
-<p>shutdown</p>
-<p>进入到数据库执行，打开数据库</p>
-<p>startup</p>
-<h2 id="安装centos地址-有很多版本"><a href="#安装centos地址-有很多版本" class="headerlink" title="安装centos地址(有很多版本)"></a>安装centos地址(有很多版本)</h2><pre><code>http://mirrors.aliyun.com/centos/7/ 这是我用的centos7</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/03/centos安装oracle/">展开全文 >></a>
         </p>
       
 

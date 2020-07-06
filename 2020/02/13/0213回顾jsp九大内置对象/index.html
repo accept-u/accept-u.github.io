@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="JSP的9大内置对象 request：请求对象，类型 javax.servlet.ServletRequest，作用域   Request  response：响应对象，类型 javax.servlet.SrvletResponse ，作用域   Page  pageContext：页面上下文对象，类型 javax.servlet.jsp.PageContext，作用域  Page  sessio">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-13T08:27:25.035Z">
+<meta property="og:updated_time" content="2020-06-29T08:35:21.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="0213回顾jsp九大内置对象">
 <meta name="twitter:description" content="JSP的9大内置对象 request：请求对象，类型 javax.servlet.ServletRequest，作用域   Request  response：响应对象，类型 javax.servlet.SrvletResponse ，作用域   Page  pageContext：页面上下文对象，类型 javax.servlet.jsp.PageContext，作用域  Page  sessio">
@@ -207,11 +207,11 @@
 <p>1   Out<br>向客户端输出数据<br>print() println() flush() clear() isAutoFlush() getBufferSize() close() …………</p>
 <p>2    request（在使用request和session中，优先选择request）<br>向客户端请求数据<br>getAttributeNames() getCookies() getParameter() getParameterValues() setAttribute() getServletPath()</p>
 <p>其中 getServletPath()得到的是当前这个jsp页面所在的目录下的全名称<br>（不要与项目的绝对目录搞混）<br>得到项目的某个绝对目录–一般用来定位该项目中的某个具体的文件路径：<br>            request.getServletContext().getRealPath(“/load1”);<br>            直接定位到该项目下的load1 文件夹<br><strong>eg:</strong><br>    <strong>String realPath=request.getServletContext().getRealPath(“/upload1/“+myFile.getOriginalFilename());</strong><br>      <strong>直接定位到myFile文件的具体路径</strong></p>
-<p>3    response<br>封装了jsp产生的响应,然后被发送到客户端以响应客户的请求<br>addCookie() sendRedirect() setContentType()<br>flushBuffer() getBufferSize() getOutputStream()<br>sendError() containsHeader()……………</p>
+<p>3    response<br>封装了jsp产生的响应,然后被发送到客户端以响应客户的请求<br>addCookie() sendRedirect() setContentType()<br>flushBuffer() getBufferSize() getOutputStream()<br>sendError() containsHeader()</p>
 <p>4    application<br>javax.servlet.ServletContext的实例，该实例代表JSP所属的WEB应用本身，可用于JSP页面，或者Servlet之间交换信息。<br>getAttribute(), setAttribute() getInitParameter()<br>存在于服务器中，关闭服务器之前，都可以从这个application中取值。</p>
-<p>5    config<br>表示Servlet的配置,当一个Servlet初始化时,容器把某些信息通过此对象传递给这个Servlet<br>getServletContext() getServletName() getInitParameter() getInitParameterNames()……………</p>
+<p>5    config<br>表示Servlet的配置,当一个Servlet初始化时,容器把某些信息通过此对象传递给这个Servlet<br>getServletContext() getServletName() getInitParameter() getInitParameterNames()</p>
 <p>6    page<br>Jsp实现类的实例,它是jsp本身,通过这个可以对它进行访问</p>
-<p>7    pagecontext<br>为JSP页面包装页面的上下文。管理对属于JSP中特殊可见部分中己经命名对象的该问<br>forward() getAttribute() getException() getRequest() getResponse() getServletConfig() getSession() getServletContext() setAttribute()<br>removeAttribute() findAttribute() ……………</p>
+<p>7    pagecontext<br>为JSP页面包装页面的上下文。管理对属于JSP中特殊可见部分中己经命名对象的该问<br>forward() getAttribute() getException() getRequest() getResponse() getServletConfig() getSession() getServletContext() setAttribute()<br>removeAttribute() findAttribute() </p>
 <p><strong>page和pagecontext的区别：</strong><br>pageContext是在jsp当前页面上下文中有用，可以调用和存取其他隐含的对象；<br>page代表处理当前请求的时候，这个页面的实现类的实例；代表的是jsp网页本身，page对象是当前页面转化后的Servet类的实例。Object page=this;(很少使用page)</p>
 <p>8    session<br>用来保存每个用户的信息,以便跟踪每个用户的操作状态<br>getAttribute() getId() getAttributeNames() getCreateTime() getMaxInactiveInterval()<br>invalidate() isNew()</p>
 <p>9    exception<br>反映运行的异常（在jsp的page指令中添加isErrorpage=“false”才会显示）<br>getMessage()</p>

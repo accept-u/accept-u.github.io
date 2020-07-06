@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/55903351/68262018-eff55980-007c-11ea-83a4-d4acff1a304c.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/55903351/68262032-fdaadf00-007c-11ea-9aab-90091890618a.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/55903351/68262572-9857ed80-007e-11ea-9515-00f891f83c35.png">
-<meta property="og:updated_time" content="2019-11-06T02:18:48.425Z">
+<meta property="og:updated_time" content="2020-06-29T02:15:56.139Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaWeb项目中数据库连接问题解决">
 <meta name="twitter:description" content="数据库连接错误排查：一、查看项目是否导入了 “mysql-connector-java” 这个jar包。 二、自己将jar包复制到项目中，并且将该jar包add to build path。 三、查看数据库连接信息是否有细微的小错误。 四、引入Jar包到项目文件夹WEB-INF下面。  上图显示已经引入了包。 引入了包，并且没有任何错误。但是我发现无论如何都引入不进去，最后找到了一种解决方式——右">
@@ -195,7 +195,7 @@
 <h2 id="js报错："><a href="#js报错：" class="headerlink" title="js报错："></a>js报错：</h2><p>将windows–&gt;preferences–&gt;validation–&gt;javaScript Validation后面的勾去掉再刷新项目就可以了。</p>
 <p><img src="https://user-images.githubusercontent.com/55903351/68262572-9857ed80-007e-11ea-9515-00f891f83c35.png" alt="图片5"></p>
 <h2 id="jsp文件报错："><a href="#jsp文件报错：" class="headerlink" title="jsp文件报错："></a>jsp文件报错：</h2><p>右键项目》build path》server》为项目选择一个tomcat容器就ok了。</p>
-<p>resource包报错：首先查看是否有错误包或者是jdk版本不一致导致，如果不是就打开项目磁盘目录》.settings》org.eclipse.wst.common.project.facet.core.xml》<runtime name="com.genuitec.runtime.generic.jee60">这行代码删除。</runtime></p>
+<p>resource包报错：首先查看是否有错误包或者是jdk版本不一致导致，如果不是就打开项目磁盘目录–》.settings–》org.eclipse.wst.common.project.facet.core.xml–》<runtime name="com.genuitec.runtime.generic.jee60">这行代码删除。</runtime></p>
 
       
 
